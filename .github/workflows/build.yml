@@ -4,22 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '*.h'
-      - '*.m'
-      - '*.mm'
-      - '*.x'
-      - '*.xm'
-      - '*.c'
-      - '*.cc'
-      - '*.cpp'
-      - '*.s'
-      - '*.S'
-      - 'DYYY.plist'
-      - 'control'
-      - 'Makefile'
-      - 'Resources/**'
-      - 'layout/**'
   workflow_dispatch:
     inputs:
       scheme:
@@ -54,7 +38,7 @@ jobs:
           PUSH_BEFORE: ${{ github.event.before }}
         run: |
           if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]] ||
-             .github/scripts/build-relevance.sh range "$PUSH_BEFORE" "$GITHUB_SHA"; then
+             bash .github/scripts/build-relevance.sh range "$PUSH_BEFORE" "$GITHUB_SHA"; then
             echo "should_build=true" >> "$GITHUB_OUTPUT"
             echo "Build-relevant plugin, package, or Makefile changes detected."
           else
@@ -168,7 +152,7 @@ jobs:
       - name: Extract arm64e dylib
         env:
           PACKAGE_VERSION: ${{ steps.package.outputs.version }}
-        run: .github/scripts/extract-release-dylib.sh
+        run: bash .github/scripts/extract-release-dylib.sh
 
       - name: Upload package artifacts
         uses: actions/upload-artifact@v7

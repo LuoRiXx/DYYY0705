@@ -70,7 +70,7 @@ newer_run_is_build_relevant() {
         return 0
     fi
 
-    "${script_dir}/build-relevance.sh" range "$source_sha" "$head_sha"
+    bash "${script_dir}/build-relevance.sh" range "$source_sha" "$head_sha"
 }
 
 has_newer_build_relevant_run() {
