@@ -4,7 +4,7 @@
 @property(nonatomic, strong) UIView *titleBar;
 @property(nonatomic, strong) UILabel *titleLabel;
 @property(nonatomic, strong) UITextView *textView;
-@property(nonatomic, strong) UIButton *copyButton;
+@property(nonatomic, strong) UIButton *logCopyButton;
 @property(nonatomic, strong) UIButton *clearButton;
 @property(nonatomic, strong) UIButton *closeButton;
 @property(nonatomic, assign) CGPoint panStartCenter;
@@ -31,9 +31,9 @@
         _titleLabel.font = [UIFont boldSystemFontOfSize:13.0];
         [_titleBar addSubview:_titleLabel];
 
-        _copyButton = [self dyyy_debugButtonWithTitle:@"复制"];
-        [_copyButton addTarget:self action:@selector(copyButtonTapped) forControlEvents:UIControlEventTouchUpInside];
-        [_titleBar addSubview:_copyButton];
+        _logCopyButton = [self dyyy_debugButtonWithTitle:@"复制"];
+        [_logCopyButton addTarget:self action:@selector(copyButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+        [_titleBar addSubview:_logCopyButton];
 
         _clearButton = [self dyyy_debugButtonWithTitle:@"清空"];
         [_clearButton addTarget:self action:@selector(clearButtonTapped) forControlEvents:UIControlEventTouchUpInside];
@@ -88,8 +88,8 @@
     right = CGRectGetMinX(self.closeButton.frame) - gap;
     self.clearButton.frame = CGRectMake(right - buttonWidth, (titleHeight - buttonHeight) * 0.5, buttonWidth, buttonHeight);
     right = CGRectGetMinX(self.clearButton.frame) - gap;
-    self.copyButton.frame = CGRectMake(right - buttonWidth, (titleHeight - buttonHeight) * 0.5, buttonWidth, buttonHeight);
-    self.titleLabel.frame = CGRectMake(10.0, 0, MAX(40.0, CGRectGetMinX(self.copyButton.frame) - 16.0), titleHeight);
+    self.logCopyButton.frame = CGRectMake(right - buttonWidth, (titleHeight - buttonHeight) * 0.5, buttonWidth, buttonHeight);
+    self.titleLabel.frame = CGRectMake(10.0, 0, MAX(40.0, CGRectGetMinX(self.logCopyButton.frame) - 16.0), titleHeight);
 
     self.textView.frame = CGRectMake(0, titleHeight, width, CGRectGetHeight(self.bounds) - titleHeight);
 }
