@@ -1,0 +1,943 @@
+DYYY 福袋调试采集日志
+说明：当前版本只采集手动流程数据，不自动点击、不发送弹幕、不加入粉丝团。
+liveRoom = YES, currentVC = IESLiveAudienceViewController, roomModel = IESLiveRoomService
+========================================
+
+#001 02:02:26.444 日志已清空
+----------------------------------------
+继续按完整流程操作：进入直播间 -> 点福袋 -> 点参与/去发表评论 -> 手动发送官方要求弹幕。
+
+#002 02:02:30.897 进入直播间
+----------------------------------------
+Hook: IESLiveAudienceViewController didEnterRoom:
+roomModel = <IESLiveRoomService: 0x28a5a7900>
+roomModel.description = <IESLiveRoomService: 0x28a5a7900>
+roomModel likelyValues:
+  roomModel=<HTSLiveRoom: 0x2afdf5c00> <HTSLiveRoom 0x2afdf5c00>: {     id: 7658700550355061538     id_str: "7658700550355061538"     status: 2     owner_user_id: 470204722194472     title: "听说中炉又又又在守家了，全网最会守家的女娲煮播，进来不是守家直接喷"     user_count: 956     create_time: 1783180197     linkmic_layout: 1    ...
+roomModel ivars:
+  IESLiveRoomService._isAnchor <B> = NO
+  IESLiveRoomService._isCommerceWhenEnter <B> = NO
+  IESLiveRoomService._isEnablePipMode <B> = NO
+  IESLiveRoomService._disableUseComponentTemplate <B> = NO
+  IESLiveRoomService._inAdvance <B> = NO
+  IESLiveRoomService._audienceLoadState <q> = 1
+  IESLiveRoomService._trackContext <@"HTSEventContext"> = <HTSEventContext: 0x28c5d63a0> <HTSEventContext: 0x28c5d63a0>
+  IESLiveRoomService._liveTime <q> = 0
+  IESLiveRoomService._anchorABMap <@"NSDictionary">
+  IESLiveRoomService._anchorShareFilterUsers <@"NSDictionary">
+  IESLiveRoomService._hotDuration <d> = 0.000000
+  IESLiveRoomService._lastHotTime <@"NSDate">
+  IESLiveRoomService._timer <@"NSTimer">
+  IESLiveRoomService._liveTimeObservers <@"NSMutableArray">
+  IESLiveRoomService._roomModel <@"HTSLiveRoom"> = <HTSLiveRoom: 0x2afdf5c00> <HTSLiveRoom 0x2afdf5c00>: {     id: 7658700550355061538     id_str: "7658700550355061538"     status: 2     owner_user_id: 470204722194472     title: "听说中炉又又又在守家了，全网最会守家的女娲煮播，进来不是...
+  IESLiveRoomService._api <@"HTSLiveRoomAPI"> = <HTSLiveRoomAPI: 0x289756500> <HTSLiveRoomAPI: 0x289756500>
+  IESLiveRoomService._preloadApi <@"HTSLiveRoomAPI"> = <HTSLiveRoomAPI: 0x289756400> <HTSLiveRoomAPI: 0x289756400>
+  IESLiveRoomService._startLiveTime <d> = 804880950.650778
+  IESLiveRoomService._lock <@"NSLock"> = <NSLock: 0x296c4f540> <NSLock: 0x296c4f540>{name = nil}
+roomModel methods:
+  IESLiveRoomService: setLastHotTime:, isEnablePipMode, reqUser, setAnchorABMap:, setDisableUseComponentTemplate:, setHotDuration:, setHotRoomInfo:, _enterRoomWithRequestModel:preload:finish:, addObserver:forLiveTime:, anchorABMap, anchorShareFilterUsers, audienceLoadState, canBeLandscapeMode, clearLocalDataInfo, closeAbnormalAnchorRoomFinished:, didSetAttachingDIContext, disableUseComponentTemplate, enterRoomPreloadWithRequestModel:finish:, enterRoomWithRequestModel:finish:, exitRoom:, fetchRoomInfoWithTimeStamp:, hasReqUser, hostAvatarThumbUrlList, hotDuration, hotRoomInfo, inAdvance, initWithRoomModel:inAdvance:, invalidTimer, isCommerceWhenEnter, isTemplateRoom, lastHotTime, liveTime, liveTimeObservers, mergeRoomModelWithRoom:, preloadApi, preloadRequestEnterRoomWithRequestModel:finish:, putTrackContext:, resetHotRoomInfo, roomModel, setAnchorShareFilterUsers:, setAudienceLoadState:, setInAdvance:, setIosClientComponentData:, setIsAnchor:, setIsCommerceWhenEnter:, setIsEnablePipMode:, setLiveTime:, setLiveTimeObservers:, setPreloadApi:, setRoomModel:, setStartLiveTime:, shouldShowC...
+audienceVC = <IESLiveAudienceViewController: 0x144a64000>
+audienceVC.description = <IESLiveAudienceViewController: 0x144a64000>
+audienceVC likelyValues:
+  roomModel=<IESLiveRoomService: 0x28a5a7900> <IESLiveRoomService: 0x28a5a7900>
+  delegate=<IESLiveInnerFeedLiveRoomAudienceDelegateImpl: 0x28c5d6370> <IESLiveInnerFeedLiveRoomAudienceDelegateImpl: 0x28c5d6370>
+  containerContext=<IESLiveAudienceContainerContext: 0x28bb861c0> <IESLiveAudienceContainerContext: 0x28bb861c0>
+audienceVC ivars:
+  IESLiveAudienceViewController._needTrackShowEvent <B> = NO
+  IESLiveAudienceViewController._hiddenStatusBarOnPortrait <B> = NO
+  IESLiveAudienceViewController._reuseFlag <B> = NO
+  IESLiveAudienceViewController._hasReleaseAudience <B> = NO
+  IESLiveAudienceViewController._isInLiving <B> = YES
+  IESLiveAudienceViewController._reuseDIRegisted <B> = NO
+  IESLiveAudienceViewController._roomAisle <@"IESLiveEnterRoomAisle"> = <IESLiveEnterRoomAisle: 0x16805b6a0> <IESLiveEnterRoomAisle: 0x16805b6a0>
+  IESLiveAudienceViewController._containerView <@"HTSLive4LayerContainerView"> = <HTSLive4LayerContainerView: 0x2b9d4e8a0> <HTSLive4LayerContainerView: 0x2b9d4e8a0; frame = (0 0; 414 896); clipsToBounds = YES; layer = <CALayer: 0x2889a2680>>
+  IESLiveAudienceViewController._roomDI <@"IESLiveDI"> = <IESLiveRoomDI: 0x17df836c0> <IESLiveRoomDI: 0x17df836c0>|_type:AudienceRoom|_context:<IESLiveDIContext: 0x284a807b0> (         {         HTSLiveAudienceActions = "<IESLiveDIMulticaster: 0x28c5be610> <Protocol...
+  IESLiveAudienceViewController._delegate <@"<HTSLiveAudienceViewControllerDelegate>"> = <IESLiveInnerFeedLiveRoomAudienceDelegateImpl: 0x28c5d6370> <IESLiveInnerFeedLiveRoomAudienceDelegateImpl: 0x28c5d6370>
+  IESLiveAudienceViewController._pageContext <@"HTSEventContext"> = <HTSEventContext: 0x28c5d63a0> <HTSEventContext: 0x28c5d63a0>
+  IESLiveAudienceViewController._enterContext <@"IESLiveEnterRoomTraceContext"> = <IESLiveEnterRoomTraceContext: 0x289282480> <IESLiveEnterRoomTraceContext: 0x289282480>
+  IESLiveAudienceViewController._monitorContext <@"IESLiveMonitorContext"> = <IESLiveMonitorContext: 0x28c51ab50> <IESLiveMonitorContext: 0x28c51ab50>
+  IESLiveAudienceViewController._afterLaunch <@?>
+  IESLiveAudienceViewController._afterDidLoad <@?> = <__NSMallocBlock__: 0x289754b00> <__NSMallocBlock__: 0x289754b00>
+  IESLiveAudienceViewController._firstScreenDidLoad <@?> = <__NSMallocBlock__: 0x28c5c8810> <__NSMallocBlock__: 0x28c5c8810>
+  IESLiveAudienceViewController._afterDidLoadBySlide <@?>
+  IESLiveAudienceViewController._backgroundUpdater <@"<IESLiveDynamicBackgroundUpdaterService>">
+  IESLiveAudienceViewController._sourcePage <@"NSString">
+  IESLiveAudienceViewController._containerContext <@"IESLiveAudienceContainerContext"> = <IESLiveAudienceContainerContext: 0x28bb861c0> <IESLiveAudienceContainerContext: 0x28bb861c0>
+  IESLiveAudienceViewController._containerState <q> = 0
+  IESLiveAudienceViewController._roomConfig <@"IESLiveAudienceRoomBaseConfig"> = <IESLiveAudienceRoomBaseConfig: 0x289754cc0> <IESLiveAudienceRoomBaseConfig: 0x289754cc0>
+  IESLiveAudienceViewController._componentContext <@"IESLiveComponentContext"> = <IESLiveComponentContext: 0x2b5dbf000> <IESLiveComponentContext: 0x2b5dbf000>
+  IESLiveAudienceViewController._pluginManager <@"IESLiveAudiencePluginManager"> = <IESLiveAudiencePluginManager: 0x284a88030> <IESLiveAudiencePluginManager: 0x284a88030>
+  IESLiveAudienceViewController._roomMonitor <@"IESLiveAudienceCoreMonitor"> = <IESLiveAudienceCoreMonitor: 0x28a62ec80> <IESLiveAudienceCoreMonitor: 0x28a62ec80>
+  IESLiveAudienceViewController._enterProcess <@"IESLiveAudienceRoomEnterProcess"> = <IESLiveAudienceRoomEnterProcess: 0x28973df80> <IESLiveAudienceRoomEnterProcess: 0x28973df80>
+  IESLiveAudienceViewController._rotateProcess <@"IESLiveAudienceRoomRotateProcess"> = <IESLiveAudienceRoomRotateProcess: 0x28973e1c0> <IESLiveAudienceRoomRotateProcess: 0x28973e1c0>
+  IESLiveAudienceViewController._exitProcess <@"IESLiveAudienceRoomExitProcess"> = <IESLiveAudienceRoomExitProcess: 0x28973e040> <IESLiveAudienceRoomExitProcess: 0x28973e040>
+  IESLiveAudienceViewController._componentProcess <@"IESLiveAudienceRoomComponentProcess"> = <IESLiveAudienceRoomComponentProcess: 0x28973d680> <IESLiveAudienceRoomComponentProcess: 0x28973d680>
+  IESLiveAudienceViewController._roomGuarder <@"IESLiveAudienceRoomStateGuarder"> = <IESLiveAudienceRoomStateGuarder: 0x287f09f40> <IESLiveAudienceRoomStateGuarder: 0x287f09f40>
+  IESLiveAudienceViewController._watchTimeGuarder <@"IESLiveAudienceWatchTimeGuarder"> = <IESLiveAudienceWatchTimeGuarder: 0x28bb858c0> <IESLiveAudienceWatchTimeGuarder: 0x28bb858c0>
+  IESLiveAudienceViewController._streamGuarder <@"IESLiveAudienceStreamGuarder"> = <IESLiveAudienceStreamGuarder: 0x287f0a1c0> <IESLiveAudienceStreamGuarder: 0x287f0a1c0>
+  IESLiveAudienceViewController._componentLoader <@"IESLiveAudienceComponentLoader"> = <IESLiveAudienceComponentLoader: 0x28975c640> <IESLiveAudienceComponentLoader: 0x28975c640>
+  IESLiveAudienceViewController._eventDispatcher <@"IESLiveAudienceRoomEventDispatchCenter"> = <IESLiveAudienceRoomEventDispatchCenter: 0x28c52df50> <IESLiveAudienceRoomEventDispatchCenter: 0x28c52df50>
+  IESLiveAudienceViewController._trialGuarder <@"<IESLivePayWallFreeTrialProvider>"> = <IESLivePayWallFreeTrialGuarder: 0x284bc8c90> <IESLivePayWallFreeTrialGuarder: 0x284bc8c90>
+  IESLiveAudienceViewController._pluginLayoutMachine <@"<HTSLivePluginLayoutMachineProvider>"> = <HTSLivePluginLayoutMachine: 0x28601cbd0> <HTSLivePluginLayoutMachine: 0x28601cbd0>
+  IESLiveAudienceViewController._backgroundMaskView <@"UIView">
+  IESLiveAudienceViewController._originalStyle <q> = 0
+  IESLiveAudienceViewController._audienceActionCreator <@"<HTSLiveAudienceActions>">
+  IESLiveAudienceViewController._messageActionCreator <@"<IESLiveMessageActionCreatorProtocol>"> = <HTSLiveMessageActionCreator: 0x28601e680> <HTSLiveMessageActionCreator: 0x28601e680>
+  IESLiveAudienceViewController._navigationMananger <@"<IESLiveRoomNavigationService>"> = <IESLiveRoomNavigationMananger: 0x2889ad5e0> <IESLiveRoomNavigationMananger: 0x2889ad5e0>
+  IESLiveAudienceViewController._accessibilityCombination <@"IESLiveAccessibilityCombination"> = <IESLiveAccessibilityCombination: 0x2889ad400> <IESLiveAccessibilityCombination: 0x2889ad400>
+  IESLiveAudienceViewController._audienceAwareness <@"<IESLiveAudienceRoomAwareness>"> = <IESLiveAudienceRoomAwarenessImpl: 0x284a8c9d0> <IESLiveAudienceRoomAwarenessImpl: 0x284a8c9d0>
+  IESLiveAudienceViewController._reference <@"<IESLiveReference>"> = <IESLiveReference: 0x284ee2660> <IESLiveReference: 0x284ee2660>
+  IESLiveAudienceViewController._router <@"HTSLiveDetailRouterImpl"> = <HTSLiveDetailRouterImpl: 0x28a5ba300> <HTSLiveDetailRouterImpl: 0x28a5ba300>
+  IESLiveAudienceViewController._observerDict <@"NSMutableDictionary"> = {}
+  IESLiveAudienceViewController._firstScreenLoadState <Q> = 2
+  IESLiveAudienceViewController._loadingWrap <@"IESLiveInnerFeedLiveLoadingWrap">
+  IESLiveAudienceViewController._tempContainer <@"HTSLive4LayerContainerView">
+  IESLiveAudienceViewController._enterPreloadConfig <@"IESLiveMultiEnterPreloadConfig">
+  UIViewController._overrideTransitioningDelegate <@"<UIViewControllerTransitioningDelegate>">
+  UIViewController._view <@"UIView"> = <UIView: 0x17df3e050> <UIView: 0x17df3e050; frame = (0 0; 414 896); autoresize = W+H; layer = <CALayer: 0x2889abe40>>
+  UIViewController._tabBarItem <@"UITabBarItem">
+  UIViewController._navigationItem <@"UINavigationItem">
+  UIViewController._toolbarItems <@"NSArray">
+  UIViewController._title <@"NSString">
+  UIViewController._nibName <@"NSString">
+  UIViewController._nibBundle <@"NSBundle"> = <NSBundle: 0x282a98af0> NSBundle </private/var/containers/Bundle/Application/30F562B5-7660-4BC0-BB34-8AD86809A20C/Aweme.app> (loaded)
+  UIViewController._parentViewController <@"UIViewController"> = <IESLiveInnerFeedViewController: 0x2b9d1cb40> <IESLiveInnerFeedViewController: 0x2b9d1cb40>
+  UIViewController._childModalViewController <@"UIViewController">
+audienceVC methods:
+  IESLiveAudienceViewController: componentLoader, didChangeCamera, didPreloadRoom:, resetContainer:, setAfterLaunch:, setExitProcess:, setLoadingWrap:, setRoomGuarder:, setRoomMonitor:, constructBaseAbilityWithPlayer:, createFirstScreenLoadingIfNeed:, loadNewInstance, reuseDIRegisted, streamRenderStartForTraceEvent:, accessibilityCombination, addAudienceRoomObservers, addLiveRoomBackgroundMask, afterDidLoad, afterDidLoadBySlide, afterLaunch, audienceActionCreator, audienceAwareness, bindTrialMgr, canCloseWithRoom:closeType:, cancelLoadComponents, cancelPreloadStreamWithCallTrace:, cancelProbeStream:, checkCreateContainerAndLayoutMachineIfNeed, checkFirstScreenFinishedWithType:, checkFirstScreenStartLoading, checkPreloadChangeDIWithRoom:, closeLiveRoomWithType:, closeWithRoom:closeType:, commonLoad, componentContext, componentDidStartLoadStopLoading, componentProcess, constructBaseStructureWithPlayer:, constructBusinessPlugin, constructContainerMonitor, constructContainerProcess, containerState, currentComponentLoadState, dealPaidLiveFreeTrial, didCloseRoom:closeType:, didEnterRoom:, di...
+  UIViewController: setSearchMultiFeed_isEnterFeed:, awesearch_videoFeedBridgeHandler, searchMultiFeed_awemeIndex, searchMultiFeed_isEnterFeed, setAwesearch_videoFeedBridgeHandler:, setSearchMultiFeed_awemeIndex:, observeValueForKeyPath:ofObject:change:context:, tm_set_disappear_last_uiaction:, tm_collect_uiaction_fromVC:toVC:identifier:transitionType:, tm_get_appear_last_uiaction, tm_get_disappear_last_uiaction, tm_set_appear_last_uiaction:, tm_uiaction_dismissViewControllerAnimated:completion:, tm_uiaction_presentViewController:animated:completion:, tm_uiaction_transitionFromViewController:toViewController:duration:options:animations:completion:, tm_uiaction_viewActionType:identifier:, tm_uiaction_viewDidAppear:, tm_uiaction_viewDidDisappear:, tm_uiaction_viewDidLoad, tm_uiaction_viewWillAppear:, tm_uiaction_viewWillDisappear:, tspk_dealloc, tspk_viewDidAppear:, tspk_viewDidDisappear:, tspk_viewWillAppear:, tspk_viewWillDisappear:, bdp_tmaTrackStartTime, bdp_tmaTrackStayEnable, bdp_tmaTrackStayTime, setBdp_tmaTrackStartTime:, setBdp_tmaTrackStayEnable:, setBdp_tmaTrackStayTime:, tma_...
+  UIResponder: tm_collect_uiaction_identifier:, tm_uiaction_uiresponder_touchesBegan:withEvent:, tm_uiaction_uiresponder_touchesCancelled:withEvent:, tm_uiaction_uiresponder_touchesEnded:withEvent:, tm_uiaction_uiresponder_touchesMoved:withEvent:, lynx_actionWithSel:param:completeBlock:, lynx_getResultWithSel:param:completeBlock:, iesec_respondEvent:, voip_findFirstResponder:, voip_parentViewController, editingInteractionConfiguration, aAWEPadModuleAdapter, padKeyboardBindings_becomeFirstResponder, padKeyboardBindings_resignFirstResponder, ies_parentViewController, danceui__didChangeToFirstResponder:, danceui_firstResponder, btm_autoManaged, btm_notPageHolder, btm_pageIdentifier, setBtm_autoManaged:, setBtm_notPageHolder:, setBtm_pageIdentifier:, btm_nearestPage, btm_topPageItem, btm_associateStorage, btm_checkPageItems, btm_childPages, btm_disappearStatus, btm_forceDisappearStatus, btm_getValueForKey:, btm_inDisplay, btm_isPageHolder, btm_lazyCreatePageItem, btm_nearestPageHolder, btm_nearestWithPageId, btm_node, btm_pageIdSetByJsb, btm_pageItem, btm_registerTimestamp, btm_setValue:fo...
+roomModel identifiers:
+  roomModel=<HTSLiveRoom: 0x2afdf5c00> <HTSLiveRoom 0x2afdf5c00>: {     id: 7658700550355061538     id_str: "7658700550355061538"     status: 2     owner_user_id: 470204722194472     title: "听说中炉又又又在守家了，全网最会守家的女娲煮播，进来不是守家直接喷"     user_count: 956     create_time: 1783180197     linkmic_layout: 1    ...
+
+#003 02:02:31.522 候选福袋视图出现
+----------------------------------------
+Hook: live lucky bag candidate layoutSubviews
+candidateView = <IESLiveShortTouchActionView: 0x2c2420140>
+candidateView.description = <IESLiveShortTouchActionView: 0x2c2420140; frame = (0 -18; 0 36); layer = <CALayer: 0x288922620>>
+candidateView.frame = {{0, -18}, {0, 36}}, bounds = {{0, 0}, {0, 36}}, hidden = NO, alpha = 1.000, userInteraction = YES
+candidateView.nearestVC = <IESLiveAudienceViewController: 0x144a64000>
+candidateView.superviewPath = <IESLiveShortTouchActionView: 0x2c2420140 frame={{0, -18}, {0, 36}}> <- <IESLiveProxyStackView: 0x2b9d57370 frame={{0, 0}, {382, 36}}> <- <IESLiveProxyStackView: 0x2b9d57180 frame={{0, 30}, {390, 36}}> <- <IESLiveProxyStackView: 0x2b9d58410 frame={{0, 44}, {390, 66}}> <- <IESLiveProxyStackView: 0x2b9d5a910 frame={{0, 0}, {390, 118}}> <- <IESLiveProxyStackView: 0x2b9d616c0 frame={{0, 0}, {390, 764}}> <- <IESLiveProxyStackView: 0x2b9d62720 frame={{12, 52}, {390, 764}}> <- <HTSEventForwardingView: 0x2b9d4f590 frame={{0, 0}, {414, 896}}> <- <HTSLive4LayerContainerView: 0x2b9d4e8a0 frame={{0, 0}, {414, 896}}> <- <UIView: 0x17df3e050 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e4010 frame={{0, 0}, {414, 896}}> <- <IESLiveInnerFeedLiveRoomCell: 0x2b6a6c250 frame={{0, 0}, {414, 896}}>
+candidateView.subviews = 0:<UITableView: 0x2afb22000 frame={{-2.2043642384652358e-15, 0}, {6.6130927153957075e-15, 36}} text=>
+candidateView ivars:
+  IESLiveShortTouchActionView._isLandscape <B> = NO
+  IESLiveShortTouchActionView._dataSource <@"IESLiveShortTouchActionDataSource"> = <IESLiveShortTouchActionDataSource: 0x2896a9780> <IESLiveShortTouchActionDataSource: 0x2896a9780>
+  IESLiveShortTouchActionView._scrollDelegate <@"<IESLiveShortTouchActionScrollDelegate>">
+  IESLiveShortTouchActionView._shortTouchMonitor <@"IESLiveShortTouchActionMonitor"> = <IESLiveShortTouchActionMonitor: 0x288963300> <IESLiveShortTouchActionMonitor: 0x288963300>
+  IESLiveShortTouchActionView._tableView <@"UITableView"> = <UITableView: 0x2afb22000> <UITableView: 0x2afb22000; frame = (-2.20436e-15 0; 6.61309e-15 36); transform = [6.123233995736766e-17, -1, 1, 6.123233995736766e-17, 0, 0]; clipsToBounds = YES; gestureRecognizer...
+  IESLiveShortTouchActionView._maxSize <{CGSize="width"d"height"d}>
+  UIView._constraintsExceptingSubviewAutoresizingConstraints <@"NSMutableArray"> = [<MASLayoutConstraint: 0x2963bbf00>, <MASLayoutConstraint: 0x2963bbc60>, <NSContentSizeLayoutConstraint: 0x296324ba0>]
+  UIView._cachedTraitCollection <@"UITraitCollection"> = <UITraitCollection: 0x28304a4c0> <UITraitCollection: 0x28304a4c0; UserInterfaceIdiom = Phone, DisplayScale = 2, DisplayGamut = P3, HorizontalSizeClass = Compact, VerticalSizeClass = Regular, UserInterfaceStyle = L...
+  UIView._animationInfo <@"UIViewAnimationInfo">
+  UIView._layer <@"CALayer"> = <CALayer: 0x288922620> <CALayer: 0x288922620>
+  UIView._layerRetained <@"CALayer">
+  UIView._gestureRecognizers <@"NSMutableArray">
+  UIView._window <@"UIWindow"> = <AWEMaskWindow: 0x158759500> <AWEMaskWindow: 0x158759500; baseClass = UIWindow; frame = (0 0; 414 896); autoresize = W+H; gestureRecognizers = <NSArray: 0x2818407b0>; layer = <UIWindowLayer: 0x281840d80>>
+  UIView._subviewCache <@"NSArray"> = [<UITableView: 0x2afb22000; frame = (-2.20436e-15 0; 6.61309e-15 36); transform = [6.123233995736766e-17, -1, 1, 6.123233...]
+  UIView._viewDelegate <@"UIViewController">
+  UIView._cachedScreenScale <d> = 2.000000
+  UIView._layoutEngineWidth <d> = 0.000000
+  UIView._viewFlags <{?="userInteractionDisabled"b1"implementsDrawRect"b1"implementsDidScroll"b1"implementsMouseTracking"b1"implementsIntrinsicContentSize"b1"hasBackgroundColor"b1"hasBackgroundColorSystemColorName"b1"hasInteractionTintColor"b1"isOpaque"b1"becomeFirstResponderWhenCapable"b1"interceptMouseEvent"b1"deallocating"b1"isInUIViewDealloc"b1"hasPreparedForWindowDealloc"b1"debugFlash"b1"isAncestorOfFirstResponder"b1"dontAutoresizeSubviews"b1"autoresizeMask"b6"patternBackground"b1"fixedBackgroundPattern"b1"dontAnimate"b1"superLayerIsView"b1"layerKitPatternDrawing"b1"multipleTouchEnabled"b1"exclusiveTouch"b1"hasViewController"b1"needsDidAppearOrDisappear"b1"deliversTouchesForGesturesToSuperview"b1"deliversButtonsForGesturesToSuperview"b1"chargeEnabled"b1"skipsSubviewEnumeration"b1"needsDisplayOnBoundsChange"b1"hasTiledLayer"b1"hasLargeContent"b1"traversalMark"b1"appearanceIsInvalid"b1"monitorsSubtree"b1"hostsAutolayoutEngine"b1"constraintsAreClean"b1"subviewLayoutConstraintsAreClean"b1"intrinsicContentSizeConstraintsAreClean"b1"strictDescendantNeedsDoubleUpdateConstraints"b1"strictDescendantNeedsDoubleUpdateConstraintsIsInvalid"b1"determiningWidthForDoubleUpdateConstraints"b1"inSecondConstraintsPass"b1"potentiallyHasDanglyConstraints"b1"doesNotTranslateAutoresizingMaskIntoConstraints"b1"autolayoutIsClean"b1"autolayoutBoundsAreClean"b1"layoutFlushingDisabled"b1"layingOutFromConstraints"b1"wantsAutolayout"b1"subviewWantsAutolayout"b1"isApplyingValuesFromEngine"b1"isResizingDueToParentResize"b1"isInLayoutSubviewsOrVCCallback"b1"isInAnimatedLayout"b1"isSubviewUpdatingAutoresizingConstraints"b1"isUpdatingConstraints"b1"isReapplyingStillActiveBrokenConstraints"b1"isHostingUpdateConstraintsPassDuringLayout"b1"isRunningEngineLevelConstraintsPass"b1"isUpdatingLayoutEngineHostConstraints"b1"isExpectingToFlushPendingLayoutChangeNotifications"b1"systemLayoutFittingSizeNeedsUpdate"b1"systemLayoutFittingSizeNeedsUpdateInWholeSubtree"b1"isCalculatingSystemLayoutFittingSize"b1"suppressEncapsulationConstraints"b1"isFetchingSizeForTAMIC_NOEngineHost"b1"stayHiddenAwaitingReuse"b1"stayHiddenAfterReuse"b1"skippedLayoutWhileHiddenForReuse"b1"isPendingHiddenForAnimation"b1"hasMaskView"b1"hasVisualAltitude"b1"hasBackdropMaskViews"b1"backdropMaskViewFlags"b5"delaysTouchesForSystemGestures"b1"subclassShouldDelayTouchForSystemGestures"b1"hasMotionEffects"b1"backdropOverlayMode"b2"tintAdjustmentMode"b2"isReferenceView"b1"focusState"b2"hasUserInterfaceIdiom"b1"userInterfaceIdiom"b3"ancestorDefinesTintColor"b1"ancestorDefinesTintAdjustmentMode"b1"ancestorIgnoresInvertColors"b1"needsTraitCollectionDidChangePropagation"b1"isRootOfTraitCollectionDidChangePropagation"b1"implementsTraitCollectionForChildEnvironment"b1"implementsBaselineOffsetsAtSize"b1"coloredViewBounds"b1"coloredAlignmentRects"b1"preservesSuperviewMargins"b4"insettingLayoutMarginsFromSafeArea"b4"safeAreaInsetsFrozen"b1"preservesSafeAreaInsets"b1"viewDelegateContentOverlayInsetsAreClean"b1"hasGeometryObservers"b1"observingGeometryChangesForSelfCount"b4"hasTraitStorageList"b1"cachedTraitCollectionIsValid"b1"dontUpdateInferredLayoutMargins"b1"areLayoutMarginsDirectional"b1"implementsViewForBaselineLayout"b1"tracksFocusedAncestors"b1"hasLayoutArrangements"b1"isHiddenManagedByLayoutArrangement"b1"hasAddedFocusGuides"b1"hasFocusSpeedBumpEdges"b1"hasFocusableContentMargins"b1"focusInteractionDisabled"b1"shouldReverseLayoutDirection"b1"cannotBeParentTraitEnvironment"b1"hasTemplateLayoutView"b2"ignoresTemplateLayoutView"b2"needsContentsFormatUpdate"b1"accessibilityIgnoresInvertColors"b1"ignoresLayerTransformForSafeAreaInsets"b1"accessibilityInterfaceStyleIntent"b2"accessibilityResolvedInterfaceStyle"b2"shouldArchiveUIAppearanceTags"b1"wantsDeepColorDrawing"b1"tagEnabled"b1"chargeSet"b1"ignoreBackdropViewsWhenHiding"b1"areChildrenFocused"b1"hasInteractionsArray"b1"hasHitTestDirectionalInsets"b1"hasLayoutDebuggingIdentifier"b1"hasContentSizeNotificationToken"b1"hasPresentationControllerToNotifyOnLayoutSubviews"b1"semanticContentAttribute"b3"hasDynamicBackgroundColor"b1"hasLocalOverrideTraitCollection"b1"forceEffectiveThemeDidChange"b1"allowsHighContrastForBackgroundColor"b1"hasPendingTraitStorageConstraints"b1"hasEverBeenInAWindow"b1"hasFocusGroupIdentifier"b2"hasFocusGroupPriority"b1"hasFocusEffect"b2"conformsToUIFocusItemScrollableContainer"b2"allowsSkippingLayout"b1"isResolvingTraitCollection"b1"needsLayoutAndDisplayOnTintColorChanges"b1"subviewNeedsAnimationRestorationMessage"b1"isHostingTrackingForAnimationRestoration"b1}>
+  UIView._unsatisfiableConstraintsLoggingSuspensionCount <S> = 0
+  UIView._pseudo_id <I> = 7257
+  UIView._retainCount <q> = 270
+  UIView._draggingSourceDelegate <@"<_UIViewInternalDraggingSourceDelegate>">
+  UIView._tintAdjustmentDimmingCount <S> = 0
+  UIView._layoutSubviewsCount <S> = 0
+  UIView._imminentLayoutSubviewsCount <S> = 0
+  UIView._countOfFocusedAncestorTrackingViewsInSubtree <S> = 0
+  UIView._layoutMarginsGuide <@"UILayoutGuide">
+  UIView._minXVariable <@"NSISVariable"> = <NSISUnrestrictedVariable: 0x2896aa600> IESLiveShortTouchActionView:0x2c2420140.minX{id: 27392}
+  UIView._minYVariable <@"NSISVariable"> = <NSISUnrestrictedVariable: 0x2896aa9c0> IESLiveShortTouchActionView:0x2c2420140.minY{id: 27397}
+  UIView._boundsWidthVariable <@"NSISVariable"> = <NSISRestrictedToNonNegativeVariable: 0x2896aa4c0> IESLiveShortTouchActionView:0x2c2420140.Width{id: 27393}
+  UIView._boundsHeightVariable <@"NSISVariable"> = <NSISRestrictedToNonNegativeVariable: 0x2896a9e40> IESLiveShortTouchActionView:0x2c2420140.Height{id: 27398}
+  UIView._layoutEngine <@"NSISEngine"> = <NSISEngine: 0x2b6a764c0> <NSISEngine: 0x2b6a764c0>{ delegate:0x2b72e4010 EngineVars: 	  0: objective{id: 24721} rowIndex:0 	  1: UIView:0x2b72f34d0.minY{id: 24710} rowIndex:1073741824 	  2: TTPlayerView:0x...
+  UIView._stashedLayoutVariableObservations <@"NSMapTable">
+  UIView._internalConstraints <@"NSMutableArray"> = [<NSContentSizeLayoutConstraint: 0x296324ba0>]
+  UIView._safeAreaLayoutGuide <@"UILayoutGuide">
+  UIView._keyboardLayoutGuide <@"UIKeyboardLayoutGuide">
+  UIView._readableContentGuide <@"UILayoutGuide">
+  UIView.__preferedContentsFormat <q> = 0
+  UIView.__lastNotifiedTraitCollection <@"UITraitCollection"> = <UITraitCollection: 0x28304a4c0> <UITraitCollection: 0x28304a4c0; UserInterfaceIdiom = Phone, DisplayScale = 2, DisplayGamut = P3, HorizontalSizeClass = Compact, VerticalSizeClass = Regular, UserInterfaceStyle = L...
+  UIView.__alignmentRectOriginCache <@"_UIViewLayoutEngineRelativeAlignmentRectOriginCache"> = <_UIViewLayoutEngineRelativeAlignmentRectOriginCache: 0x28dbff930> <_UIViewLayoutEngineRelativeAlignmentRectOriginCache: 0x28dbff930>
+  UIView._rawLayoutMargins <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIView._inferredLayoutMargins <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIView._safeAreaInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIResponder._responderFlags <{?="hasOverrideClient"b1"hasOverrideHost"b1"hasInputAssistantItem"b1"suppressSoftwareKeyboard"b1"conformsToUIKeyInputIsSet"b1"conformsToUIKeyInput"b1}>
+candidateView methods:
+  IESLiveShortTouchActionView: didSetAttachingDIContext, frameOfTypeInContainer:, insertIndex:completion:, moveIndexFrom:to:completion:, onShortTouchViewUIStateChange, pluginLayoutContentSize, refreshLayout:, reloadItemAtIndex:completion:, removeIndex:completion:, setShortTouchMonitor:, shortTouchMonitor, shouldShowMask, maxSize, hitTest:withEvent:, setTableView:, tableView:heightForHeaderInSection:, tableView:viewForHeaderInSection:, setDataSource:, .cxx_destruct, tableView, tableView:didSelectRowAtIndexPath:, layoutSubviews, setScrollDelegate:, dataSource, tableView:cellForRowAtIndexPath:, init, scrollViewDidScroll:, tableView:numberOfRowsInSection:, tableView:heightForRowAtIndexPath:, setHidden:, setAlpha:, tableView:viewForFooterInSection:, reloadItems, viewType, tableView:heightForFooterInSection:, scrollViewWillBeginDragging:, isLandscape, setIsLandscape:, numberOfSectionsInTableView:, dealloc, setupTableView, setMaxSize:, intrinsicContentSize, scrollDelegate, gradientMaskLayer
+  UIView: _allLines, _setShowsLinesOnEdges:style:, _setImage:onEdges:outside:style:, _attachLine:toEdge:, ss_size, awe_parentViewController, setSs_origin:, setSs_size:, ss_origin, asyncSetRoundCornerImage:cornerRadius:completion:, dyyy_applyGlobalTransparency, bdas_attachmentIdentifier, bdas_setAttachmentIdentifier:, configureLayoutWithBlock:, isYogaEnabled, yoga, bdx_nativeViewName, bdx_viewWithName:, setBdx_nativeViewName:, bdp_makeConstraint, bdp_remakeConstraint, bdp_updateConstraint, bdp_enableKeyboardAutoTrackScroll:, bdp_findFirstResponder, bdp_setKeyboardBottomPaddingWhenAutoTrackScroll:forView:, bdp_KeyboardInfo, setBdp_KeyboardInfo:, bdp_findSubViewFor:, bdp_findSubViewForClass:, bdp_findSuperViewFor:, bdp_isSubviewOfView:, bdp_maskLayerOfTableViewCell:rowsCount:indexPath:, bdp_origin, bdp_originalFrame, bdp_setupDebugNameLable, bdp_setupRightDebugNameLableWithContent:, bdp_size, setBdp_origin:, setBdp_size:, bdp_rightBorder, bdp_addBorderForEdges:width:color:, bdp_bottomBorder, bdp_leftBorder, bdp_setupConstraintsForView:edge:width:, bdp_topBorder, setBdp_bottomBorder:, setB...
+  UIResponder: tm_collect_uiaction_identifier:, tm_uiaction_uiresponder_touchesBegan:withEvent:, tm_uiaction_uiresponder_touchesCancelled:withEvent:, tm_uiaction_uiresponder_touchesEnded:withEvent:, tm_uiaction_uiresponder_touchesMoved:withEvent:, lynx_actionWithSel:param:completeBlock:, lynx_getResultWithSel:param:completeBlock:, iesec_respondEvent:, voip_findFirstResponder:, voip_parentViewController, editingInteractionConfiguration, aAWEPadModuleAdapter, padKeyboardBindings_becomeFirstResponder, padKeyboardBindings_resignFirstResponder, ies_parentViewController, danceui__didChangeToFirstResponder:, danceui_firstResponder, btm_autoManaged, btm_notPageHolder, btm_pageIdentifier, setBtm_autoManaged:, setBtm_notPageHolder:, setBtm_pageIdentifier:, btm_nearestPage, btm_topPageItem, btm_associateStorage, btm_checkPageItems, btm_childPages, btm_disappearStatus, btm_forceDisappearStatus, btm_getValueForKey:, btm_inDisplay, btm_isPageHolder, btm_lazyCreatePageItem, btm_nearestPageHolder, btm_nearestWithPageId, btm_node, btm_pageIdSetByJsb, btm_pageItem, btm_registerTimestamp, btm_setValue:fo...
+heuristic.bagType = 未知
+heuristic.condition = 未知
+
+#004 02:02:32.199 候选福袋视图出现
+----------------------------------------
+Hook: live lucky bag candidate layoutSubviews
+candidateView = <IESLiveLotteryAnimationViewNew: 0x2c40b7240>
+candidateView.description = <IESLiveLotteryAnimationViewNew: 0x2c40b7240; frame = (10 186; 80 96); animations = { position=<CABasicAnimation: 0x288fe8700>; }; layer = <CALayer: 0x28896cdc0>>
+candidateView.frame = {{10, 186}, {80, 96}}, bounds = {{0, 0}, {80, 96}}, hidden = NO, alpha = 1.000, userInteraction = YES
+candidateView.nearestVC = <IESLiveAudienceViewController: 0x144a64000>
+candidateView.superviewPath = <IESLiveLotteryAnimationViewNew: 0x2c40b7240 frame={{10, 186}, {80, 96}}> <- <HTSEventForwardingView: 0x2b9d50910 frame={{0, 0}, {414, 896}}> <- <HTSLive4LayerContainerView: 0x2b9d4e8a0 frame={{0, 0}, {414, 896}}> <- <UIView: 0x17df3e050 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e4010 frame={{0, 0}, {414, 896}}> <- <IESLiveInnerFeedLiveRoomCell: 0x2b6a6c250 frame={{0, 0}, {414, 896}}> <- <IESLiveFeedCollectionView: 0x2bc995200 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e3ab0 frame={{0, 0}, {414, 896}}> <- <UIViewControllerWrapperView: 0x16624f520 frame={{0, 0}, {414, 896}}> <- <UINavigationTransitionView: 0x15db397b0 frame={{0, 0}, {414, 896}}> <- <UILayoutContainerView: 0x158741a80 frame={{0, 0}, {414, 896}}> <- <UIViewControllerWrapperView: 0x15876ad50 frame={{0, 0}, {414, 896}}>
+candidateView.subviews = 0:<IESLiveImageView: 0x2b9db12c0 frame={{0, 0}, {80, 96}} text=>
+candidateView ivars:
+  UIView._constraintsExceptingSubviewAutoresizingConstraints <@"NSMutableArray"> = [<MASLayoutConstraint: 0x29a3a7ba0>, <MASLayoutConstraint: 0x29a3a7f60>, <MASLayoutConstraint: 0x29a3a7e40>, <MASLayoutConstraint: 0x29a3a7f00>]
+  UIView._cachedTraitCollection <@"UITraitCollection"> = <UITraitCollection: 0x28304a4c0> <UITraitCollection: 0x28304a4c0; UserInterfaceIdiom = Phone, DisplayScale = 2, DisplayGamut = P3, HorizontalSizeClass = Compact, VerticalSizeClass = Regular, UserInterfaceStyle = L...
+  UIView._animationInfo <@"UIViewAnimationInfo">
+  UIView._layer <@"CALayer"> = <CALayer: 0x28896cdc0> <CALayer: 0x28896cdc0>
+  UIView._layerRetained <@"CALayer">
+  UIView._gestureRecognizers <@"NSMutableArray">
+  UIView._window <@"UIWindow"> = <AWEMaskWindow: 0x158759500> <AWEMaskWindow: 0x158759500; baseClass = UIWindow; frame = (0 0; 414 896); autoresize = W+H; gestureRecognizers = <NSArray: 0x2818407b0>; layer = <UIWindowLayer: 0x281840d80>>
+  UIView._subviewCache <@"NSArray"> = [<IESLiveImageView: 0x2b9db12c0; baseClass = UIImageView; frame = (0 0; 80 96); opaque = NO; userInteractionEnabled = NO;...]
+  UIView._viewDelegate <@"UIViewController">
+  UIView._cachedScreenScale <d> = 2.000000
+  UIView._layoutEngineWidth <d> = 0.000000
+  UIView._viewFlags <{?="userInteractionDisabled"b1"implementsDrawRect"b1"implementsDidScroll"b1"implementsMouseTracking"b1"implementsIntrinsicContentSize"b1"hasBackgroundColor"b1"hasBackgroundColorSystemColorName"b1"hasInteractionTintColor"b1"isOpaque"b1"becomeFirstResponderWhenCapable"b1"interceptMouseEvent"b1"deallocating"b1"isInUIViewDealloc"b1"hasPreparedForWindowDealloc"b1"debugFlash"b1"isAncestorOfFirstResponder"b1"dontAutoresizeSubviews"b1"autoresizeMask"b6"patternBackground"b1"fixedBackgroundPattern"b1"dontAnimate"b1"superLayerIsView"b1"layerKitPatternDrawing"b1"multipleTouchEnabled"b1"exclusiveTouch"b1"hasViewController"b1"needsDidAppearOrDisappear"b1"deliversTouchesForGesturesToSuperview"b1"deliversButtonsForGesturesToSuperview"b1"chargeEnabled"b1"skipsSubviewEnumeration"b1"needsDisplayOnBoundsChange"b1"hasTiledLayer"b1"hasLargeContent"b1"traversalMark"b1"appearanceIsInvalid"b1"monitorsSubtree"b1"hostsAutolayoutEngine"b1"constraintsAreClean"b1"subviewLayoutConstraintsAreClean"b1"intrinsicContentSizeConstraintsAreClean"b1"strictDescendantNeedsDoubleUpdateConstraints"b1"strictDescendantNeedsDoubleUpdateConstraintsIsInvalid"b1"determiningWidthForDoubleUpdateConstraints"b1"inSecondConstraintsPass"b1"potentiallyHasDanglyConstraints"b1"doesNotTranslateAutoresizingMaskIntoConstraints"b1"autolayoutIsClean"b1"autolayoutBoundsAreClean"b1"layoutFlushingDisabled"b1"layingOutFromConstraints"b1"wantsAutolayout"b1"subviewWantsAutolayout"b1"isApplyingValuesFromEngine"b1"isResizingDueToParentResize"b1"isInLayoutSubviewsOrVCCallback"b1"isInAnimatedLayout"b1"isSubviewUpdatingAutoresizingConstraints"b1"isUpdatingConstraints"b1"isReapplyingStillActiveBrokenConstraints"b1"isHostingUpdateConstraintsPassDuringLayout"b1"isRunningEngineLevelConstraintsPass"b1"isUpdatingLayoutEngineHostConstraints"b1"isExpectingToFlushPendingLayoutChangeNotifications"b1"systemLayoutFittingSizeNeedsUpdate"b1"systemLayoutFittingSizeNeedsUpdateInWholeSubtree"b1"isCalculatingSystemLayoutFittingSize"b1"suppressEncapsulationConstraints"b1"isFetchingSizeForTAMIC_NOEngineHost"b1"stayHiddenAwaitingReuse"b1"stayHiddenAfterReuse"b1"skippedLayoutWhileHiddenForReuse"b1"isPendingHiddenForAnimation"b1"hasMaskView"b1"hasVisualAltitude"b1"hasBackdropMaskViews"b1"backdropMaskViewFlags"b5"delaysTouchesForSystemGestures"b1"subclassShouldDelayTouchForSystemGestures"b1"hasMotionEffects"b1"backdropOverlayMode"b2"tintAdjustmentMode"b2"isReferenceView"b1"focusState"b2"hasUserInterfaceIdiom"b1"userInterfaceIdiom"b3"ancestorDefinesTintColor"b1"ancestorDefinesTintAdjustmentMode"b1"ancestorIgnoresInvertColors"b1"needsTraitCollectionDidChangePropagation"b1"isRootOfTraitCollectionDidChangePropagation"b1"implementsTraitCollectionForChildEnvironment"b1"implementsBaselineOffsetsAtSize"b1"coloredViewBounds"b1"coloredAlignmentRects"b1"preservesSuperviewMargins"b4"insettingLayoutMarginsFromSafeArea"b4"safeAreaInsetsFrozen"b1"preservesSafeAreaInsets"b1"viewDelegateContentOverlayInsetsAreClean"b1"hasGeometryObservers"b1"observingGeometryChangesForSelfCount"b4"hasTraitStorageList"b1"cachedTraitCollectionIsValid"b1"dontUpdateInferredLayoutMargins"b1"areLayoutMarginsDirectional"b1"implementsViewForBaselineLayout"b1"tracksFocusedAncestors"b1"hasLayoutArrangements"b1"isHiddenManagedByLayoutArrangement"b1"hasAddedFocusGuides"b1"hasFocusSpeedBumpEdges"b1"hasFocusableContentMargins"b1"focusInteractionDisabled"b1"shouldReverseLayoutDirection"b1"cannotBeParentTraitEnvironment"b1"hasTemplateLayoutView"b2"ignoresTemplateLayoutView"b2"needsContentsFormatUpdate"b1"accessibilityIgnoresInvertColors"b1"ignoresLayerTransformForSafeAreaInsets"b1"accessibilityInterfaceStyleIntent"b2"accessibilityResolvedInterfaceStyle"b2"shouldArchiveUIAppearanceTags"b1"wantsDeepColorDrawing"b1"tagEnabled"b1"chargeSet"b1"ignoreBackdropViewsWhenHiding"b1"areChildrenFocused"b1"hasInteractionsArray"b1"hasHitTestDirectionalInsets"b1"hasLayoutDebuggingIdentifier"b1"hasContentSizeNotificationToken"b1"hasPresentationControllerToNotifyOnLayoutSubviews"b1"semanticContentAttribute"b3"hasDynamicBackgroundColor"b1"hasLocalOverrideTraitCollection"b1"forceEffectiveThemeDidChange"b1"allowsHighContrastForBackgroundColor"b1"hasPendingTraitStorageConstraints"b1"hasEverBeenInAWindow"b1"hasFocusGroupIdentifier"b2"hasFocusGroupPriority"b1"hasFocusEffect"b2"conformsToUIFocusItemScrollableContainer"b2"allowsSkippingLayout"b1"isResolvingTraitCollection"b1"needsLayoutAndDisplayOnTintColorChanges"b1"subviewNeedsAnimationRestorationMessage"b1"isHostingTrackingForAnimationRestoration"b1}>
+  UIView._unsatisfiableConstraintsLoggingSuspensionCount <S> = 0
+  UIView._pseudo_id <I> = 7632
+  UIView._retainCount <q> = 270
+  UIView._draggingSourceDelegate <@"<_UIViewInternalDraggingSourceDelegate>">
+  UIView._tintAdjustmentDimmingCount <S> = 0
+  UIView._layoutSubviewsCount <S> = 0
+  UIView._imminentLayoutSubviewsCount <S> = 0
+  UIView._countOfFocusedAncestorTrackingViewsInSubtree <S> = 0
+  UIView._layoutMarginsGuide <@"UILayoutGuide">
+  UIView._minXVariable <@"NSISVariable"> = <NSISUnrestrictedVariable: 0x2895c5440> IESLiveLotteryAnimationViewNew:0x2c40b7240.minX{id: 27920}
+  UIView._minYVariable <@"NSISVariable"> = <NSISUnrestrictedVariable: 0x2896084c0> IESLiveLotteryAnimationViewNew:0x2c40b7240.minY{id: 27926}
+  UIView._boundsWidthVariable <@"NSISVariable"> = <NSISRestrictedToNonNegativeVariable: 0x289589f80> IESLiveLotteryAnimationViewNew:0x2c40b7240.Width{id: 27923}
+  UIView._boundsHeightVariable <@"NSISVariable"> = <NSISRestrictedToNonNegativeVariable: 0x2895cc000> IESLiveLotteryAnimationViewNew:0x2c40b7240.Height{id: 27929}
+  UIView._layoutEngine <@"NSISEngine"> = <NSISEngine: 0x2b6a764c0> <NSISEngine: 0x2b6a764c0>{ delegate:0x2b72e4010 EngineVars: 	  0: objective{id: 24721} rowIndex:0 	  1: UIView:0x2b72f34d0.minY{id: 24710} rowIndex:1073741824 	  2: TTPlayerView:0x...
+  UIView._stashedLayoutVariableObservations <@"NSMapTable">
+  UIView._internalConstraints <@"NSMutableArray"> = [<NSAutoresizingMaskLayoutConstraint: 0x28afef6b0>, <NSAutoresizingMaskLayoutConstraint: 0x28afef700>, <NSAutoresizingMaskLayoutConstraint: 0x28afef750>, <NSAutoresizingMaskLayoutC...
+  UIView._safeAreaLayoutGuide <@"UILayoutGuide">
+  UIView._keyboardLayoutGuide <@"UIKeyboardLayoutGuide">
+  UIView._readableContentGuide <@"UILayoutGuide">
+  UIView.__preferedContentsFormat <q> = 0
+  UIView.__lastNotifiedTraitCollection <@"UITraitCollection"> = <UITraitCollection: 0x28304a4c0> <UITraitCollection: 0x28304a4c0; UserInterfaceIdiom = Phone, DisplayScale = 2, DisplayGamut = P3, HorizontalSizeClass = Compact, VerticalSizeClass = Regular, UserInterfaceStyle = L...
+  UIView.__alignmentRectOriginCache <@"_UIViewLayoutEngineRelativeAlignmentRectOriginCache"> = <_UIViewLayoutEngineRelativeAlignmentRectOriginCache: 0x28d983150> <_UIViewLayoutEngineRelativeAlignmentRectOriginCache: 0x28d983150>
+  UIView._rawLayoutMargins <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIView._inferredLayoutMargins <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIView._safeAreaInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIResponder._responderFlags <{?="hasOverrideClient"b1"hasOverrideHost"b1"hasInputAssistantItem"b1"suppressSoftwareKeyboard"b1"conformsToUIKeyInputIsSet"b1"conformsToUIKeyInput"b1}>
+candidateView methods:
+  IESLiveLotteryAnimationViewNew: layoutSubviews, initWithFrame:lotteryType:config:
+  UIView: _allLines, _setShowsLinesOnEdges:style:, _setImage:onEdges:outside:style:, _attachLine:toEdge:, ss_size, awe_parentViewController, setSs_origin:, setSs_size:, ss_origin, asyncSetRoundCornerImage:cornerRadius:completion:, dyyy_applyGlobalTransparency, bdas_attachmentIdentifier, bdas_setAttachmentIdentifier:, configureLayoutWithBlock:, isYogaEnabled, yoga, bdx_nativeViewName, bdx_viewWithName:, setBdx_nativeViewName:, bdp_makeConstraint, bdp_remakeConstraint, bdp_updateConstraint, bdp_enableKeyboardAutoTrackScroll:, bdp_findFirstResponder, bdp_setKeyboardBottomPaddingWhenAutoTrackScroll:forView:, bdp_KeyboardInfo, setBdp_KeyboardInfo:, bdp_findSubViewFor:, bdp_findSubViewForClass:, bdp_findSuperViewFor:, bdp_isSubviewOfView:, bdp_maskLayerOfTableViewCell:rowsCount:indexPath:, bdp_origin, bdp_originalFrame, bdp_setupDebugNameLable, bdp_setupRightDebugNameLableWithContent:, bdp_size, setBdp_origin:, setBdp_size:, bdp_rightBorder, bdp_addBorderForEdges:width:color:, bdp_bottomBorder, bdp_leftBorder, bdp_setupConstraintsForView:edge:width:, bdp_topBorder, setBdp_bottomBorder:, setB...
+  UIResponder: tm_collect_uiaction_identifier:, tm_uiaction_uiresponder_touchesBegan:withEvent:, tm_uiaction_uiresponder_touchesCancelled:withEvent:, tm_uiaction_uiresponder_touchesEnded:withEvent:, tm_uiaction_uiresponder_touchesMoved:withEvent:, lynx_actionWithSel:param:completeBlock:, lynx_getResultWithSel:param:completeBlock:, iesec_respondEvent:, voip_findFirstResponder:, voip_parentViewController, editingInteractionConfiguration, aAWEPadModuleAdapter, padKeyboardBindings_becomeFirstResponder, padKeyboardBindings_resignFirstResponder, ies_parentViewController, danceui__didChangeToFirstResponder:, danceui_firstResponder, btm_autoManaged, btm_notPageHolder, btm_pageIdentifier, setBtm_autoManaged:, setBtm_notPageHolder:, setBtm_pageIdentifier:, btm_nearestPage, btm_topPageItem, btm_associateStorage, btm_checkPageItems, btm_childPages, btm_disappearStatus, btm_forceDisappearStatus, btm_getValueForKey:, btm_inDisplay, btm_isPageHolder, btm_lazyCreatePageItem, btm_nearestPageHolder, btm_nearestWithPageId, btm_node, btm_pageIdSetByJsb, btm_pageItem, btm_registerTimestamp, btm_setValue:fo...
+heuristic.bagType = 可能是普通福袋
+heuristic.condition = 未知
+
+#005 02:02:36.895 点击手势
+----------------------------------------
+UIGestureRecognizer state = 3
+gestureRecognizer = <WKSyntheticTapGestureRecognizer: 0x2becefcd0>
+gestureRecognizer.description = <WKSyntheticTapGestureRecognizer: 0x2becefcd0; baseClass = UITapGestureRecognizer; state = Ended; view = <WKContentView 0x2afd49600>; targets= <(     "(action=BSTHandleGesture:, target=<BSTUIGestureRecognizerObserver 0x280baa0b0>)",     "(action=_singleTapRecognized:, target=<WKContentView 0x2afd49600>)",     "(action=awe_UITracker_gestureRecognizer:, target=<WKContentView 0x2afd49600>)" )>; must-fail = {         <WKSyntheticTapGestureRecognizer: 0x160044aa0; baseClass = UITapGestureRecognizer; ...
+gestureRecognizer.state = 3, enabled = YES, view = <WKContentView: 0x2afd49600>
+gestureRecognizer likelyValues:
+  delegate=<WKContentView: 0x2afd49600> <WKContentView: 0x2afd49600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28d9e7f90>; layer = <CALayer: 0x288f6efc0>>
+gestureRecognizer ivars:
+  WKSyntheticTapGestureRecognizer._gestureIdentifiedTarget <@> = <WKContentView: 0x2afd49600> <WKContentView: 0x2afd49600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28d9e7f90>; layer = <CALayer: 0x288f6efc0>>
+  WKSyntheticTapGestureRecognizer._gestureIdentifiedAction <:> = _singleTapIdentified:
+  WKSyntheticTapGestureRecognizer._gestureFailedTarget <@>
+  WKSyntheticTapGestureRecognizer._gestureFailedAction <:>
+  WKSyntheticTapGestureRecognizer._resetTarget <@> = <WKContentView: 0x2afd49600> <WKContentView: 0x2afd49600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28d9e7f90>; layer = <CALayer: 0x288f6efc0>>
+  WKSyntheticTapGestureRecognizer._resetAction <:> = _singleTapDidReset:
+  WKSyntheticTapGestureRecognizer._lastActiveTouchIdentifier <{RetainPtr<NSNumber>="m_ptr"^v}>
+  WKSyntheticTapGestureRecognizer._lastTouchedScrollView <@"UIScrollView">
+  WKSyntheticTapGestureRecognizer._supportingWebTouchEventsGestureRecognizer <@"UIWebTouchEventsGestureRecognizer"> = <UIWebTouchEventsGestureRecognizer: 0x15fd735b0> <UIWebTouchEventsGestureRecognizer: 0x15fd735b0; state = Failed; view = <WKContentView 0x2afd49600>; target= <(action=awe_UITracker_gestureRecognizer:, target=<WKContentView 0x2afd...
+  UITapGestureRecognizer._locationInView <{CGPoint="x"d"y"d}>
+  UITapGestureRecognizer._imp <@"UITapRecognizer"> = <UITapRecognizer: 0x28f0032c0> <UITapRecognizer: 0x28f0032c0>
+  UITapGestureRecognizer._delaysRecognitionForGreaterTapCounts <I> = 0
+  UITapGestureRecognizer._isSingleKeyPressGesture <B> = NO
+  UITapGestureRecognizer._buttonType <q> = -1
+  UIGestureRecognizer._gestureFlags <{?="delegateShouldBegin"b1"delegateCanPrevent"b1"delegateCanBePrevented"b1"delegateShouldRecognizeSimultaneously"b1"delegateShouldReceiveEvent"b1"delegateShouldReceiveTouch"b1"delegateShouldReceivePress"b1"delegateShouldRequireFailure"b1"delegateShouldBeRequiredToFail"b1"delegateFailed"b1"privateDelegateShouldBegin"b1"privateDelegateCanPrevent"b1"privateDelegateCanBePrevented"b1"privateDelegateShouldRecognizeSimultaneously"b1"privateDelegateShouldReceiveEvent"b1"privateDelegateShouldReceiveTouch"b1"privateDelegateShouldReceivePress"b1"privateDelegateShouldRequireFailure"b1"privateDelegateShouldBeRequiredToFail"b1"subclassShouldRequireFailure"b1"subclassShouldBeRequiredToFail"b1"hasSubclassDynamicFailureRequirements"b1"hasDelegateDynamicFailureRequirements"b1"subclassTouchesEstimatedPropertiesUpdated"b1"queriedFailureRequirements"b1"cancelsTouchesInView"b1"delaysTouchesBegan"b1"delaysTouchesEnded"b1"disabled"b1"dirty"b1"delivered"b1"deliveredEndedOrCancelled"b1"continuous"b1"requiresDelayedBegan"b1"willBeginAfterSatisfyingFailureRequirements"b1"requiresSystemGesturesToFail"b1"acceptsFailureRequirements"b1"requiresExclusiveTouchType"b1"initialTouchTypeIsValid"b1"forceRequirementSatisfied"b1"wantsDragEvents"b1"conformsToDragEventRespondable"b1"isDynamicGesture"b1"canExcludeWithActiveRequirements"b1"isObservingGesture"b1"didCheckForcePressShouldBegin"b1"canSendForcePressAction"b1"queriedShouldReceiveTouchesEvent"b1"shouldReceiveTouchesEvent"b1"queriedDelegateShouldReceiveTouchesEvent"b1"delegateShouldReceiveTouchesEvent"b1"queriedShouldReceivePressesEvent"b1"shouldReceivePressesEvent"b1"queriedDelegateShouldReceivePressesEvent"b1"delegateShouldReceivePressesEvent"b1"conformsToHoverEventRespondable"b1"conformsToScrollEventRespondable"b1"conformsToTransformEventRespondable"b1"canBeCancelledByAffectedViews"b1}>
+  UIGestureRecognizer._targets <@"NSMutableArray"> = [(action=BSTHandleGesture:, target=<BSTUIGestureRecognizerObserver 0x280baa0b0>), (action=_singleTapRecognized:, target=<WKContentView 0x2afd49600>), (action=awe_UITracker_gestureR...
+  UIGestureRecognizer._delayedTouches <@"NSMutableArray"> = [<UIGestureDelayedTouch: 0x289c133c0; touch = <UITouch: 0x14a94c010>; delayed phase = Ended>]
+  UIGestureRecognizer._delayedPresses <@"NSMutableArray">
+  UIGestureRecognizer._owner <@"<_UIGestureOwning>"> = <WKContentView: 0x2afd49600> <WKContentView: 0x2afd49600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28d9e7f90>; layer = <CALayer: 0x288f6efc0>>
+  UIGestureRecognizer._lastTouchTimestamp <d> = 6419.923841
+  UIGestureRecognizer._firstEventTimestamp <d> = 6419.849943
+  UIGestureRecognizer._state <q> = 3
+  UIGestureRecognizer._allowedTouchTypes <q> = 15
+  UIGestureRecognizer._initialTouchType <q> = 0
+  UIGestureRecognizer._internalActiveTouches <@"NSMutableSet"> = <__NSSetM: 0x288dfd4a0> {( )}
+  UIGestureRecognizer._forceClassifier <@"_UIForceLevelClassifier">
+  UIGestureRecognizer._requiredPreviewForceState <q> = 0
+  UIGestureRecognizer._touchForceObservable <@"_UITouchForceObservable">
+  UIGestureRecognizer._touchForceObservableAndClassifierObservation <@"NSObservation">
+  UIGestureRecognizer._forceTargets <@"NSMutableArray">
+  UIGestureRecognizer._forcePressCount <Q> = 0
+  UIGestureRecognizer._beganObservable <@"NSObservationSource">
+  UIGestureRecognizer._failureRequirements <@"NSMutableSet"> = <__NSCFSet: 0x28d9e57a0> {(     <WKSyntheticTapGestureRecognizer: 0x160044aa0; baseClass = UITapGestureRecognizer; state = Possible; enabled = NO; view = <WKContentView 0x2afd49600>; targets= <(     "(acti...
+  UIGestureRecognizer._failureDependents <@"NSMutableSet">
+  UIGestureRecognizer._activeEvents <@"NSMutableSet"> = <__NSSetM: 0x288dff280> {(     <UITouchesEvent: 0x283c289c0> timestamp: 6419.92 touches: {( )} )}
+  UIGestureRecognizer._inputPrecision <Q> = 1
+  UIGestureRecognizer._buttonMask <q> = 0
+  UIGestureRecognizer._modifierFlags <q> = 0
+  UIGestureRecognizer._analyticsGestureHandled <B> = NO
+  UIGestureRecognizer._keepTouchesOnContinuation <B> = NO
+  UIGestureRecognizer._delegate <@"<UIGestureRecognizerDelegate>"> = <WKContentView: 0x2afd49600> <WKContentView: 0x2afd49600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28d9e7f90>; layer = <CALayer: 0x288f6efc0>>
+  UIGestureRecognizer._allowedPressTypes <@"NSArray">
+  UIGestureRecognizer._name <@"NSString">
+  UIGestureRecognizer._gestureEnvironment <@"UIGestureEnvironment"> = <UIGestureEnvironment: 0x2822a03f0> <UIGestureEnvironment: 0x2822a03f0>
+gestureRecognizer methods:
+  WKSyntheticTapGestureRecognizer: lastTouchedScrollView, .cxx_construct, .cxx_destruct, setGestureIdentifiedTarget:action:, reset, supportingWebTouchEventsGestureRecognizer, setState:, lastActiveTouchIdentifier, setResetTarget:action:, touchesBegan:withEvent:, setSupportingWebTouchEventsGestureRecognizer:, touchesEnded:withEvent:, setGestureFailedTarget:action:
+  UITapGestureRecognizer: cj_didTapAttributedTextInLabel:inRange:, btm_initWithTarget:action:, _isGestureType:, setAllowableMovement:, centroid, locationInView:, maximumIntervalBetweenSuccessiveTaps, setButtonMaskRequired:, numberOfTouchesRequired, setNumberOfTouchesRequired:, initWithCoder:, shouldRequireFailureOfGestureRecognizer:, _digitizerLocation, numberOfTouches, allowableMovement, touchesMoved:withEvent:, touches, .cxx_destruct, initWithTarget:action:, setAllowedPressTypes:, setMaximumIntervalBetweenSuccessiveTaps:, touchesCancelled:withEvent:, tapRecognizerRecognizedTap:, canPreventGestureRecognizer:, _touchSloppinessFactor, maximumTapDuration, pressesCancelled:withEvent:, _buttonMaskRequired, _setButtonMaskRequired:, _delaysRecognitionForGreaterTapCounts, _setDelaysRecognitionForGreaterTapCounts:, isSingleKeyPressGesture, setIsSingleKeyPressGesture:, _buttonType, buttonMaskRequired, location, setMaximumSingleTapDuration:, _setButtonType:, pressesEnded:withEvent:, setMaximumTapDuration:, _setAllowableTouchTimeSeparation:, _setAllowableSeparation:, setNumberOfTapsRequired:, _re...
+  UIGestureRecognizer: tm_uiaction_get_changed_state_flag, tm_uiaction_setState:, tm_uiaction_set_changed_state_flag:, live_gestureShouldBeginBlock, live_gestureShouldReceiveTouch, setLive_gestureShouldBeginBlock:, setLive_gestureShouldReceiveTouch:, __enableThrottler, __throttleAction:, __throttlerWithTarget:action:interval:, rtv_addTarget:action:customInterval:, rtv_addTarget:action:definedInterval:, rtv_setThrottler:, rtv_throttler, addTarget_dataRef:action:, initWithTarget_dataRef:action:, _allUIGestureRecognizerBlockTargets, btd_addActionBlock:, btd_removeAllActionBlocks, perf_setState:, setRender:, render, _danceui_hoverExited:withEvent:, danceui_hoverEntered:withEvent:, _danceui__updateForActiveEvents, _danceui__isGestureType:, _danceui__updateGestureForActiveEvents, _danceui_hoverCancelled:withEvent:, _danceui_hoverEntered:withEvent:, _danceui_hoverMoved:withEvent:, _danceui_transformChangedWithEvent:, danceui_hoverCancelled:withEvent:, danceui_hoverExited:withEvent:, danceui_hoverMoved:withEvent:, danceui_transformChangedWithEvent:, rac_gestureSignal, hmd_initWithTarget:action...
+gesture.view = <WKContentView: 0x2afd49600>
+gesture.view.description = <WKContentView: 0x2afd49600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28d9e7f90>; layer = <CALayer: 0x288f6efc0>>
+gesture.view.frame = {{0, 0}, {414, 885}}, bounds = {{0, 0}, {414, 885}}, hidden = NO, alpha = 1.000, userInteraction = YES
+gesture.view.nearestVC = <BDXPopupViewController: 0x16a161200>
+gesture.view.superviewPath = <WKContentView: 0x2afd49600 frame={{0, 0}, {414, 885}}> <- <WKScrollView: 0x165b27000 frame={{0, 0}, {414, 885}}> <- <BDXWebView: 0x16a20aa00 frame={{0, 0}, {414, 885}}> <- <BDXView: 0x158720110 frame={{0, 0}, {414, 885}}> <- <BDXPopupViewContainer: 0x16804eb40 frame={{0, 10.799999999999955}, {414, 885.20000000000005}}> <- <UIView: 0x160049c20 frame={{0, 0}, {414, 896}}> <- <HTSLivePopupContainer: 0x2b9d51660 frame={{0, 0}, {414, 896}}> <- <HTSLive4LayerContainerView: 0x2b9d4e8a0 frame={{0, 0}, {414, 896}}> <- <UIView: 0x17df3e050 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e4010 frame={{0, 0}, {414, 896}}> <- <IESLiveInnerFeedLiveRoomCell: 0x2b6a6c250 frame={{0, 0}, {414, 896}}> <- <IESLiveFeedCollectionView: 0x2bc995200 frame={{0, 0}, {414, 896}}>
+gesture.view.subviews = 0:<UIView: 0x17bc8b5c0 frame={{0, 0}, {414, 885}} text=>; 1:<_UILayerHostView: 0x147f40600 frame={{0, 0}, {0, 0}} text=>
+gesture.view ivars:
+  WKContentView._page <{RefPtr<WebKit::WebPageProxy, WTF::RawPtrTraits<WebKit::WebPageProxy>, WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>="m_ptr"^{WebPageProxy}}>
+  WKContentView._webView <{WeakObjCPtr<WKWebView>="m_weakReference"@}>
+  WKContentView._touchStartDeferringGestureRecognizerForImmediatelyResettableGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchStartDeferringGestureRecognizerForDelayedResettableGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchStartDeferringGestureRecognizerForSyntheticTapGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchEndDeferringGestureRecognizerForImmediatelyResettableGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchEndDeferringGestureRecognizerForDelayedResettableGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchEndDeferringGestureRecognizerForSyntheticTapGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._failedTouchStartDeferringGestures <{optional<WTF::HashSet<WTF::RetainPtr<WKDeferringGestureRecognizer>>>=""(?="__null_state_"c"__val_"{HashSet<WTF::RetainPtr<WKDeferringGestureRecognizer>, WTF::DefaultHash<WTF::RetainPtr<WKDeferringGestureRecognizer>>, WTF::HashTraits<WTF::RetainPtr<WKDeferringGestureRecognizer>>, WTF::HashTableTraits>="m_impl"{HashTable<WTF::RetainPtr<WKDeferringGestureRecognizer>, WTF::RetainPtr<WKDeferringGestureRecognizer>, WTF::IdentityExtractor, WTF::DefaultHash<WTF::RetainPtr<WKDeferringGestureRecognizer>>, WTF::HashTraits<WTF::RetainPtr<WKDeferringGestureRecognizer>>, WTF::HashTraits<WTF::RetainPtr<WKDeferringGestureRecognizer>>>=""(?="m_table"^v"m_tableForLLDB"^I)}})"__engaged_"B}>
+  WKContentView._imageAnalysisDeferringGestureRecognizer <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._gestureRecognizerConsistencyEnforcer <{unique_ptr<WebKit::GestureRecognizerConsistencyEnforcer, std::default_delete<WebKit::GestureRecognizerConsistencyEnforcer>>="__ptr_"{__compressed_pair<WebKit::GestureRecognizerConsistencyEnforcer *, std::default_delete<WebKit::GestureRecognizerConsistencyEnforcer>>="__value_"^{GestureRecognizerConsistencyEnforcer}}}>
+  WKContentView._touchEventGestureRecognizer <{RetainPtr<UIWebTouchEventsGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchEventsCanPreventNativeGestures <B> = YES
+  WKContentView._preventsPanningInXAxis <B> = NO
+  WKContentView._preventsPanningInYAxis <B> = NO
+  WKContentView._singleTapGestureRecognizer <{RetainPtr<WKSyntheticTapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._highlightLongPressGestureRecognizer <{RetainPtr<WKHighlightLongPressGestureRecognizer>="m_ptr"^v}>
+  WKContentView._longPressGestureRecognizer <{RetainPtr<UILongPressGestureRecognizer>="m_ptr"^v}>
+  WKContentView._doubleTapGestureRecognizer <{RetainPtr<WKSyntheticTapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._nonBlockingDoubleTapGestureRecognizer <{RetainPtr<UITapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._doubleTapGestureRecognizerForDoubleClick <{RetainPtr<UITapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._twoFingerDoubleTapGestureRecognizer <{RetainPtr<UITapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._twoFingerSingleTapGestureRecognizer <{RetainPtr<UITapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._inspectorNodeSearchGestureRecognizer <{RetainPtr<WKInspectorNodeSearchGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchActionGestureRecognizer <{RetainPtr<WKTouchActionGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchActionLeftSwipeGestureRecognizer <{RetainPtr<UISwipeGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchActionRightSwipeGestureRecognizer <{RetainPtr<UISwipeGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchActionUpSwipeGestureRecognizer <{RetainPtr<UISwipeGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchActionDownSwipeGestureRecognizer <{RetainPtr<UISwipeGestureRecognizer>="m_ptr"^v}>
+  WKContentView._mouseGestureRecognizer <{RetainPtr<WKMouseGestureRecognizer>="m_ptr"^v}>
+  WKContentView._mouseEventPolicy <C> = 0
+  WKContentView._hoverPlatter <{RetainPtr<WKHoverPlatter>="m_ptr"^v}>
+  WKContentView._scribbleInteraction <{RetainPtr<UIIndirectScribbleInteraction>="m_ptr"^v}>
+  WKContentView._pointerInteraction <{RetainPtr<UIPointerInteraction>="m_ptr"^v}>
+  WKContentView._hasOutstandingPointerInteractionRequest <B> = NO
+  WKContentView._deferredPointerInteractionRequest <{optional<std::pair<WebKit::InteractionInformationRequest, WTF::BlockPtr<void (UIPointerRegion *)>>>=""(?="__null_state_"c"__val_"{pair<WebKit::InteractionInformationRequest, WTF::BlockPtr<void (UIPointerRegion *)>>="first"{InteractionInformationRequest="point"{IntPoint="m_x"i"m_y"i}"includeSnapshot"B"includeLinkIndicator"B"includeCaretContext"B"includeHasDoubleClickHandler"B"includeImageData"B"linkIndicatorShouldHaveLegacyMargins"B"disallowUserAgentShadowContent"B}"second"{BlockPtr<void (UIPointerRegion *)>="m_block"@?}})"__engaged_"B}>
+  WKContentView._textInteractionAssistant <{RetainPtr<UIWKTextInteractionAssistant>="m_ptr"^v}>
+  WKContentView._suppressSelectionAssistantReasons <{OptionSet<WebKit::SuppressSelectionAssistantReason>="m_storage"C}>
+  WKContentView._traits <{RetainPtr<UITextInputTraits>="m_ptr"^v}>
+  WKContentView._formAccessoryView <{RetainPtr<UIWebFormAccessory>="m_ptr"^v}>
+  WKContentView._highlightView <{RetainPtr<_UIHighlightView>="m_ptr"^v}>
+  WKContentView._interactionViewsContainerView <{RetainPtr<UIView>="m_ptr"^v}>
+  WKContentView._contextMenuHintContainerView <{RetainPtr<WKTargetedPreviewContainer>="m_ptr"^v}>
+  WKContentView._scrollViewForTargetedPreview <{WeakObjCPtr<UIScrollView>="m_weakReference"@}>
+  WKContentView._scrollViewForTargetedPreviewInitialOffset <{CGPoint="x"d"y"d}>
+  WKContentView._dragPreviewContainerView <{RetainPtr<WKTargetedPreviewContainer>="m_ptr"^v}>
+  WKContentView._dropPreviewContainerView <{RetainPtr<WKTargetedPreviewContainer>="m_ptr"^v}>
+  WKContentView._markedText <{RetainPtr<NSString>="m_ptr"^v}>
+  WKContentView._actionSheetAssistant <{RetainPtr<WKActionSheetAssistant>="m_ptr"^v}>
+  WKContentView._airPlayRoutePicker <{RetainPtr<WKAirPlayRoutePicker>="m_ptr"^v}>
+  WKContentView._formInputSession <{RetainPtr<WKFormInputSession>="m_ptr"^v}>
+  WKContentView._fileUploadPanel <{RetainPtr<WKFileUploadPanel>="m_ptr"^v}>
+  WKContentView._frameInfoForFileUploadPanel <{FrameInfoData="isMainFrame"B"request"{ResourceRequest="m_url"{URL="m_string"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"m_isValid"b1"m_protocolIsInHTTPFamily"b1"m_cannotBeABaseURL"b1"m_portLength"b3"m_schemeEnd"b26"m_userStart"I"m_userEnd"I"m_passwordEnd"I"m_hostEnd"I"m_pathAfterLastSlash"I"m_pathEnd"I"m_queryEnd"I}"m_timeoutInterval"d"m_firstPartyForCookies"{URL="m_string"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"m_isValid"b1"m_protocolIsInHTTPFamily"b1"m_cannotBeABaseURL"b1"m_portLength"b3"m_schemeEnd"b26"m_userStart"I"m_userEnd"I"m_passwordEnd"I"m_hostEnd"I"m_pathAfterLastSlash"I"m_pathEnd"I"m_queryEnd"I}"m_httpMethod"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"m_initiatorIdentifier"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"m_cachePartition"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"m_httpHeaderFields"{HTTPHeaderMap="m_commonHeaders"{Vector<WebCore::HTTPHeaderMap::CommonHeader, 0UL, WTF::CrashOnOverflow, 6UL, WTF::FastMalloc>="m_buffer"^{CommonHeader}"m_capacity"I"m_size"I}"m_uncommonHeaders"{Vector<WebCore::HTTPHeaderMap::UncommonHeader, 0UL, WTF::CrashOnOverflow, 0UL, WTF::FastMalloc>="m_buffer"^{UncommonHeader}"m_capacity"I"m_size"I}}"m_responseContentDispositionEncodingFallbackArray"{Vector<WTF::String, 0UL, WTF::CrashOnOverflow, 16UL, WTF::FastMalloc>="m_buffer"^{String}"m_capacity"I"m_size"I}"m_httpBody"{RefPtr<WebCore::FormData, WTF::RawPtrTraits<WebCore::FormData>, WTF::DefaultRefDerefTraits<WebCore::FormData>>="m_ptr"^{FormData}}"m_cachePolicy"C"m_sameSiteDisposition"C"m_priority"C"m_requester"C"m_inspectorInitiatorNodeIdentifier"{optional<int>=""(?="__null_state_"c"__val_"i)"__engaged_"B}"m_allowCookies"b1"m_resourceRequestUpdated"b1"m_platformRequestUpdated"b1"m_resourceRequestBodyUpdated"b1"m_platformRequestBodyUpdated"b1"m_hiddenFromInspector"b1"m_isTopSite"b1"m_isAppInitiated"b1"m_systemPreviewInfo"{optional<WebCore::SystemPreviewInfo>=""(?="__null_state_"c"__val_"{SystemPreviewInfo="element"{ElementContext="boundingRect"{FloatRect="m_location"{FloatPoint="m_x"f"m_y"f}"m_size"{FloatSize="hasIntrinsicWidth"B"hasIntrinsicHeight"B"m_width"f"m_height"f}}"webPageIdentifier"{ObjectIdentifier<WebCore::PageIdentifierType>="m_identifier"Q}"documentIdentifier"{ProcessQualified<WTF::ObjectIdentifier<WebCore::ScriptExecutionContextIdentifierType>>="m_object"{ObjectIdentifier<WebCore::ScriptExecutionContextIdentifierType>="m_identifier"Q}"m_processIdentifier"{ObjectIdentifier<WebCore::ProcessIdentifierType>="m_identifier"Q}}"elementIdentifier"{ObjectIdentifier<WebCore::ElementIdentifierType>="m_identifier"Q}}"previewRect"{IntRect="m_location"{IntPoint="m_x"i"m_y"i}"m_size"{IntSize="m_width"i"m_height"i}}"isPreview"B})"__engaged_"B}"m_nsRequest"{RetainPtr<NSURLRequest>="m_ptr"^v}}"securityOrigin"{SecurityOriginData="protocol"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"host"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"port"{optional<unsigned short>=""(?="__null_state_"c"__val_"S)"__engaged_"B}}"frameName"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"frameID"{optional<WTF::ObjectIdentifier<WebCore::FrameIdentifierType>>=""(?="__null_state_"c"__val_"{ObjectIdentifier<WebCore::FrameIdentifierType>="m_identifier"Q})"__engaged_"B}"parentFrameID"{optional<WTF::ObjectIdentifier<WebCore::FrameIdentifierType>>=""(?="__null_state_"c"__val_"{ObjectIdentifier<WebCore::FrameIdentifierType>="m_identifier"Q})"__engaged_"B}}>
+  WKContentView._shareSheet <{RetainPtr<WKShareSheet>="m_ptr"^v}>
+  WKContentView._contactPicker <{RetainPtr<WKContactPicker>="m_ptr"^v}>
+  WKContentView._previewGestureRecognizer <{RetainPtr<UIGestureRecognizer>="m_ptr"^v}>
+  WKContentView._previewSecondaryGestureRecognizer <{RetainPtr<UIGestureRecognizer>="m_ptr"^v}>
+  WKContentView._focusStateStack <{Vector<bool, 0UL, WTF::CrashOnOverflow, 16UL, WTF::FastMalloc>="m_buffer"^B"m_capacity"I"m_size"I}>
+  WKContentView._contextMenuInteraction <{RetainPtr<UIContextMenuInteraction>="m_ptr"^v}>
+  WKContentView._contextMenuElementInfo <{RetainPtr<WKContextMenuElementInfo>="m_ptr"^v}>
+gesture.view methods:
+  WKContentView: _deleteByWord, _moveToStartOfDocument:withHistory:, _showTextStyleOptions:, _alignRight:, markedTextStyle, _characterInRelationToCaretSelection:, setIsEditable:, _doubleTapRecognized:, _transliterateChinese:, setMarkedText:selectedRange:, webView, toggleItalics:, selectTextWithGranularity:atPoint:completionHandler:, makeTextWritingDirectionNatural:, _translate:, _deleteToEndOfParagraph, _insertNestedOrderedListForWebView:, _lookup:, inputLabelText, _share:, isReplaceAllowed, setInputDelegate:, pasteAndMatchStyle:, timePickerValueHour, previewControllerDidDismiss:, textInRange:, caretRectForPosition:, toggleUnderlineForWebView:, _processWillSwap, _didPerformDragOperation:, setUpTextSelectionAssistant, makeTextWritingDirectionNaturalForWebView:, _setMouseEventPolicy:, clearSelection, _resetIsDoubleTapPending, _alignCenter:, _updateTextInputTraits:, dropInteraction:sessionDidUpdate:, selectionRectsForRange:, _preserveFocusWithToken:destructively:, cleanUpDragSourceSessionState, _processDidExit, selectionRange, pasteForWebView:, _elementDidBlur, hitTest:withEvent:, selecte...
+  WKApplicationStateTrackingView: _applicationDidEnterBackground, _applicationWillEnterForeground, _contentView, .cxx_construct, initWithFrame:webView:, .cxx_destruct, isBackground, willMoveToWindow:, didMoveToWindow, _willBeginSnapshotSequence, _applicationDidFinishSnapshottingAfterEnteringBackground, _didCompleteSnapshotSequence
+  UIView: _allLines, _setShowsLinesOnEdges:style:, _setImage:onEdges:outside:style:, _attachLine:toEdge:, ss_size, awe_parentViewController, setSs_origin:, setSs_size:, ss_origin, asyncSetRoundCornerImage:cornerRadius:completion:, dyyy_applyGlobalTransparency, bdas_attachmentIdentifier, bdas_setAttachmentIdentifier:, configureLayoutWithBlock:, isYogaEnabled, yoga, bdx_nativeViewName, bdx_viewWithName:, setBdx_nativeViewName:, bdp_makeConstraint, bdp_remakeConstraint, bdp_updateConstraint, bdp_enableKeyboardAutoTrackScroll:, bdp_findFirstResponder, bdp_setKeyboardBottomPaddingWhenAutoTrackScroll:forView:, bdp_KeyboardInfo, setBdp_KeyboardInfo:, bdp_findSubViewFor:, bdp_findSubViewForClass:, bdp_findSuperViewFor:, bdp_isSubviewOfView:, bdp_maskLayerOfTableViewCell:rowsCount:indexPath:, bdp_origin, bdp_originalFrame, bdp_setupDebugNameLable, bdp_setupRightDebugNameLableWithContent:, bdp_size, setBdp_origin:, setBdp_size:, bdp_rightBorder, bdp_addBorderForEdges:width:color:, bdp_bottomBorder, bdp_leftBorder, bdp_setupConstraintsForView:edge:width:, bdp_topBorder, setBdp_bottomBorder:, setB...
+  UIResponder: tm_collect_uiaction_identifier:, tm_uiaction_uiresponder_touchesBegan:withEvent:, tm_uiaction_uiresponder_touchesCancelled:withEvent:, tm_uiaction_uiresponder_touchesEnded:withEvent:, tm_uiaction_uiresponder_touchesMoved:withEvent:, lynx_actionWithSel:param:completeBlock:, lynx_getResultWithSel:param:completeBlock:, iesec_respondEvent:, voip_findFirstResponder:, voip_parentViewController, editingInteractionConfiguration, aAWEPadModuleAdapter, padKeyboardBindings_becomeFirstResponder, padKeyboardBindings_resignFirstResponder, ies_parentViewController, danceui__didChangeToFirstResponder:, danceui_firstResponder, btm_autoManaged, btm_notPageHolder, btm_pageIdentifier, setBtm_autoManaged:, setBtm_notPageHolder:, setBtm_pageIdentifier:, btm_nearestPage, btm_topPageItem, btm_associateStorage, btm_checkPageItems, btm_childPages, btm_disappearStatus, btm_forceDisappearStatus, btm_getValueForKey:, btm_inDisplay, btm_isPageHolder, btm_lazyCreatePageItem, btm_nearestPageHolder, btm_nearestWithPageId, btm_node, btm_pageIdSetByJsb, btm_pageItem, btm_registerTimestamp, btm_setValue:fo...
+gesture.targets = [(action=BSTHandleGesture:, target=<BSTUIGestureRecognizerObserver 0x280baa0b0>), (action=_singleTapRecognized:, target=<WKContentView 0x2afd49600>), (action=awe_UITracker_gestureRecognizer:, target=<WKContentView 0x2afd49600>)]
+gesture.targetAction[0] = <UIGestureRecognizerTarget: 0x288ec4da0>
+gesture.targetAction[0].description = (action=BSTHandleGesture:, target=<BSTUIGestureRecognizerObserver 0x280baa0b0>)
+gesture.targetAction[0] ivars:
+  UIGestureRecognizerTarget._target <@> = <BSTUIGestureRecognizerObserver: 0x280baa0b0> <BSTUIGestureRecognizerObserver: 0x280baa0b0>
+  UIGestureRecognizerTarget._action <:> = BSTHandleGesture:
+gesture.targetAction[0] methods:
+  UIGestureRecognizerTarget: .cxx_destruct, target, action, description
+gesture.targetAction[1] = <UIGestureRecognizerTarget: 0x288ec4dc0>
+gesture.targetAction[1].description = (action=_singleTapRecognized:, target=<WKContentView 0x2afd49600>)
+gesture.targetAction[1] ivars:
+  UIGestureRecognizerTarget._target <@> = <WKContentView: 0x2afd49600> <WKContentView: 0x2afd49600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28d9e7f90>; layer = <CALayer: 0x288f6efc0>>
+  UIGestureRecognizerTarget._action <:> = _singleTapRecognized:
+gesture.targetAction[1] methods:
+  UIGestureRecognizerTarget: .cxx_destruct, target, action, description
+gesture.targetAction[2] = <UIGestureRecognizerTarget: 0x288ec4de0>
+gesture.targetAction[2].description = (action=awe_UITracker_gestureRecognizer:, target=<WKContentView 0x2afd49600>)
+gesture.targetAction[2] ivars:
+  UIGestureRecognizerTarget._target <@> = <WKContentView: 0x2afd49600> <WKContentView: 0x2afd49600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28d9e7f90>; layer = <CALayer: 0x288f6efc0>>
+  UIGestureRecognizerTarget._action <:> = awe_UITracker_gestureRecognizer:
+gesture.targetAction[2] methods:
+  UIGestureRecognizerTarget: .cxx_destruct, target, action, description
+heuristic.bagType = 未知
+heuristic.condition = 未知
+
+#006 02:02:37.274 文本输入变化
+----------------------------------------
+textInput.class = <IESLiveCommentTextView: 0x2afff0200>
+textInput.text = 
+textInput.nearestVC = IESLiveAudienceViewController
+textInput.visibleTextAround = 点点关注 点点赞 好运常伴！ | 发送
+textInput.superviewPath = <IESLiveCommentTextView: 0x2afff0200 frame={{12, 10}, {296, 20}}> <- <IESLiveCommentWidgetInputView: 0x17bc38000 frame={{0, 0}, {320, 40}}> <- <UIView: 0x17bcdece0 frame={{16, 8}, {320, 40}}> <- <UIView: 0x17c8d6a60 frame={{0, 530}, {414, 56}}> <- <IESLiveCommentPanelNormalImp: 0x2c402b450 frame={{0, 0}, {414, 896}}> <- <HTSEventForwardingView: 0x2b9d52190 frame={{0, 0}, {414, 896}}> <- <HTSLive4LayerContainerView: 0x2b9d4e8a0 frame={{0, 0}, {414, 896}}> <- <UIView: 0x17df3e050 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e4010 frame={{0, 0}, {414, 896}}> <- <IESLiveInnerFeedLiveRoomCell: 0x2b6a6c250 frame={{0, 0}, {414, 896}}> <- <IESLiveFeedCollectionView: 0x2bc995200 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e3ab0 frame={{0, 0}, {414, 896}}>
+heuristic.bagType = 未知
+heuristic.condition = 评论/弹幕/口令, 关注主播
+heuristic.commentCandidate = 0x2afff0200; baseClass = UITextView; frame = (12 10; 296 20
+heuristic.visibleText =  点点关注 点点赞 好运常伴！ | 发送
+textInput values:
+  text=点点关注 点点赞 好运常伴！
+  delegate=<IESLiveCommentWidgetInputView: 0x17bc38000> <IESLiveCommentWidgetInputView: 0x17bc38000; frame = (0 0; 320 40); clipsToBounds = YES; animations = { bounds.origin=<CABasicAnimation: 0x288e51a20>; bounds.size=<CABasicAnimation: 0x288e51a40>; position=<CABasicAnimation: 0x288e51aa0>; }; layer = <CALayer: 0...
+
+#007 02:02:37.284 文本输入变化
+----------------------------------------
+textInput.class = <UITextView: 0x2bcd54400>
+textInput.text = 
+textInput.nearestVC = IESLiveAudienceViewController
+textInput.visibleTextAround = 点点关注 点点赞 好运常伴！ | 发送
+textInput.superviewPath = <UITextView: 0x2bcd54400 frame={{12, 10}, {296, 20}}> <- <IESLiveCommentWidgetInputView: 0x17bc38000 frame={{0, 0}, {320, 40}}> <- <UIView: 0x17bcdece0 frame={{16, 8}, {320, 40}}> <- <UIView: 0x17c8d6a60 frame={{0, 530}, {414, 56}}> <- <IESLiveCommentPanelNormalImp: 0x2c402b450 frame={{0, 0}, {414, 896}}> <- <HTSEventForwardingView: 0x2b9d52190 frame={{0, 0}, {414, 896}}> <- <HTSLive4LayerContainerView: 0x2b9d4e8a0 frame={{0, 0}, {414, 896}}> <- <UIView: 0x17df3e050 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e4010 frame={{0, 0}, {414, 896}}> <- <IESLiveInnerFeedLiveRoomCell: 0x2b6a6c250 frame={{0, 0}, {414, 896}}> <- <IESLiveFeedCollectionView: 0x2bc995200 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e3ab0 frame={{0, 0}, {414, 896}}>
+heuristic.bagType = 未知
+heuristic.condition = 评论/弹幕/口令, 关注主播
+heuristic.commentCandidate = 0x2bcd54400; frame = (12 10; 296 20); text = '说点什么'; clipsT
+heuristic.visibleText =  点点关注 点点赞 好运常伴！ | 发送
+textInput values:
+  text=说点什么
+
+#008 02:02:37.291 文本输入变化
+----------------------------------------
+textInput.class = <IESLiveCommentTextView: 0x2afff0200>
+textInput.text = 点点关注 点点赞 好运常伴！
+textInput.nearestVC = IESLiveAudienceViewController
+textInput.visibleTextAround = 点点关注 点点赞 好运常伴！ | 发送
+textInput.superviewPath = <IESLiveCommentTextView: 0x2afff0200 frame={{12, 10}, {296, 20}}> <- <IESLiveCommentWidgetInputView: 0x17bc38000 frame={{0, 0}, {320, 40}}> <- <UIView: 0x17bcdece0 frame={{16, 8}, {320, 40}}> <- <UIView: 0x17c8d6a60 frame={{0, 530}, {414, 56}}> <- <IESLiveCommentPanelNormalImp: 0x2c402b450 frame={{0, 0}, {414, 896}}> <- <HTSEventForwardingView: 0x2b9d52190 frame={{0, 0}, {414, 896}}> <- <HTSLive4LayerContainerView: 0x2b9d4e8a0 frame={{0, 0}, {414, 896}}> <- <UIView: 0x17df3e050 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e4010 frame={{0, 0}, {414, 896}}> <- <IESLiveInnerFeedLiveRoomCell: 0x2b6a6c250 frame={{0, 0}, {414, 896}}> <- <IESLiveFeedCollectionView: 0x2bc995200 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e3ab0 frame={{0, 0}, {414, 896}}>
+heuristic.bagType = 未知
+heuristic.condition = 评论/弹幕/口令, 关注主播
+heuristic.commentCandidate = 0x2afff0200; baseClass = UITextView; frame = (12 10; 296 20
+heuristic.visibleText = 点点关注 点点赞 好运常伴！ 点点关注 点点赞 好运常伴！ | 发送
+textInput values:
+  text=点点关注 点点赞 好运常伴！
+  delegate=<IESLiveCommentWidgetInputView: 0x17bc38000> <IESLiveCommentWidgetInputView: 0x17bc38000; frame = (0 0; 320 40); clipsToBounds = YES; animations = { bounds.origin=<CABasicAnimation: 0x288e51a20>; bounds.size=<CABasicAnimation: 0x288e51a40>; position=<CABasicAnimation: 0x288e51aa0>; }; layer = <CALayer: 0...
+
+#009 02:02:37.298 文本输入变化
+----------------------------------------
+textInput.class = <UITextView: 0x2bcd54400>
+textInput.text = 说点什么
+textInput.nearestVC = IESLiveAudienceViewController
+textInput.visibleTextAround = 点点关注 点点赞 好运常伴！ | 发送
+textInput.superviewPath = <UITextView: 0x2bcd54400 frame={{12, 10}, {296, 20}}> <- <IESLiveCommentWidgetInputView: 0x17bc38000 frame={{0, 0}, {320, 40}}> <- <UIView: 0x17bcdece0 frame={{16, 8}, {320, 40}}> <- <UIView: 0x17c8d6a60 frame={{0, 530}, {414, 56}}> <- <IESLiveCommentPanelNormalImp: 0x2c402b450 frame={{0, 0}, {414, 896}}> <- <HTSEventForwardingView: 0x2b9d52190 frame={{0, 0}, {414, 896}}> <- <HTSLive4LayerContainerView: 0x2b9d4e8a0 frame={{0, 0}, {414, 896}}> <- <UIView: 0x17df3e050 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e4010 frame={{0, 0}, {414, 896}}> <- <IESLiveInnerFeedLiveRoomCell: 0x2b6a6c250 frame={{0, 0}, {414, 896}}> <- <IESLiveFeedCollectionView: 0x2bc995200 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e3ab0 frame={{0, 0}, {414, 896}}>
+heuristic.bagType = 未知
+heuristic.condition = 评论/弹幕/口令, 关注主播
+heuristic.commentCandidate = 0x2bcd54400; frame = (12 10; 296 20); text = '说点什么'; clipsT
+heuristic.visibleText = 说点什么 点点关注 点点赞 好运常伴！ | 发送
+textInput values:
+  text=说点什么
+
+#010 02:02:38.221 文本输入变化
+----------------------------------------
+textInput.class = <IESLiveCommentTextView: 0x2afff0200>
+textInput.text = 点点关注 点点赞 好运常伴！
+textInput.nearestVC = IESLiveAudienceViewController
+textInput.visibleTextAround = 点点关注 点点赞 好运常伴！ | 发送
+textInput.superviewPath = <IESLiveCommentTextView: 0x2afff0200 frame={{12, 10}, {296, 20}}> <- <IESLiveCommentWidgetInputView: 0x17bc38000 frame={{0, 0}, {320, 40}}> <- <UIView: 0x17bcdece0 frame={{16, 8}, {320, 40}}> <- <UIView: 0x17c8d6a60 frame={{0, 421}, {414, 56}}> <- <IESLiveCommentPanelNormalImp: 0x2c402b450 frame={{0, 475}, {414, 896}}> <- <HTSEventForwardingView: 0x2b9d52190 frame={{0, 0}, {414, 896}}> <- <HTSLive4LayerContainerView: 0x2b9d4e8a0 frame={{0, 0}, {414, 896}}> <- <UIView: 0x17df3e050 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e4010 frame={{0, 0}, {414, 896}}> <- <IESLiveInnerFeedLiveRoomCell: 0x2b6a6c250 frame={{0, 0}, {414, 896}}> <- <IESLiveFeedCollectionView: 0x2bc995200 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e3ab0 frame={{0, 0}, {414, 896}}>
+heuristic.bagType = 未知
+heuristic.condition = 评论/弹幕/口令, 关注主播
+heuristic.commentCandidate = 0x2afff0200; baseClass = UITextView; frame = (12 10; 296 20
+heuristic.visibleText = 点点关注 点点赞 好运常伴！ 点点关注 点点赞 好运常伴！ | 发送
+textInput values:
+  text=点点关注 点点赞 好运常伴！
+  delegate=<IESLiveCommentWidgetInputView: 0x17bc38000> <IESLiveCommentWidgetInputView: 0x17bc38000; frame = (0 0; 320 40); clipsToBounds = YES; layer = <CALayer: 0x288e5f4a0>>
+
+#011 02:02:44.129 点击手势
+----------------------------------------
+UIGestureRecognizer state = 3
+gestureRecognizer = <WKSyntheticTapGestureRecognizer: 0x2c31e5a10>
+gestureRecognizer.description = <WKSyntheticTapGestureRecognizer: 0x2c31e5a10; baseClass = UITapGestureRecognizer; state = Ended; view = <WKContentView 0x2aff6d600>; targets= <(     "(action=BSTHandleGesture:, target=<BSTUIGestureRecognizerObserver 0x280baa0b0>)",     "(action=_singleTapRecognized:, target=<WKContentView 0x2aff6d600>)",     "(action=awe_UITracker_gestureRecognizer:, target=<WKContentView 0x2aff6d600>)" )>; must-fail = {         <WKSyntheticTapGestureRecognizer: 0x17dbb25c0; baseClass = UITapGestureRecognizer; ...
+gestureRecognizer.state = 3, enabled = YES, view = <WKContentView: 0x2aff6d600>
+gestureRecognizer likelyValues:
+  delegate=<WKContentView: 0x2aff6d600> <WKContentView: 0x2aff6d600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28ddc4f90>; layer = <CALayer: 0x288e0cba0>>
+gestureRecognizer ivars:
+  WKSyntheticTapGestureRecognizer._gestureIdentifiedTarget <@> = <WKContentView: 0x2aff6d600> <WKContentView: 0x2aff6d600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28ddc4f90>; layer = <CALayer: 0x288e0cba0>>
+  WKSyntheticTapGestureRecognizer._gestureIdentifiedAction <:> = _singleTapIdentified:
+  WKSyntheticTapGestureRecognizer._gestureFailedTarget <@>
+  WKSyntheticTapGestureRecognizer._gestureFailedAction <:>
+  WKSyntheticTapGestureRecognizer._resetTarget <@> = <WKContentView: 0x2aff6d600> <WKContentView: 0x2aff6d600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28ddc4f90>; layer = <CALayer: 0x288e0cba0>>
+  WKSyntheticTapGestureRecognizer._resetAction <:> = _singleTapDidReset:
+  WKSyntheticTapGestureRecognizer._lastActiveTouchIdentifier <{RetainPtr<NSNumber>="m_ptr"^v}>
+  WKSyntheticTapGestureRecognizer._lastTouchedScrollView <@"UIScrollView">
+  WKSyntheticTapGestureRecognizer._supportingWebTouchEventsGestureRecognizer <@"UIWebTouchEventsGestureRecognizer"> = <UIWebTouchEventsGestureRecognizer: 0x2c31e4c10> <UIWebTouchEventsGestureRecognizer: 0x2c31e4c10; state = Failed; view = <WKContentView 0x2aff6d600>; target= <(action=awe_UITracker_gestureRecognizer:, target=<WKContentView 0x2aff...
+  UITapGestureRecognizer._locationInView <{CGPoint="x"d"y"d}>
+  UITapGestureRecognizer._imp <@"UITapRecognizer"> = <UITapRecognizer: 0x28f0271e0> <UITapRecognizer: 0x28f0271e0>
+  UITapGestureRecognizer._delaysRecognitionForGreaterTapCounts <I> = 0
+  UITapGestureRecognizer._isSingleKeyPressGesture <B> = NO
+  UITapGestureRecognizer._buttonType <q> = -1
+  UIGestureRecognizer._gestureFlags <{?="delegateShouldBegin"b1"delegateCanPrevent"b1"delegateCanBePrevented"b1"delegateShouldRecognizeSimultaneously"b1"delegateShouldReceiveEvent"b1"delegateShouldReceiveTouch"b1"delegateShouldReceivePress"b1"delegateShouldRequireFailure"b1"delegateShouldBeRequiredToFail"b1"delegateFailed"b1"privateDelegateShouldBegin"b1"privateDelegateCanPrevent"b1"privateDelegateCanBePrevented"b1"privateDelegateShouldRecognizeSimultaneously"b1"privateDelegateShouldReceiveEvent"b1"privateDelegateShouldReceiveTouch"b1"privateDelegateShouldReceivePress"b1"privateDelegateShouldRequireFailure"b1"privateDelegateShouldBeRequiredToFail"b1"subclassShouldRequireFailure"b1"subclassShouldBeRequiredToFail"b1"hasSubclassDynamicFailureRequirements"b1"hasDelegateDynamicFailureRequirements"b1"subclassTouchesEstimatedPropertiesUpdated"b1"queriedFailureRequirements"b1"cancelsTouchesInView"b1"delaysTouchesBegan"b1"delaysTouchesEnded"b1"disabled"b1"dirty"b1"delivered"b1"deliveredEndedOrCancelled"b1"continuous"b1"requiresDelayedBegan"b1"willBeginAfterSatisfyingFailureRequirements"b1"requiresSystemGesturesToFail"b1"acceptsFailureRequirements"b1"requiresExclusiveTouchType"b1"initialTouchTypeIsValid"b1"forceRequirementSatisfied"b1"wantsDragEvents"b1"conformsToDragEventRespondable"b1"isDynamicGesture"b1"canExcludeWithActiveRequirements"b1"isObservingGesture"b1"didCheckForcePressShouldBegin"b1"canSendForcePressAction"b1"queriedShouldReceiveTouchesEvent"b1"shouldReceiveTouchesEvent"b1"queriedDelegateShouldReceiveTouchesEvent"b1"delegateShouldReceiveTouchesEvent"b1"queriedShouldReceivePressesEvent"b1"shouldReceivePressesEvent"b1"queriedDelegateShouldReceivePressesEvent"b1"delegateShouldReceivePressesEvent"b1"conformsToHoverEventRespondable"b1"conformsToScrollEventRespondable"b1"conformsToTransformEventRespondable"b1"canBeCancelledByAffectedViews"b1}>
+  UIGestureRecognizer._targets <@"NSMutableArray"> = [(action=BSTHandleGesture:, target=<BSTUIGestureRecognizerObserver 0x280baa0b0>), (action=_singleTapRecognized:, target=<WKContentView 0x2aff6d600>), (action=awe_UITracker_gestureR...
+  UIGestureRecognizer._delayedTouches <@"NSMutableArray"> = [<UIGestureDelayedTouch: 0x28958a200; touch = <UITouch: 0x2b9d92d10>; delayed phase = Ended>]
+  UIGestureRecognizer._delayedPresses <@"NSMutableArray">
+  UIGestureRecognizer._owner <@"<_UIGestureOwning>"> = <WKContentView: 0x2aff6d600> <WKContentView: 0x2aff6d600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28ddc4f90>; layer = <CALayer: 0x288e0cba0>>
+  UIGestureRecognizer._lastTouchTimestamp <d> = 6427.190493
+  UIGestureRecognizer._firstEventTimestamp <d> = 6427.132605
+  UIGestureRecognizer._state <q> = 3
+  UIGestureRecognizer._allowedTouchTypes <q> = 15
+  UIGestureRecognizer._initialTouchType <q> = 0
+  UIGestureRecognizer._internalActiveTouches <@"NSMutableSet"> = <__NSSetM: 0x288f6e880> {( )}
+  UIGestureRecognizer._forceClassifier <@"_UIForceLevelClassifier">
+  UIGestureRecognizer._requiredPreviewForceState <q> = 0
+  UIGestureRecognizer._touchForceObservable <@"_UITouchForceObservable">
+  UIGestureRecognizer._touchForceObservableAndClassifierObservation <@"NSObservation">
+  UIGestureRecognizer._forceTargets <@"NSMutableArray">
+  UIGestureRecognizer._forcePressCount <Q> = 0
+  UIGestureRecognizer._beganObservable <@"NSObservationSource">
+  UIGestureRecognizer._failureRequirements <@"NSMutableSet"> = <__NSCFSet: 0x28ddc5a40> {(     <WKSyntheticTapGestureRecognizer: 0x17dbb25c0; baseClass = UITapGestureRecognizer; state = Possible; enabled = NO; view = <WKContentView 0x2aff6d600>; targets= <(     "(acti...
+  UIGestureRecognizer._failureDependents <@"NSMutableSet">
+  UIGestureRecognizer._activeEvents <@"NSMutableSet"> = <__NSSetM: 0x288f6f920> {(     <UITouchesEvent: 0x283c289c0> timestamp: 6427.19 touches: {( )} )}
+  UIGestureRecognizer._inputPrecision <Q> = 1
+  UIGestureRecognizer._buttonMask <q> = 0
+  UIGestureRecognizer._modifierFlags <q> = 0
+  UIGestureRecognizer._analyticsGestureHandled <B> = NO
+  UIGestureRecognizer._keepTouchesOnContinuation <B> = NO
+  UIGestureRecognizer._delegate <@"<UIGestureRecognizerDelegate>"> = <WKContentView: 0x2aff6d600> <WKContentView: 0x2aff6d600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28ddc4f90>; layer = <CALayer: 0x288e0cba0>>
+  UIGestureRecognizer._allowedPressTypes <@"NSArray">
+  UIGestureRecognizer._name <@"NSString">
+  UIGestureRecognizer._gestureEnvironment <@"UIGestureEnvironment"> = <UIGestureEnvironment: 0x2822a03f0> <UIGestureEnvironment: 0x2822a03f0>
+gestureRecognizer methods:
+  WKSyntheticTapGestureRecognizer: lastTouchedScrollView, .cxx_construct, .cxx_destruct, setGestureIdentifiedTarget:action:, reset, supportingWebTouchEventsGestureRecognizer, setState:, lastActiveTouchIdentifier, setResetTarget:action:, touchesBegan:withEvent:, setSupportingWebTouchEventsGestureRecognizer:, touchesEnded:withEvent:, setGestureFailedTarget:action:
+  UITapGestureRecognizer: cj_didTapAttributedTextInLabel:inRange:, btm_initWithTarget:action:, _isGestureType:, setAllowableMovement:, centroid, locationInView:, maximumIntervalBetweenSuccessiveTaps, setButtonMaskRequired:, numberOfTouchesRequired, setNumberOfTouchesRequired:, initWithCoder:, shouldRequireFailureOfGestureRecognizer:, _digitizerLocation, numberOfTouches, allowableMovement, touchesMoved:withEvent:, touches, .cxx_destruct, initWithTarget:action:, setAllowedPressTypes:, setMaximumIntervalBetweenSuccessiveTaps:, touchesCancelled:withEvent:, tapRecognizerRecognizedTap:, canPreventGestureRecognizer:, _touchSloppinessFactor, maximumTapDuration, pressesCancelled:withEvent:, _buttonMaskRequired, _setButtonMaskRequired:, _delaysRecognitionForGreaterTapCounts, _setDelaysRecognitionForGreaterTapCounts:, isSingleKeyPressGesture, setIsSingleKeyPressGesture:, _buttonType, buttonMaskRequired, location, setMaximumSingleTapDuration:, _setButtonType:, pressesEnded:withEvent:, setMaximumTapDuration:, _setAllowableTouchTimeSeparation:, _setAllowableSeparation:, setNumberOfTapsRequired:, _re...
+  UIGestureRecognizer: tm_uiaction_get_changed_state_flag, tm_uiaction_setState:, tm_uiaction_set_changed_state_flag:, live_gestureShouldBeginBlock, live_gestureShouldReceiveTouch, setLive_gestureShouldBeginBlock:, setLive_gestureShouldReceiveTouch:, __enableThrottler, __throttleAction:, __throttlerWithTarget:action:interval:, rtv_addTarget:action:customInterval:, rtv_addTarget:action:definedInterval:, rtv_setThrottler:, rtv_throttler, addTarget_dataRef:action:, initWithTarget_dataRef:action:, _allUIGestureRecognizerBlockTargets, btd_addActionBlock:, btd_removeAllActionBlocks, perf_setState:, setRender:, render, _danceui_hoverExited:withEvent:, danceui_hoverEntered:withEvent:, _danceui__updateForActiveEvents, _danceui__isGestureType:, _danceui__updateGestureForActiveEvents, _danceui_hoverCancelled:withEvent:, _danceui_hoverEntered:withEvent:, _danceui_hoverMoved:withEvent:, _danceui_transformChangedWithEvent:, danceui_hoverCancelled:withEvent:, danceui_hoverExited:withEvent:, danceui_hoverMoved:withEvent:, danceui_transformChangedWithEvent:, rac_gestureSignal, hmd_initWithTarget:action...
+gesture.view = <WKContentView: 0x2aff6d600>
+gesture.view.description = <WKContentView: 0x2aff6d600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28ddc4f90>; layer = <CALayer: 0x288e0cba0>>
+gesture.view.frame = {{0, 0}, {414, 885}}, bounds = {{0, 0}, {414, 885}}, hidden = NO, alpha = 1.000, userInteraction = YES
+gesture.view.nearestVC = <BDXPopupViewController: 0x1658afa00>
+gesture.view.superviewPath = <WKContentView: 0x2aff6d600 frame={{0, 0}, {414, 885}}> <- <WKScrollView: 0x2c3942000 frame={{0, 0}, {414, 885}}> <- <BDXWebView: 0x165bb5c00 frame={{0, 0}, {414, 885}}> <- <BDXView: 0x2c3290130 frame={{0, 0}, {414, 885}}> <- <BDXPopupViewContainer: 0x2c3282ad0 frame={{0, 10.799999999999955}, {414, 885.20000000000005}}> <- <UIView: 0x17bc810d0 frame={{0, 0}, {414, 896}}> <- <HTSLivePopupContainer: 0x2b9d51660 frame={{0, 0}, {414, 896}}> <- <HTSLive4LayerContainerView: 0x2b9d4e8a0 frame={{0, 0}, {414, 896}}> <- <UIView: 0x17df3e050 frame={{0, 0}, {414, 896}}> <- <UIView: 0x2b72e4010 frame={{0, 0}, {414, 896}}> <- <IESLiveInnerFeedLiveRoomCell: 0x2b6a6c250 frame={{0, 0}, {414, 896}}> <- <IESLiveFeedCollectionView: 0x2bc995200 frame={{0, 0}, {414, 896}}>
+gesture.view.subviews = 0:<UIView: 0x2c320e5f0 frame={{0, 0}, {414, 885}} text=>; 1:<_UILayerHostView: 0x2c3264000 frame={{0, 0}, {0, 0}} text=>
+gesture.view ivars:
+  WKContentView._page <{RefPtr<WebKit::WebPageProxy, WTF::RawPtrTraits<WebKit::WebPageProxy>, WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>="m_ptr"^{WebPageProxy}}>
+  WKContentView._webView <{WeakObjCPtr<WKWebView>="m_weakReference"@}>
+  WKContentView._touchStartDeferringGestureRecognizerForImmediatelyResettableGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchStartDeferringGestureRecognizerForDelayedResettableGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchStartDeferringGestureRecognizerForSyntheticTapGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchEndDeferringGestureRecognizerForImmediatelyResettableGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchEndDeferringGestureRecognizerForDelayedResettableGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchEndDeferringGestureRecognizerForSyntheticTapGestures <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._failedTouchStartDeferringGestures <{optional<WTF::HashSet<WTF::RetainPtr<WKDeferringGestureRecognizer>>>=""(?="__null_state_"c"__val_"{HashSet<WTF::RetainPtr<WKDeferringGestureRecognizer>, WTF::DefaultHash<WTF::RetainPtr<WKDeferringGestureRecognizer>>, WTF::HashTraits<WTF::RetainPtr<WKDeferringGestureRecognizer>>, WTF::HashTableTraits>="m_impl"{HashTable<WTF::RetainPtr<WKDeferringGestureRecognizer>, WTF::RetainPtr<WKDeferringGestureRecognizer>, WTF::IdentityExtractor, WTF::DefaultHash<WTF::RetainPtr<WKDeferringGestureRecognizer>>, WTF::HashTraits<WTF::RetainPtr<WKDeferringGestureRecognizer>>, WTF::HashTraits<WTF::RetainPtr<WKDeferringGestureRecognizer>>>=""(?="m_table"^v"m_tableForLLDB"^I)}})"__engaged_"B}>
+  WKContentView._imageAnalysisDeferringGestureRecognizer <{RetainPtr<WKDeferringGestureRecognizer>="m_ptr"^v}>
+  WKContentView._gestureRecognizerConsistencyEnforcer <{unique_ptr<WebKit::GestureRecognizerConsistencyEnforcer, std::default_delete<WebKit::GestureRecognizerConsistencyEnforcer>>="__ptr_"{__compressed_pair<WebKit::GestureRecognizerConsistencyEnforcer *, std::default_delete<WebKit::GestureRecognizerConsistencyEnforcer>>="__value_"^{GestureRecognizerConsistencyEnforcer}}}>
+  WKContentView._touchEventGestureRecognizer <{RetainPtr<UIWebTouchEventsGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchEventsCanPreventNativeGestures <B> = YES
+  WKContentView._preventsPanningInXAxis <B> = NO
+  WKContentView._preventsPanningInYAxis <B> = NO
+  WKContentView._singleTapGestureRecognizer <{RetainPtr<WKSyntheticTapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._highlightLongPressGestureRecognizer <{RetainPtr<WKHighlightLongPressGestureRecognizer>="m_ptr"^v}>
+  WKContentView._longPressGestureRecognizer <{RetainPtr<UILongPressGestureRecognizer>="m_ptr"^v}>
+  WKContentView._doubleTapGestureRecognizer <{RetainPtr<WKSyntheticTapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._nonBlockingDoubleTapGestureRecognizer <{RetainPtr<UITapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._doubleTapGestureRecognizerForDoubleClick <{RetainPtr<UITapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._twoFingerDoubleTapGestureRecognizer <{RetainPtr<UITapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._twoFingerSingleTapGestureRecognizer <{RetainPtr<UITapGestureRecognizer>="m_ptr"^v}>
+  WKContentView._inspectorNodeSearchGestureRecognizer <{RetainPtr<WKInspectorNodeSearchGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchActionGestureRecognizer <{RetainPtr<WKTouchActionGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchActionLeftSwipeGestureRecognizer <{RetainPtr<UISwipeGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchActionRightSwipeGestureRecognizer <{RetainPtr<UISwipeGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchActionUpSwipeGestureRecognizer <{RetainPtr<UISwipeGestureRecognizer>="m_ptr"^v}>
+  WKContentView._touchActionDownSwipeGestureRecognizer <{RetainPtr<UISwipeGestureRecognizer>="m_ptr"^v}>
+  WKContentView._mouseGestureRecognizer <{RetainPtr<WKMouseGestureRecognizer>="m_ptr"^v}>
+  WKContentView._mouseEventPolicy <C> = 0
+  WKContentView._hoverPlatter <{RetainPtr<WKHoverPlatter>="m_ptr"^v}>
+  WKContentView._scribbleInteraction <{RetainPtr<UIIndirectScribbleInteraction>="m_ptr"^v}>
+  WKContentView._pointerInteraction <{RetainPtr<UIPointerInteraction>="m_ptr"^v}>
+  WKContentView._hasOutstandingPointerInteractionRequest <B> = NO
+  WKContentView._deferredPointerInteractionRequest <{optional<std::pair<WebKit::InteractionInformationRequest, WTF::BlockPtr<void (UIPointerRegion *)>>>=""(?="__null_state_"c"__val_"{pair<WebKit::InteractionInformationRequest, WTF::BlockPtr<void (UIPointerRegion *)>>="first"{InteractionInformationRequest="point"{IntPoint="m_x"i"m_y"i}"includeSnapshot"B"includeLinkIndicator"B"includeCaretContext"B"includeHasDoubleClickHandler"B"includeImageData"B"linkIndicatorShouldHaveLegacyMargins"B"disallowUserAgentShadowContent"B}"second"{BlockPtr<void (UIPointerRegion *)>="m_block"@?}})"__engaged_"B}>
+  WKContentView._textInteractionAssistant <{RetainPtr<UIWKTextInteractionAssistant>="m_ptr"^v}>
+  WKContentView._suppressSelectionAssistantReasons <{OptionSet<WebKit::SuppressSelectionAssistantReason>="m_storage"C}>
+  WKContentView._traits <{RetainPtr<UITextInputTraits>="m_ptr"^v}>
+  WKContentView._formAccessoryView <{RetainPtr<UIWebFormAccessory>="m_ptr"^v}>
+  WKContentView._highlightView <{RetainPtr<_UIHighlightView>="m_ptr"^v}>
+  WKContentView._interactionViewsContainerView <{RetainPtr<UIView>="m_ptr"^v}>
+  WKContentView._contextMenuHintContainerView <{RetainPtr<WKTargetedPreviewContainer>="m_ptr"^v}>
+  WKContentView._scrollViewForTargetedPreview <{WeakObjCPtr<UIScrollView>="m_weakReference"@}>
+  WKContentView._scrollViewForTargetedPreviewInitialOffset <{CGPoint="x"d"y"d}>
+  WKContentView._dragPreviewContainerView <{RetainPtr<WKTargetedPreviewContainer>="m_ptr"^v}>
+  WKContentView._dropPreviewContainerView <{RetainPtr<WKTargetedPreviewContainer>="m_ptr"^v}>
+  WKContentView._markedText <{RetainPtr<NSString>="m_ptr"^v}>
+  WKContentView._actionSheetAssistant <{RetainPtr<WKActionSheetAssistant>="m_ptr"^v}>
+  WKContentView._airPlayRoutePicker <{RetainPtr<WKAirPlayRoutePicker>="m_ptr"^v}>
+  WKContentView._formInputSession <{RetainPtr<WKFormInputSession>="m_ptr"^v}>
+  WKContentView._fileUploadPanel <{RetainPtr<WKFileUploadPanel>="m_ptr"^v}>
+  WKContentView._frameInfoForFileUploadPanel <{FrameInfoData="isMainFrame"B"request"{ResourceRequest="m_url"{URL="m_string"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"m_isValid"b1"m_protocolIsInHTTPFamily"b1"m_cannotBeABaseURL"b1"m_portLength"b3"m_schemeEnd"b26"m_userStart"I"m_userEnd"I"m_passwordEnd"I"m_hostEnd"I"m_pathAfterLastSlash"I"m_pathEnd"I"m_queryEnd"I}"m_timeoutInterval"d"m_firstPartyForCookies"{URL="m_string"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"m_isValid"b1"m_protocolIsInHTTPFamily"b1"m_cannotBeABaseURL"b1"m_portLength"b3"m_schemeEnd"b26"m_userStart"I"m_userEnd"I"m_passwordEnd"I"m_hostEnd"I"m_pathAfterLastSlash"I"m_pathEnd"I"m_queryEnd"I}"m_httpMethod"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"m_initiatorIdentifier"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"m_cachePartition"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"m_httpHeaderFields"{HTTPHeaderMap="m_commonHeaders"{Vector<WebCore::HTTPHeaderMap::CommonHeader, 0UL, WTF::CrashOnOverflow, 6UL, WTF::FastMalloc>="m_buffer"^{CommonHeader}"m_capacity"I"m_size"I}"m_uncommonHeaders"{Vector<WebCore::HTTPHeaderMap::UncommonHeader, 0UL, WTF::CrashOnOverflow, 0UL, WTF::FastMalloc>="m_buffer"^{UncommonHeader}"m_capacity"I"m_size"I}}"m_responseContentDispositionEncodingFallbackArray"{Vector<WTF::String, 0UL, WTF::CrashOnOverflow, 16UL, WTF::FastMalloc>="m_buffer"^{String}"m_capacity"I"m_size"I}"m_httpBody"{RefPtr<WebCore::FormData, WTF::RawPtrTraits<WebCore::FormData>, WTF::DefaultRefDerefTraits<WebCore::FormData>>="m_ptr"^{FormData}}"m_cachePolicy"C"m_sameSiteDisposition"C"m_priority"C"m_requester"C"m_inspectorInitiatorNodeIdentifier"{optional<int>=""(?="__null_state_"c"__val_"i)"__engaged_"B}"m_allowCookies"b1"m_resourceRequestUpdated"b1"m_platformRequestUpdated"b1"m_resourceRequestBodyUpdated"b1"m_platformRequestBodyUpdated"b1"m_hiddenFromInspector"b1"m_isTopSite"b1"m_isAppInitiated"b1"m_systemPreviewInfo"{optional<WebCore::SystemPreviewInfo>=""(?="__null_state_"c"__val_"{SystemPreviewInfo="element"{ElementContext="boundingRect"{FloatRect="m_location"{FloatPoint="m_x"f"m_y"f}"m_size"{FloatSize="hasIntrinsicWidth"B"hasIntrinsicHeight"B"m_width"f"m_height"f}}"webPageIdentifier"{ObjectIdentifier<WebCore::PageIdentifierType>="m_identifier"Q}"documentIdentifier"{ProcessQualified<WTF::ObjectIdentifier<WebCore::ScriptExecutionContextIdentifierType>>="m_object"{ObjectIdentifier<WebCore::ScriptExecutionContextIdentifierType>="m_identifier"Q}"m_processIdentifier"{ObjectIdentifier<WebCore::ProcessIdentifierType>="m_identifier"Q}}"elementIdentifier"{ObjectIdentifier<WebCore::ElementIdentifierType>="m_identifier"Q}}"previewRect"{IntRect="m_location"{IntPoint="m_x"i"m_y"i}"m_size"{IntSize="m_width"i"m_height"i}}"isPreview"B})"__engaged_"B}"m_nsRequest"{RetainPtr<NSURLRequest>="m_ptr"^v}}"securityOrigin"{SecurityOriginData="protocol"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"host"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"port"{optional<unsigned short>=""(?="__null_state_"c"__val_"S)"__engaged_"B}}"frameName"{String="m_impl"{RefPtr<WTF::StringImpl, WTF::RawPtrTraits<WTF::StringImpl>, WTF::DefaultRefDerefTraits<WTF::StringImpl>>="m_ptr"^{StringImpl}}}"frameID"{optional<WTF::ObjectIdentifier<WebCore::FrameIdentifierType>>=""(?="__null_state_"c"__val_"{ObjectIdentifier<WebCore::FrameIdentifierType>="m_identifier"Q})"__engaged_"B}"parentFrameID"{optional<WTF::ObjectIdentifier<WebCore::FrameIdentifierType>>=""(?="__null_state_"c"__val_"{ObjectIdentifier<WebCore::FrameIdentifierType>="m_identifier"Q})"__engaged_"B}}>
+  WKContentView._shareSheet <{RetainPtr<WKShareSheet>="m_ptr"^v}>
+  WKContentView._contactPicker <{RetainPtr<WKContactPicker>="m_ptr"^v}>
+  WKContentView._previewGestureRecognizer <{RetainPtr<UIGestureRecognizer>="m_ptr"^v}>
+  WKContentView._previewSecondaryGestureRecognizer <{RetainPtr<UIGestureRecognizer>="m_ptr"^v}>
+  WKContentView._focusStateStack <{Vector<bool, 0UL, WTF::CrashOnOverflow, 16UL, WTF::FastMalloc>="m_buffer"^B"m_capacity"I"m_size"I}>
+  WKContentView._contextMenuInteraction <{RetainPtr<UIContextMenuInteraction>="m_ptr"^v}>
+  WKContentView._contextMenuElementInfo <{RetainPtr<WKContextMenuElementInfo>="m_ptr"^v}>
+gesture.view methods:
+  WKContentView: _deleteByWord, _moveToStartOfDocument:withHistory:, _showTextStyleOptions:, _alignRight:, markedTextStyle, _characterInRelationToCaretSelection:, setIsEditable:, _doubleTapRecognized:, _transliterateChinese:, setMarkedText:selectedRange:, webView, toggleItalics:, selectTextWithGranularity:atPoint:completionHandler:, makeTextWritingDirectionNatural:, _translate:, _deleteToEndOfParagraph, _insertNestedOrderedListForWebView:, _lookup:, inputLabelText, _share:, isReplaceAllowed, setInputDelegate:, pasteAndMatchStyle:, timePickerValueHour, previewControllerDidDismiss:, textInRange:, caretRectForPosition:, toggleUnderlineForWebView:, _processWillSwap, _didPerformDragOperation:, setUpTextSelectionAssistant, makeTextWritingDirectionNaturalForWebView:, _setMouseEventPolicy:, clearSelection, _resetIsDoubleTapPending, _alignCenter:, _updateTextInputTraits:, dropInteraction:sessionDidUpdate:, selectionRectsForRange:, _preserveFocusWithToken:destructively:, cleanUpDragSourceSessionState, _processDidExit, selectionRange, pasteForWebView:, _elementDidBlur, hitTest:withEvent:, selecte...
+  WKApplicationStateTrackingView: _applicationDidEnterBackground, _applicationWillEnterForeground, _contentView, .cxx_construct, initWithFrame:webView:, .cxx_destruct, isBackground, willMoveToWindow:, didMoveToWindow, _willBeginSnapshotSequence, _applicationDidFinishSnapshottingAfterEnteringBackground, _didCompleteSnapshotSequence
+  UIView: _allLines, _setShowsLinesOnEdges:style:, _setImage:onEdges:outside:style:, _attachLine:toEdge:, ss_size, awe_parentViewController, setSs_origin:, setSs_size:, ss_origin, asyncSetRoundCornerImage:cornerRadius:completion:, dyyy_applyGlobalTransparency, bdas_attachmentIdentifier, bdas_setAttachmentIdentifier:, configureLayoutWithBlock:, isYogaEnabled, yoga, bdx_nativeViewName, bdx_viewWithName:, setBdx_nativeViewName:, bdp_makeConstraint, bdp_remakeConstraint, bdp_updateConstraint, bdp_enableKeyboardAutoTrackScroll:, bdp_findFirstResponder, bdp_setKeyboardBottomPaddingWhenAutoTrackScroll:forView:, bdp_KeyboardInfo, setBdp_KeyboardInfo:, bdp_findSubViewFor:, bdp_findSubViewForClass:, bdp_findSuperViewFor:, bdp_isSubviewOfView:, bdp_maskLayerOfTableViewCell:rowsCount:indexPath:, bdp_origin, bdp_originalFrame, bdp_setupDebugNameLable, bdp_setupRightDebugNameLableWithContent:, bdp_size, setBdp_origin:, setBdp_size:, bdp_rightBorder, bdp_addBorderForEdges:width:color:, bdp_bottomBorder, bdp_leftBorder, bdp_setupConstraintsForView:edge:width:, bdp_topBorder, setBdp_bottomBorder:, setB...
+  UIResponder: tm_collect_uiaction_identifier:, tm_uiaction_uiresponder_touchesBegan:withEvent:, tm_uiaction_uiresponder_touchesCancelled:withEvent:, tm_uiaction_uiresponder_touchesEnded:withEvent:, tm_uiaction_uiresponder_touchesMoved:withEvent:, lynx_actionWithSel:param:completeBlock:, lynx_getResultWithSel:param:completeBlock:, iesec_respondEvent:, voip_findFirstResponder:, voip_parentViewController, editingInteractionConfiguration, aAWEPadModuleAdapter, padKeyboardBindings_becomeFirstResponder, padKeyboardBindings_resignFirstResponder, ies_parentViewController, danceui__didChangeToFirstResponder:, danceui_firstResponder, btm_autoManaged, btm_notPageHolder, btm_pageIdentifier, setBtm_autoManaged:, setBtm_notPageHolder:, setBtm_pageIdentifier:, btm_nearestPage, btm_topPageItem, btm_associateStorage, btm_checkPageItems, btm_childPages, btm_disappearStatus, btm_forceDisappearStatus, btm_getValueForKey:, btm_inDisplay, btm_isPageHolder, btm_lazyCreatePageItem, btm_nearestPageHolder, btm_nearestWithPageId, btm_node, btm_pageIdSetByJsb, btm_pageItem, btm_registerTimestamp, btm_setValue:fo...
+gesture.targets = [(action=BSTHandleGesture:, target=<BSTUIGestureRecognizerObserver 0x280baa0b0>), (action=_singleTapRecognized:, target=<WKContentView 0x2aff6d600>), (action=awe_UITracker_gestureRecognizer:, target=<WKContentView 0x2aff6d600>)]
+gesture.targetAction[0] = <UIGestureRecognizerTarget: 0x288e2ca20>
+gesture.targetAction[0].description = (action=BSTHandleGesture:, target=<BSTUIGestureRecognizerObserver 0x280baa0b0>)
+gesture.targetAction[0] ivars:
+  UIGestureRecognizerTarget._target <@> = <BSTUIGestureRecognizerObserver: 0x280baa0b0> <BSTUIGestureRecognizerObserver: 0x280baa0b0>
+  UIGestureRecognizerTarget._action <:> = BSTHandleGesture:
+gesture.targetAction[0] methods:
+  UIGestureRecognizerTarget: .cxx_destruct, target, action, description
+gesture.targetAction[1] = <UIGestureRecognizerTarget: 0x288e2cae0>
+gesture.targetAction[1].description = (action=_singleTapRecognized:, target=<WKContentView 0x2aff6d600>)
+gesture.targetAction[1] ivars:
+  UIGestureRecognizerTarget._target <@> = <WKContentView: 0x2aff6d600> <WKContentView: 0x2aff6d600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28ddc4f90>; layer = <CALayer: 0x288e0cba0>>
+  UIGestureRecognizerTarget._action <:> = _singleTapRecognized:
+gesture.targetAction[1] methods:
+  UIGestureRecognizerTarget: .cxx_destruct, target, action, description
+gesture.targetAction[2] = <UIGestureRecognizerTarget: 0x288e2c880>
+gesture.targetAction[2].description = (action=awe_UITracker_gestureRecognizer:, target=<WKContentView 0x2aff6d600>)
+gesture.targetAction[2] ivars:
+  UIGestureRecognizerTarget._target <@> = <WKContentView: 0x2aff6d600> <WKContentView: 0x2aff6d600; frame = (0 0; 414 885); anchorPoint = (0, 0); opaque = NO; gestureRecognizers = <NSArray: 0x28ddc4f90>; layer = <CALayer: 0x288e0cba0>>
+  UIGestureRecognizerTarget._action <:> = awe_UITracker_gestureRecognizer:
+gesture.targetAction[2] methods:
+  UIGestureRecognizerTarget: .cxx_destruct, target, action, description
+heuristic.bagType = 未知
+heuristic.condition = 未知
+
+#012 02:02:44.389 文本输入变化
+----------------------------------------
+textInput.class = <UITextView: 0x2affe6200>
+textInput.text = 
+textInput.nearestVC = nil
+textInput.visibleTextAround = 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗 | 确认支付 | 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗 | 取消 | 确认并不再提醒
+textInput.superviewPath = <UITextView: 0x2affe6200 frame={{0, 0}, {0, 0}}> <- <UIView: 0x2c310dd00 frame={{0, 0}, {0, 0}}> <- <UIView: 0x2c3111450 frame={{0, 0}, {0, 0}}> <- <AWEUIAlertView: 0x2c3110a70 frame={{0, 0}, {414, 896}}> <- <AWEMaskWindow: 0x158759500 frame={{0, 0}, {414, 896}}>
+heuristic.bagType = 可能是普通福袋
+heuristic.condition = 加入粉丝团
+heuristic.visibleText =  主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗 | 确认支付 | 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗 | 取消 | 确认并不再提醒
+textInput values:
+  text=主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗
+
+#013 02:02:44.396 文本输入变化
+----------------------------------------
+textInput.class = <UITextView: 0x2affe6200>
+textInput.text = 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗
+textInput.nearestVC = nil
+textInput.visibleTextAround = 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗 | 确认支付 | 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗 | 取消 | 确认并不再提醒
+textInput.superviewPath = <UITextView: 0x2affe6200 frame={{0, 0}, {0, 0}}> <- <UIView: 0x2c310dd00 frame={{0, 0}, {0, 0}}> <- <UIView: 0x2c3111450 frame={{0, 0}, {0, 0}}> <- <AWEUIAlertView: 0x2c3110a70 frame={{0, 0}, {414, 896}}> <- <AWEMaskWindow: 0x158759500 frame={{0, 0}, {414, 896}}>
+heuristic.bagType = 可能是普通福袋
+heuristic.condition = 加入粉丝团
+heuristic.visibleText = 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗 | 确认支付 | 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗 | 取消 | 确认并不再提醒
+textInput values:
+  text=主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗
+
+#014 02:02:45.863 点击控件
+----------------------------------------
+UIControl sendAction: invokeTouchUpInsideButtonBlock:
+sender = <AWEUIButton: 0x2c31f2e00>
+sender.description = <AWEUIButton: 0x2c31f2e00; baseClass = UIButton; frame = (140 150.5; 140 48); opaque = NO; animations = { backgroundColor=<CABasicAnimation: 0x288e07c80>; }; layer = <CALayer: 0x288e93100>>
+sender.frame = {{140, 150.5}, {140, 48}}, bounds = {{0, 0}, {140, 48}}, hidden = NO, alpha = 1.000, userInteraction = YES
+sender.visibleText = 确认并不再提醒
+sender.superviewPath = <AWEUIButton: 0x2c31f2e00 frame={{140, 150.5}, {140, 48}}> <- <UIView: 0x2c310dd00 frame={{0, 0}, {280, 198.5}}> <- <UIView: 0x2c3111450 frame={{67, 329}, {280, 198.5}}> <- <AWEUIAlertView: 0x2c3110a70 frame={{0, 0}, {414, 896}}> <- <AWEMaskWindow: 0x158759500 frame={{0, 0}, {414, 896}}>
+sender.subviews = 0:<UIImageView: 0x17fd23380 frame={{0, 0}, {140, 48}} text=>; 1:<UIButtonLabel: 0x2c31f30e0 frame={{16, 15}, {108, 18}} text=确认并不再提醒>
+sender ivars:
+  AWEUIButton._needChangeAlphaWhenPressed <B> = NO
+  AWEUIButton._needHighlightAnimation <B> = YES
+  AWEUIButton._usingConstColor <B> = YES
+  AWEUIButton._selectedAlpha <d> = 0.000000
+  AWEUIButton._originBackgroundColor <@"UIColor">
+  AWEUIButton._tappedBlock <@?> = <__NSMallocBlock__: 0x28c4c06c0> <__NSMallocBlock__: 0x28c4c06c0>
+  UIButton._externalFlatEdge <Q> = 0
+  UIButton._buttonVisualProviderFlags <{?="isPopulated"b1"implementsButton"b1"implementsModernProvider"b1"implementsArchiving"b1"implementsEffectSupport"b1"implementsDeprecatedAPISupport"b1"implementsDeprecatedSPISupport"b1"preferredBehavioralStyle"b4}>
+  UIButton._configuration <@"<_UIButtonConfigurationShim>">
+  UIButton._contentLookup <@"NSMutableDictionary"> = {0:<UIButtonContent: 0x2c31e86f0 Title = 确认并不再提醒, AttributedTitle = (null), Image = (null), Background = <UIImage:0x28bbd7c..., 1:<UIButtonContent: 0x2c31e8750 Title = (null), Attr...
+  UIButton._contentEdgeInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIButton._titleEdgeInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIButton._imageEdgeInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIButton._initialized <B> = YES
+  UIButton._lastDrawingControlState <Q> = 1
+  UIButton._selectGestureRecognizer <@"UITapGestureRecognizer">
+  UIButton._visualProvider <@"<UIButtonVisualProvider>"> = <UIButtonLegacyVisualProvider: 0x2c31e8910> <UIButtonLegacyVisualProvider: 0x2c31e8910>
+  UIButton._buttonFlags <{?="reversesTitleShadowWhenHighlighted"b1"adjustsImageWhenHighlighted"b1"adjustsImageWhenDisabled"b1"autosizeToFit"b1"disabledDimsImage"b1"showsTouchWhenHighlighted"b1"buttonType"b8"role"b8"shouldHandleScrollerMouseEvent"b1"titleFrozen"b1"resendTraitToImageViews"b2"animateNextHighlightChange"b1"blurEnabled"b1"visualEffectViewEnabled"b1"suppressAccessibilityUnderline"b1"requiresLayoutForPropertyChange"b1"needsTitleViewDefaultColorUpdate"b1"adjustsImageSizeForAccessibilityContentSizeCategory"b1"disableAutomaticTitleAnimations"b1"overridesRectAccessors"b1"overridesLegacyCursorDelegateSelectors"b1"hasActivePointerEffect"b1"automaticallyUpdatesConfiguration"b1"changesSelectionAsPrimaryAction"b1}>
+  UIButton._lazyTitleViewFont <@"UIFont"> = <UICTFont: 0x15db400a0> <UICTFont: 0x15db400a0> font-family: ".SFUI-Regular"; font-weight: normal; font-style: normal; font-size: 18.00pt
+  UIButton._lazyTitleViewFontIsDefaultForIdiom <B> = NO
+  UIButton._menuProvider <@?>
+  UIButton._configurationUpdateHandler <@?>
+  UIButton._pointerStyleProvider <@?>
+  UIButton._menu <@"UIMenu">
+  UIButton.__imageContentMode <q> = 0
+  UIButton.__plainButtonBackgroundColor <@"UIColor">
+  UIButton._cursorStyleProvider <@?>
+  UIButton._internalTitlePaddingInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIControl._targetActions <@"NSMutableArray"> = [<UIControlTargetAction: 0x28da7d290> target=0x2c31f2e00 action=invokeTouchUpInsideButtonBlock: events=0x40, <UIControlTargetAction: 0x28da7ced0> target=0x2c3110a70 action=dismissS...
+  UIControl._previousPoint <{CGPoint="x"d"y"d}>
+  UIControl._downTime <d> = 804880965.730189
+  UIControl._controlFlags <{?="disabled"b1"tracking"b1"touchInside"b1"touchDragged"b1"requiresDisplayOnTracking"b1"highlighted"b1"dontHighlightOnTouchDown"b1"allowActionsToQueue"b1"pendingUnhighlight"b1"selected"b1"verticalAlignment"b3"horizontalAlignment"b3"wasLastHighlightSuccessful"b1"touchHasHighlighted"b1"hasPointerInteraction"b1"hasProxyPointerInteraction"b1"hasContextMenuInteraction"b1"highlightForMenuPresentation"b1}>
+  UIControl._requiredButtonMask <q> = 1
+  UIControl._cursorInteraction <@"_UICursorInteraction">
+  UIView._constraintsExceptingSubviewAutoresizingConstraints <@"NSMutableArray"> = [<MASLayoutConstraint: 0x2c31f1410>, <MASLayoutConstraint: 0x2c31f1470>, <NSContentSizeLayoutConstraint: 0x16abc07b0>, <NSContentSizeLayoutConstraint: 0x16abdedc0>]
+  UIView._cachedTraitCollection <@"UITraitCollection"> = <UITraitCollection: 0x28304a4c0> <UITraitCollection: 0x28304a4c0; UserInterfaceIdiom = Phone, DisplayScale = 2, DisplayGamut = P3, HorizontalSizeClass = Compact, VerticalSizeClass = Regular, UserInterfaceStyle = L...
+  UIView._animationInfo <@"UIViewAnimationInfo">
+  UIView._layer <@"CALayer"> = <CALayer: 0x288e93100> <CALayer: 0x288e93100>
+  UIView._layerRetained <@"CALayer">
+  UIView._gestureRecognizers <@"NSMutableArray">
+  UIView._window <@"UIWindow"> = <AWEMaskWindow: 0x158759500> <AWEMaskWindow: 0x158759500; baseClass = UIWindow; frame = (0 0; 414 896); autoresize = W+H; gestureRecognizers = <NSArray: 0x2818407b0>; layer = <UIWindowLayer: 0x281840d80>>
+  UIView._subviewCache <@"NSArray"> = [<UIImageView: 0x17fd23380; frame = (0 0; 140 48); clipsToBounds = YES; opaque = NO; userInteractionEnabled = NO; layer =..., <UIButtonLabel: 0x2c31f30e0; frame = (16 15; 108 18); ...
+  UIView._viewDelegate <@"UIViewController">
+  UIView._cachedScreenScale <d> = 2.000000
+  UIView._layoutEngineWidth <d> = 0.000000
+  UIView._viewFlags <{?="userInteractionDisabled"b1"implementsDrawRect"b1"implementsDidScroll"b1"implementsMouseTracking"b1"implementsIntrinsicContentSize"b1"hasBackgroundColor"b1"hasBackgroundColorSystemColorName"b1"hasInteractionTintColor"b1"isOpaque"b1"becomeFirstResponderWhenCapable"b1"interceptMouseEvent"b1"deallocating"b1"isInUIViewDealloc"b1"hasPreparedForWindowDealloc"b1"debugFlash"b1"isAncestorOfFirstResponder"b1"dontAutoresizeSubviews"b1"autoresizeMask"b6"patternBackground"b1"fixedBackgroundPattern"b1"dontAnimate"b1"superLayerIsView"b1"layerKitPatternDrawing"b1"multipleTouchEnabled"b1"exclusiveTouch"b1"hasViewController"b1"needsDidAppearOrDisappear"b1"deliversTouchesForGesturesToSuperview"b1"deliversButtonsForGesturesToSuperview"b1"chargeEnabled"b1"skipsSubviewEnumeration"b1"needsDisplayOnBoundsChange"b1"hasTiledLayer"b1"hasLargeContent"b1"traversalMark"b1"appearanceIsInvalid"b1"monitorsSubtree"b1"hostsAutolayoutEngine"b1"constraintsAreClean"b1"subviewLayoutConstraintsAreClean"b1"intrinsicContentSizeConstraintsAreClean"b1"strictDescendantNeedsDoubleUpdateConstraints"b1"strictDescendantNeedsDoubleUpdateConstraintsIsInvalid"b1"determiningWidthForDoubleUpdateConstraints"b1"inSecondConstraintsPass"b1"potentiallyHasDanglyConstraints"b1"doesNotTranslateAutoresizingMaskIntoConstraints"b1"autolayoutIsClean"b1"autolayoutBoundsAreClean"b1"layoutFlushingDisabled"b1"layingOutFromConstraints"b1"wantsAutolayout"b1"subviewWantsAutolayout"b1"isApplyingValuesFromEngine"b1"isResizingDueToParentResize"b1"isInLayoutSubviewsOrVCCallback"b1"isInAnimatedLayout"b1"isSubviewUpdatingAutoresizingConstraints"b1"isUpdatingConstraints"b1"isReapplyingStillActiveBrokenConstraints"b1"isHostingUpdateConstraintsPassDuringLayout"b1"isRunningEngineLevelConstraintsPass"b1"isUpdatingLayoutEngineHostConstraints"b1"isExpectingToFlushPendingLayoutChangeNotifications"b1"systemLayoutFittingSizeNeedsUpdate"b1"systemLayoutFittingSizeNeedsUpdateInWholeSubtree"b1"isCalculatingSystemLayoutFittingSize"b1"suppressEncapsulationConstraints"b1"isFetchingSizeForTAMIC_NOEngineHost"b1"stayHiddenAwaitingReuse"b1"stayHiddenAfterReuse"b1"skippedLayoutWhileHiddenForReuse"b1"isPendingHiddenForAnimation"b1"hasMaskView"b1"hasVisualAltitude"b1"hasBackdropMaskViews"b1"backdropMaskViewFlags"b5"delaysTouchesForSystemGestures"b1"subclassShouldDelayTouchForSystemGestures"b1"hasMotionEffects"b1"backdropOverlayMode"b2"tintAdjustmentMode"b2"isReferenceView"b1"focusState"b2"hasUserInterfaceIdiom"b1"userInterfaceIdiom"b3"ancestorDefinesTintColor"b1"ancestorDefinesTintAdjustmentMode"b1"ancestorIgnoresInvertColors"b1"needsTraitCollectionDidChangePropagation"b1"isRootOfTraitCollectionDidChangePropagation"b1"implementsTraitCollectionForChildEnvironment"b1"implementsBaselineOffsetsAtSize"b1"coloredViewBounds"b1"coloredAlignmentRects"b1"preservesSuperviewMargins"b4"insettingLayoutMarginsFromSafeArea"b4"safeAreaInsetsFrozen"b1"preservesSafeAreaInsets"b1"viewDelegateContentOverlayInsetsAreClean"b1"hasGeometryObservers"b1"observingGeometryChangesForSelfCount"b4"hasTraitStorageList"b1"cachedTraitCollectionIsValid"b1"dontUpdateInferredLayoutMargins"b1"areLayoutMarginsDirectional"b1"implementsViewForBaselineLayout"b1"tracksFocusedAncestors"b1"hasLayoutArrangements"b1"isHiddenManagedByLayoutArrangement"b1"hasAddedFocusGuides"b1"hasFocusSpeedBumpEdges"b1"hasFocusableContentMargins"b1"focusInteractionDisabled"b1"shouldReverseLayoutDirection"b1"cannotBeParentTraitEnvironment"b1"hasTemplateLayoutView"b2"ignoresTemplateLayoutView"b2"needsContentsFormatUpdate"b1"accessibilityIgnoresInvertColors"b1"ignoresLayerTransformForSafeAreaInsets"b1"accessibilityInterfaceStyleIntent"b2"accessibilityResolvedInterfaceStyle"b2"shouldArchiveUIAppearanceTags"b1"wantsDeepColorDrawing"b1"tagEnabled"b1"chargeSet"b1"ignoreBackdropViewsWhenHiding"b1"areChildrenFocused"b1"hasInteractionsArray"b1"hasHitTestDirectionalInsets"b1"hasLayoutDebuggingIdentifier"b1"hasContentSizeNotificationToken"b1"hasPresentationControllerToNotifyOnLayoutSubviews"b1"semanticContentAttribute"b3"hasDynamicBackgroundColor"b1"hasLocalOverrideTraitCollection"b1"forceEffectiveThemeDidChange"b1"allowsHighContrastForBackgroundColor"b1"hasPendingTraitStorageConstraints"b1"hasEverBeenInAWindow"b1"hasFocusGroupIdentifier"b2"hasFocusGroupPriority"b1"hasFocusEffect"b2"conformsToUIFocusItemScrollableContainer"b2"allowsSkippingLayout"b1"isResolvingTraitCollection"b1"needsLayoutAndDisplayOnTintColorChanges"b1"subviewNeedsAnimationRestorationMessage"b1"isHostingTrackingForAnimationRestoration"b1}>
+  UIView._unsatisfiableConstraintsLoggingSuspensionCount <S> = 0
+  UIView._pseudo_id <I> = 8180
+  UIView._retainCount <q> = 272
+  UIView._draggingSourceDelegate <@"<_UIViewInternalDraggingSourceDelegate>">
+  UIView._tintAdjustmentDimmingCount <S> = 0
+  UIView._layoutSubviewsCount <S> = 0
+  UIView._imminentLayoutSubviewsCount <S> = 0
+  UIView._countOfFocusedAncestorTrackingViewsInSubtree <S> = 0
+  UIView._layoutMarginsGuide <@"UILayoutGuide">
+  UIView._minXVariable <@"NSISVariable"> = <NSISUnrestrictedVariable: 0x289678f80> AWEUIButton:0x2c31f2e00'确认并不再提醒'.minX{id: 30166}
+  UIView._minYVariable <@"NSISVariable"> = <NSISUnrestrictedVariable: 0x2896f3d40> AWEUIButton:0x2c31f2e00'确认并不再提醒'.minY{id: 30164}
+  UIView._boundsWidthVariable <@"NSISVariable"> = <NSISRestrictedToNonNegativeVariable: 0x2895889c0> AWEUIButton:0x2c31f2e00'确认并不再提醒'.Width{id: 30168}
+  UIView._boundsHeightVariable <@"NSISVariable"> = <NSISRestrictedToNonNegativeVariable: 0x2895894c0> AWEUIButton:0x2c31f2e00'确认并不再提醒'.Height{id: 30170}
+  UIView._layoutEngine <@"NSISEngine"> = <NSISEngine: 0x1587c2f10> <NSISEngine: 0x1587c2f10>{ delegate:0x158759500 EngineVars: 	  0: objective{id: 1110} rowIndex:0 	  1: UIView:0x1600174e0.minX{id: 1113} rowIndex:1 	  2: AWENormalModeTabBarFeedVie...
+sender methods:
+  AWEUIButton: invokeTouchUpInsideButtonBlock:, usingConstColor, setTappedBlock:, needChangeAlphaWhenPressed, needHighlightAnimation, originBackgroundColor, selectedAlpha, setNeedChangeAlphaWhenPressed:, setNeedHighlightAnimation:, setOriginBackgroundColor:, setSelectedAlpha:, setUsingConstColor:, tappedBlock, setHighlighted:, .cxx_destruct
+  UIButton: __scalarStatisticsForUserTouchUpInsideEvent, touchesEnded:withEvent:, sizeToFit, setAlpha:, _yy_cancelBackgroundImageRequestForSingleState:, _yy_cancelImageRequestForSingleState:, _yy_setBackgroundImageWithURL:forSingleState:placeholder:options:manager:progress:transform:completion:, _yy_setImageWithURL:forSingleState:placeholder:options:manager:progress:transform:completion:, yy_backgroundImageURLForState:, yy_cancelBackgroundImageRequestForState:, yy_cancelImageRequestForState:, yy_imageURLForState:, yy_setBackgroundImageWithURL:forState:options:, yy_setBackgroundImageWithURL:forState:placeholder:, yy_setBackgroundImageWithURL:forState:placeholder:options:completion:, yy_setBackgroundImageWithURL:forState:placeholder:options:manager:progress:transform:completion:, yy_setBackgroundImageWithURL:forState:placeholder:options:progress:transform:completion:, yy_setImageWithURL:forState:options:, yy_setImageWithURL:forState:placeholder:, yy_setImageWithURL:forState:placeholder:options:completion:, yy_setImageWithURL:forState:placeholder:options:manager:progress:transform:complet...
+  UIControl: tm_uiaction_sendAction:to:forEvent:, live_checkCondition:, live_takeover_sendAction:to:forEvent:, __enableThrottler, __throttleAction:, __throttlerWithTarget:action:interval:, rtv_addTarget:action:forControlEvents:customInterval:, rtv_addTarget:action:forControlEvents:definedInterval:, rtv_isThrottlerRuning, rtv_setThrottler:, rtv_throttler, _btd_allUIControlBlockTargets, btd_addActionBlock:forControlEvents:, btd_removeActionBlocksForControlEvents:, awe_UITracker_sendAction:to:forEvent:, awe_touchesCancelled:withEvent:, awe_allowParallelActions, awe_touchesBegan:withEvent:, setAwe_allowParallelActions:, shouldReturnTouchBegan, shouldReturnTouchCancel, shouldReturnTouchEnd, perf_sendActionsForControlEvents:, bdNative_nativeStateTag, setBdNative_nativeStateTag:, rac_channelForControlEvents:key:nilValue:, rac_signalForControlEvents:, hmd_sendAction:to:forEvent:, _cnui_super_touchesCancelled:withEvent:, _mapkit_setTarget:action:, _nui_baselineViewType, setHighlighted:, continueTrackingWithTouch:withEvent:, cancelTouchTracking, hitTest:forEvent:, pointerInteraction, setTracking...
+  UIView: _allLines, _setShowsLinesOnEdges:style:, _setImage:onEdges:outside:style:, _attachLine:toEdge:, ss_size, awe_parentViewController, setSs_origin:, setSs_size:, ss_origin, asyncSetRoundCornerImage:cornerRadius:completion:, dyyy_applyGlobalTransparency, bdas_attachmentIdentifier, bdas_setAttachmentIdentifier:, configureLayoutWithBlock:, isYogaEnabled, yoga, bdx_nativeViewName, bdx_viewWithName:, setBdx_nativeViewName:, bdp_makeConstraint, bdp_remakeConstraint, bdp_updateConstraint, bdp_enableKeyboardAutoTrackScroll:, bdp_findFirstResponder, bdp_setKeyboardBottomPaddingWhenAutoTrackScroll:forView:, bdp_KeyboardInfo, setBdp_KeyboardInfo:, bdp_findSubViewFor:, bdp_findSubViewForClass:, bdp_findSuperViewFor:, bdp_isSubviewOfView:, bdp_maskLayerOfTableViewCell:rowsCount:indexPath:, bdp_origin, bdp_originalFrame, bdp_setupDebugNameLable, bdp_setupRightDebugNameLableWithContent:, bdp_size, setBdp_origin:, setBdp_size:, bdp_rightBorder, bdp_addBorderForEdges:width:color:, bdp_bottomBorder, bdp_leftBorder, bdp_setupConstraintsForView:edge:width:, bdp_topBorder, setBdp_bottomBorder:, setB...
+  UIResponder: tm_collect_uiaction_identifier:, tm_uiaction_uiresponder_touchesBegan:withEvent:, tm_uiaction_uiresponder_touchesCancelled:withEvent:, tm_uiaction_uiresponder_touchesEnded:withEvent:, tm_uiaction_uiresponder_touchesMoved:withEvent:, lynx_actionWithSel:param:completeBlock:, lynx_getResultWithSel:param:completeBlock:, iesec_respondEvent:, voip_findFirstResponder:, voip_parentViewController, editingInteractionConfiguration, aAWEPadModuleAdapter, padKeyboardBindings_becomeFirstResponder, padKeyboardBindings_resignFirstResponder, ies_parentViewController, danceui__didChangeToFirstResponder:, danceui_firstResponder, btm_autoManaged, btm_notPageHolder, btm_pageIdentifier, setBtm_autoManaged:, setBtm_notPageHolder:, setBtm_pageIdentifier:, btm_nearestPage, btm_topPageItem, btm_associateStorage, btm_checkPageItems, btm_childPages, btm_disappearStatus, btm_forceDisappearStatus, btm_getValueForKey:, btm_inDisplay, btm_isPageHolder, btm_lazyCreatePageItem, btm_nearestPageHolder, btm_nearestWithPageId, btm_node, btm_pageIdSetByJsb, btm_pageItem, btm_registerTimestamp, btm_setValue:fo...
+target = <AWEUIButton: 0x2c31f2e00>
+target.description = <AWEUIButton: 0x2c31f2e00; baseClass = UIButton; frame = (140 150.5; 140 48); opaque = NO; animations = { backgroundColor=<CABasicAnimation: 0x288e07c80>; }; layer = <CALayer: 0x288e93100>>
+target.frame = {{140, 150.5}, {140, 48}}, bounds = {{0, 0}, {140, 48}}, hidden = NO, alpha = 1.000, userInteraction = YES
+target.visibleText = 确认并不再提醒
+target.superviewPath = <AWEUIButton: 0x2c31f2e00 frame={{140, 150.5}, {140, 48}}> <- <UIView: 0x2c310dd00 frame={{0, 0}, {280, 198.5}}> <- <UIView: 0x2c3111450 frame={{67, 329}, {280, 198.5}}> <- <AWEUIAlertView: 0x2c3110a70 frame={{0, 0}, {414, 896}}> <- <AWEMaskWindow: 0x158759500 frame={{0, 0}, {414, 896}}>
+target.subviews = 0:<UIImageView: 0x17fd23380 frame={{0, 0}, {140, 48}} text=>; 1:<UIButtonLabel: 0x2c31f30e0 frame={{16, 15}, {108, 18}} text=确认并不再提醒>
+target ivars:
+  AWEUIButton._needChangeAlphaWhenPressed <B> = NO
+  AWEUIButton._needHighlightAnimation <B> = YES
+  AWEUIButton._usingConstColor <B> = YES
+  AWEUIButton._selectedAlpha <d> = 0.000000
+  AWEUIButton._originBackgroundColor <@"UIColor">
+  AWEUIButton._tappedBlock <@?> = <__NSMallocBlock__: 0x28c4c06c0> <__NSMallocBlock__: 0x28c4c06c0>
+  UIButton._externalFlatEdge <Q> = 0
+  UIButton._buttonVisualProviderFlags <{?="isPopulated"b1"implementsButton"b1"implementsModernProvider"b1"implementsArchiving"b1"implementsEffectSupport"b1"implementsDeprecatedAPISupport"b1"implementsDeprecatedSPISupport"b1"preferredBehavioralStyle"b4}>
+  UIButton._configuration <@"<_UIButtonConfigurationShim>">
+  UIButton._contentLookup <@"NSMutableDictionary"> = {0:<UIButtonContent: 0x2c31e86f0 Title = 确认并不再提醒, AttributedTitle = (null), Image = (null), Background = <UIImage:0x28bbd7c..., 1:<UIButtonContent: 0x2c31e8750 Title = (null), Attr...
+  UIButton._contentEdgeInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIButton._titleEdgeInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIButton._imageEdgeInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIButton._initialized <B> = YES
+  UIButton._lastDrawingControlState <Q> = 1
+  UIButton._selectGestureRecognizer <@"UITapGestureRecognizer">
+  UIButton._visualProvider <@"<UIButtonVisualProvider>"> = <UIButtonLegacyVisualProvider: 0x2c31e8910> <UIButtonLegacyVisualProvider: 0x2c31e8910>
+  UIButton._buttonFlags <{?="reversesTitleShadowWhenHighlighted"b1"adjustsImageWhenHighlighted"b1"adjustsImageWhenDisabled"b1"autosizeToFit"b1"disabledDimsImage"b1"showsTouchWhenHighlighted"b1"buttonType"b8"role"b8"shouldHandleScrollerMouseEvent"b1"titleFrozen"b1"resendTraitToImageViews"b2"animateNextHighlightChange"b1"blurEnabled"b1"visualEffectViewEnabled"b1"suppressAccessibilityUnderline"b1"requiresLayoutForPropertyChange"b1"needsTitleViewDefaultColorUpdate"b1"adjustsImageSizeForAccessibilityContentSizeCategory"b1"disableAutomaticTitleAnimations"b1"overridesRectAccessors"b1"overridesLegacyCursorDelegateSelectors"b1"hasActivePointerEffect"b1"automaticallyUpdatesConfiguration"b1"changesSelectionAsPrimaryAction"b1}>
+  UIButton._lazyTitleViewFont <@"UIFont"> = <UICTFont: 0x15db400a0> <UICTFont: 0x15db400a0> font-family: ".SFUI-Regular"; font-weight: normal; font-style: normal; font-size: 18.00pt
+  UIButton._lazyTitleViewFontIsDefaultForIdiom <B> = NO
+  UIButton._menuProvider <@?>
+  UIButton._configurationUpdateHandler <@?>
+  UIButton._pointerStyleProvider <@?>
+  UIButton._menu <@"UIMenu">
+  UIButton.__imageContentMode <q> = 0
+  UIButton.__plainButtonBackgroundColor <@"UIColor">
+  UIButton._cursorStyleProvider <@?>
+  UIButton._internalTitlePaddingInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIControl._targetActions <@"NSMutableArray"> = [<UIControlTargetAction: 0x28da7d290> target=0x2c31f2e00 action=invokeTouchUpInsideButtonBlock: events=0x40, <UIControlTargetAction: 0x28da7ced0> target=0x2c3110a70 action=dismissS...
+  UIControl._previousPoint <{CGPoint="x"d"y"d}>
+  UIControl._downTime <d> = 804880965.730189
+  UIControl._controlFlags <{?="disabled"b1"tracking"b1"touchInside"b1"touchDragged"b1"requiresDisplayOnTracking"b1"highlighted"b1"dontHighlightOnTouchDown"b1"allowActionsToQueue"b1"pendingUnhighlight"b1"selected"b1"verticalAlignment"b3"horizontalAlignment"b3"wasLastHighlightSuccessful"b1"touchHasHighlighted"b1"hasPointerInteraction"b1"hasProxyPointerInteraction"b1"hasContextMenuInteraction"b1"highlightForMenuPresentation"b1}>
+  UIControl._requiredButtonMask <q> = 1
+  UIControl._cursorInteraction <@"_UICursorInteraction">
+  UIView._constraintsExceptingSubviewAutoresizingConstraints <@"NSMutableArray"> = [<MASLayoutConstraint: 0x2c31f1410>, <MASLayoutConstraint: 0x2c31f1470>, <NSContentSizeLayoutConstraint: 0x16abc07b0>, <NSContentSizeLayoutConstraint: 0x16abdedc0>]
+  UIView._cachedTraitCollection <@"UITraitCollection"> = <UITraitCollection: 0x28304a4c0> <UITraitCollection: 0x28304a4c0; UserInterfaceIdiom = Phone, DisplayScale = 2, DisplayGamut = P3, HorizontalSizeClass = Compact, VerticalSizeClass = Regular, UserInterfaceStyle = L...
+  UIView._animationInfo <@"UIViewAnimationInfo">
+  UIView._layer <@"CALayer"> = <CALayer: 0x288e93100> <CALayer: 0x288e93100>
+  UIView._layerRetained <@"CALayer">
+  UIView._gestureRecognizers <@"NSMutableArray">
+  UIView._window <@"UIWindow"> = <AWEMaskWindow: 0x158759500> <AWEMaskWindow: 0x158759500; baseClass = UIWindow; frame = (0 0; 414 896); autoresize = W+H; gestureRecognizers = <NSArray: 0x2818407b0>; layer = <UIWindowLayer: 0x281840d80>>
+  UIView._subviewCache <@"NSArray"> = [<UIImageView: 0x17fd23380; frame = (0 0; 140 48); clipsToBounds = YES; opaque = NO; userInteractionEnabled = NO; layer =..., <UIButtonLabel: 0x2c31f30e0; frame = (16 15; 108 18); ...
+  UIView._viewDelegate <@"UIViewController">
+  UIView._cachedScreenScale <d> = 2.000000
+  UIView._layoutEngineWidth <d> = 0.000000
+  UIView._viewFlags <{?="userInteractionDisabled"b1"implementsDrawRect"b1"implementsDidScroll"b1"implementsMouseTracking"b1"implementsIntrinsicContentSize"b1"hasBackgroundColor"b1"hasBackgroundColorSystemColorName"b1"hasInteractionTintColor"b1"isOpaque"b1"becomeFirstResponderWhenCapable"b1"interceptMouseEvent"b1"deallocating"b1"isInUIViewDealloc"b1"hasPreparedForWindowDealloc"b1"debugFlash"b1"isAncestorOfFirstResponder"b1"dontAutoresizeSubviews"b1"autoresizeMask"b6"patternBackground"b1"fixedBackgroundPattern"b1"dontAnimate"b1"superLayerIsView"b1"layerKitPatternDrawing"b1"multipleTouchEnabled"b1"exclusiveTouch"b1"hasViewController"b1"needsDidAppearOrDisappear"b1"deliversTouchesForGesturesToSuperview"b1"deliversButtonsForGesturesToSuperview"b1"chargeEnabled"b1"skipsSubviewEnumeration"b1"needsDisplayOnBoundsChange"b1"hasTiledLayer"b1"hasLargeContent"b1"traversalMark"b1"appearanceIsInvalid"b1"monitorsSubtree"b1"hostsAutolayoutEngine"b1"constraintsAreClean"b1"subviewLayoutConstraintsAreClean"b1"intrinsicContentSizeConstraintsAreClean"b1"strictDescendantNeedsDoubleUpdateConstraints"b1"strictDescendantNeedsDoubleUpdateConstraintsIsInvalid"b1"determiningWidthForDoubleUpdateConstraints"b1"inSecondConstraintsPass"b1"potentiallyHasDanglyConstraints"b1"doesNotTranslateAutoresizingMaskIntoConstraints"b1"autolayoutIsClean"b1"autolayoutBoundsAreClean"b1"layoutFlushingDisabled"b1"layingOutFromConstraints"b1"wantsAutolayout"b1"subviewWantsAutolayout"b1"isApplyingValuesFromEngine"b1"isResizingDueToParentResize"b1"isInLayoutSubviewsOrVCCallback"b1"isInAnimatedLayout"b1"isSubviewUpdatingAutoresizingConstraints"b1"isUpdatingConstraints"b1"isReapplyingStillActiveBrokenConstraints"b1"isHostingUpdateConstraintsPassDuringLayout"b1"isRunningEngineLevelConstraintsPass"b1"isUpdatingLayoutEngineHostConstraints"b1"isExpectingToFlushPendingLayoutChangeNotifications"b1"systemLayoutFittingSizeNeedsUpdate"b1"systemLayoutFittingSizeNeedsUpdateInWholeSubtree"b1"isCalculatingSystemLayoutFittingSize"b1"suppressEncapsulationConstraints"b1"isFetchingSizeForTAMIC_NOEngineHost"b1"stayHiddenAwaitingReuse"b1"stayHiddenAfterReuse"b1"skippedLayoutWhileHiddenForReuse"b1"isPendingHiddenForAnimation"b1"hasMaskView"b1"hasVisualAltitude"b1"hasBackdropMaskViews"b1"backdropMaskViewFlags"b5"delaysTouchesForSystemGestures"b1"subclassShouldDelayTouchForSystemGestures"b1"hasMotionEffects"b1"backdropOverlayMode"b2"tintAdjustmentMode"b2"isReferenceView"b1"focusState"b2"hasUserInterfaceIdiom"b1"userInterfaceIdiom"b3"ancestorDefinesTintColor"b1"ancestorDefinesTintAdjustmentMode"b1"ancestorIgnoresInvertColors"b1"needsTraitCollectionDidChangePropagation"b1"isRootOfTraitCollectionDidChangePropagation"b1"implementsTraitCollectionForChildEnvironment"b1"implementsBaselineOffsetsAtSize"b1"coloredViewBounds"b1"coloredAlignmentRects"b1"preservesSuperviewMargins"b4"insettingLayoutMarginsFromSafeArea"b4"safeAreaInsetsFrozen"b1"preservesSafeAreaInsets"b1"viewDelegateContentOverlayInsetsAreClean"b1"hasGeometryObservers"b1"observingGeometryChangesForSelfCount"b4"hasTraitStorageList"b1"cachedTraitCollectionIsValid"b1"dontUpdateInferredLayoutMargins"b1"areLayoutMarginsDirectional"b1"implementsViewForBaselineLayout"b1"tracksFocusedAncestors"b1"hasLayoutArrangements"b1"isHiddenManagedByLayoutArrangement"b1"hasAddedFocusGuides"b1"hasFocusSpeedBumpEdges"b1"hasFocusableContentMargins"b1"focusInteractionDisabled"b1"shouldReverseLayoutDirection"b1"cannotBeParentTraitEnvironment"b1"hasTemplateLayoutView"b2"ignoresTemplateLayoutView"b2"needsContentsFormatUpdate"b1"accessibilityIgnoresInvertColors"b1"ignoresLayerTransformForSafeAreaInsets"b1"accessibilityInterfaceStyleIntent"b2"accessibilityResolvedInterfaceStyle"b2"shouldArchiveUIAppearanceTags"b1"wantsDeepColorDrawing"b1"tagEnabled"b1"chargeSet"b1"ignoreBackdropViewsWhenHiding"b1"areChildrenFocused"b1"hasInteractionsArray"b1"hasHitTestDirectionalInsets"b1"hasLayoutDebuggingIdentifier"b1"hasContentSizeNotificationToken"b1"hasPresentationControllerToNotifyOnLayoutSubviews"b1"semanticContentAttribute"b3"hasDynamicBackgroundColor"b1"hasLocalOverrideTraitCollection"b1"forceEffectiveThemeDidChange"b1"allowsHighContrastForBackgroundColor"b1"hasPendingTraitStorageConstraints"b1"hasEverBeenInAWindow"b1"hasFocusGroupIdentifier"b2"hasFocusGroupPriority"b1"hasFocusEffect"b2"conformsToUIFocusItemScrollableContainer"b2"allowsSkippingLayout"b1"isResolvingTraitCollection"b1"needsLayoutAndDisplayOnTintColorChanges"b1"subviewNeedsAnimationRestorationMessage"b1"isHostingTrackingForAnimationRestoration"b1}>
+  UIView._unsatisfiableConstraintsLoggingSuspensionCount <S> = 0
+  UIView._pseudo_id <I> = 8180
+  UIView._retainCount <q> = 526
+  UIView._draggingSourceDelegate <@"<_UIViewInternalDraggingSourceDelegate>">
+  UIView._tintAdjustmentDimmingCount <S> = 0
+  UIView._layoutSubviewsCount <S> = 0
+  UIView._imminentLayoutSubviewsCount <S> = 0
+  UIView._countOfFocusedAncestorTrackingViewsInSubtree <S> = 0
+  UIView._layoutMarginsGuide <@"UILayoutGuide">
+  UIView._minXVariable <@"NSISVariable"> = <NSISUnrestrictedVariable: 0x289678f80> AWEUIButton:0x2c31f2e00'确认并不再提醒'.minX{id: 30166}
+  UIView._minYVariable <@"NSISVariable"> = <NSISUnrestrictedVariable: 0x2896f3d40> AWEUIButton:0x2c31f2e00'确认并不再提醒'.minY{id: 30164}
+  UIView._boundsWidthVariable <@"NSISVariable"> = <NSISRestrictedToNonNegativeVariable: 0x2895889c0> AWEUIButton:0x2c31f2e00'确认并不再提醒'.Width{id: 30168}
+  UIView._boundsHeightVariable <@"NSISVariable"> = <NSISRestrictedToNonNegativeVariable: 0x2895894c0> AWEUIButton:0x2c31f2e00'确认并不再提醒'.Height{id: 30170}
+  UIView._layoutEngine <@"NSISEngine"> = <NSISEngine: 0x1587c2f10> <NSISEngine: 0x1587c2f10>{ delegate:0x158759500 EngineVars: 	  0: objective{id: 1110} rowIndex:0 	  1: UIView:0x1600174e0.minX{id: 1113} rowIndex:1 	  2: AWENormalModeTabBarFeedVie...
+target methods:
+  AWEUIButton: invokeTouchUpInsideButtonBlock:, usingConstColor, setTappedBlock:, needChangeAlphaWhenPressed, needHighlightAnimation, originBackgroundColor, selectedAlpha, setNeedChangeAlphaWhenPressed:, setNeedHighlightAnimation:, setOriginBackgroundColor:, setSelectedAlpha:, setUsingConstColor:, tappedBlock, setHighlighted:, .cxx_destruct
+  UIButton: __scalarStatisticsForUserTouchUpInsideEvent, touchesEnded:withEvent:, sizeToFit, setAlpha:, _yy_cancelBackgroundImageRequestForSingleState:, _yy_cancelImageRequestForSingleState:, _yy_setBackgroundImageWithURL:forSingleState:placeholder:options:manager:progress:transform:completion:, _yy_setImageWithURL:forSingleState:placeholder:options:manager:progress:transform:completion:, yy_backgroundImageURLForState:, yy_cancelBackgroundImageRequestForState:, yy_cancelImageRequestForState:, yy_imageURLForState:, yy_setBackgroundImageWithURL:forState:options:, yy_setBackgroundImageWithURL:forState:placeholder:, yy_setBackgroundImageWithURL:forState:placeholder:options:completion:, yy_setBackgroundImageWithURL:forState:placeholder:options:manager:progress:transform:completion:, yy_setBackgroundImageWithURL:forState:placeholder:options:progress:transform:completion:, yy_setImageWithURL:forState:options:, yy_setImageWithURL:forState:placeholder:, yy_setImageWithURL:forState:placeholder:options:completion:, yy_setImageWithURL:forState:placeholder:options:manager:progress:transform:complet...
+  UIControl: tm_uiaction_sendAction:to:forEvent:, live_checkCondition:, live_takeover_sendAction:to:forEvent:, __enableThrottler, __throttleAction:, __throttlerWithTarget:action:interval:, rtv_addTarget:action:forControlEvents:customInterval:, rtv_addTarget:action:forControlEvents:definedInterval:, rtv_isThrottlerRuning, rtv_setThrottler:, rtv_throttler, _btd_allUIControlBlockTargets, btd_addActionBlock:forControlEvents:, btd_removeActionBlocksForControlEvents:, awe_UITracker_sendAction:to:forEvent:, awe_touchesCancelled:withEvent:, awe_allowParallelActions, awe_touchesBegan:withEvent:, setAwe_allowParallelActions:, shouldReturnTouchBegan, shouldReturnTouchCancel, shouldReturnTouchEnd, perf_sendActionsForControlEvents:, bdNative_nativeStateTag, setBdNative_nativeStateTag:, rac_channelForControlEvents:key:nilValue:, rac_signalForControlEvents:, hmd_sendAction:to:forEvent:, _cnui_super_touchesCancelled:withEvent:, _mapkit_setTarget:action:, _nui_baselineViewType, setHighlighted:, continueTrackingWithTouch:withEvent:, cancelTouchTracking, hitTest:forEvent:, pointerInteraction, setTracking...
+  UIView: _allLines, _setShowsLinesOnEdges:style:, _setImage:onEdges:outside:style:, _attachLine:toEdge:, ss_size, awe_parentViewController, setSs_origin:, setSs_size:, ss_origin, asyncSetRoundCornerImage:cornerRadius:completion:, dyyy_applyGlobalTransparency, bdas_attachmentIdentifier, bdas_setAttachmentIdentifier:, configureLayoutWithBlock:, isYogaEnabled, yoga, bdx_nativeViewName, bdx_viewWithName:, setBdx_nativeViewName:, bdp_makeConstraint, bdp_remakeConstraint, bdp_updateConstraint, bdp_enableKeyboardAutoTrackScroll:, bdp_findFirstResponder, bdp_setKeyboardBottomPaddingWhenAutoTrackScroll:forView:, bdp_KeyboardInfo, setBdp_KeyboardInfo:, bdp_findSubViewFor:, bdp_findSubViewForClass:, bdp_findSuperViewFor:, bdp_isSubviewOfView:, bdp_maskLayerOfTableViewCell:rowsCount:indexPath:, bdp_origin, bdp_originalFrame, bdp_setupDebugNameLable, bdp_setupRightDebugNameLableWithContent:, bdp_size, setBdp_origin:, setBdp_size:, bdp_rightBorder, bdp_addBorderForEdges:width:color:, bdp_bottomBorder, bdp_leftBorder, bdp_setupConstraintsForView:edge:width:, bdp_topBorder, setBdp_bottomBorder:, setB...
+  UIResponder: tm_collect_uiaction_identifier:, tm_uiaction_uiresponder_touchesBegan:withEvent:, tm_uiaction_uiresponder_touchesCancelled:withEvent:, tm_uiaction_uiresponder_touchesEnded:withEvent:, tm_uiaction_uiresponder_touchesMoved:withEvent:, lynx_actionWithSel:param:completeBlock:, lynx_getResultWithSel:param:completeBlock:, iesec_respondEvent:, voip_findFirstResponder:, voip_parentViewController, editingInteractionConfiguration, aAWEPadModuleAdapter, padKeyboardBindings_becomeFirstResponder, padKeyboardBindings_resignFirstResponder, ies_parentViewController, danceui__didChangeToFirstResponder:, danceui_firstResponder, btm_autoManaged, btm_notPageHolder, btm_pageIdentifier, setBtm_autoManaged:, setBtm_notPageHolder:, setBtm_pageIdentifier:, btm_nearestPage, btm_topPageItem, btm_associateStorage, btm_checkPageItems, btm_childPages, btm_disappearStatus, btm_forceDisappearStatus, btm_getValueForKey:, btm_inDisplay, btm_isPageHolder, btm_lazyCreatePageItem, btm_nearestPageHolder, btm_nearestWithPageId, btm_node, btm_pageIdSetByJsb, btm_pageItem, btm_registerTimestamp, btm_setValue:fo...
+event.class = UITouchesEvent, touches = 0
+heuristic.bagType = 可能是普通福袋
+heuristic.condition = 加入粉丝团
+heuristic.visibleText = invokeTouchUpInsideButtonBlock: AWEUIButton AWEUIButton 确认并不再提醒 | 确认支付 | 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗 | 取消 | 确认并不再提醒
+
+#015 02:02:45.904 点击控件
+----------------------------------------
+UIControl sendAction: dismissSelfDefineAlert
+sender = <AWEUIButton: 0x2c31f2e00>
+sender.description = <AWEUIButton: 0x2c31f2e00; baseClass = UIButton; frame = (140 150.5; 140 48); opaque = NO; animations = { backgroundColor=<CABasicAnimation: 0x288e07c80>; }; layer = <CALayer: 0x288e93100>>
+sender.frame = {{140, 150.5}, {140, 48}}, bounds = {{0, 0}, {140, 48}}, hidden = NO, alpha = 1.000, userInteraction = YES
+sender.visibleText = 确认并不再提醒
+sender.superviewPath = <AWEUIButton: 0x2c31f2e00 frame={{140, 150.5}, {140, 48}}> <- <UIView: 0x2c310dd00 frame={{0, 0}, {280, 198.5}}> <- <UIView: 0x2c3111450 frame={{67, 329}, {280, 198.5}}> <- <AWEUIAlertView: 0x2c3110a70 frame={{0, 0}, {414, 896}}> <- <AWEMaskWindow: 0x158759500 frame={{0, 0}, {414, 896}}>
+sender.subviews = 0:<UIImageView: 0x17fd23380 frame={{0, 0}, {140, 48}} text=>; 1:<UIButtonLabel: 0x2c31f30e0 frame={{16, 15}, {108, 18}} text=确认并不再提醒>
+sender ivars:
+  AWEUIButton._needChangeAlphaWhenPressed <B> = NO
+  AWEUIButton._needHighlightAnimation <B> = YES
+  AWEUIButton._usingConstColor <B> = YES
+  AWEUIButton._selectedAlpha <d> = 0.000000
+  AWEUIButton._originBackgroundColor <@"UIColor">
+  AWEUIButton._tappedBlock <@?> = <__NSMallocBlock__: 0x28c4c06c0> <__NSMallocBlock__: 0x28c4c06c0>
+  UIButton._externalFlatEdge <Q> = 0
+  UIButton._buttonVisualProviderFlags <{?="isPopulated"b1"implementsButton"b1"implementsModernProvider"b1"implementsArchiving"b1"implementsEffectSupport"b1"implementsDeprecatedAPISupport"b1"implementsDeprecatedSPISupport"b1"preferredBehavioralStyle"b4}>
+  UIButton._configuration <@"<_UIButtonConfigurationShim>">
+  UIButton._contentLookup <@"NSMutableDictionary"> = {0:<UIButtonContent: 0x2c31e86f0 Title = 确认并不再提醒, AttributedTitle = (null), Image = (null), Background = <UIImage:0x28bbd7c..., 1:<UIButtonContent: 0x2c31e8750 Title = (null), Attr...
+  UIButton._contentEdgeInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIButton._titleEdgeInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIButton._imageEdgeInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIButton._initialized <B> = YES
+  UIButton._lastDrawingControlState <Q> = 1
+  UIButton._selectGestureRecognizer <@"UITapGestureRecognizer">
+  UIButton._visualProvider <@"<UIButtonVisualProvider>"> = <UIButtonLegacyVisualProvider: 0x2c31e8910> <UIButtonLegacyVisualProvider: 0x2c31e8910>
+  UIButton._buttonFlags <{?="reversesTitleShadowWhenHighlighted"b1"adjustsImageWhenHighlighted"b1"adjustsImageWhenDisabled"b1"autosizeToFit"b1"disabledDimsImage"b1"showsTouchWhenHighlighted"b1"buttonType"b8"role"b8"shouldHandleScrollerMouseEvent"b1"titleFrozen"b1"resendTraitToImageViews"b2"animateNextHighlightChange"b1"blurEnabled"b1"visualEffectViewEnabled"b1"suppressAccessibilityUnderline"b1"requiresLayoutForPropertyChange"b1"needsTitleViewDefaultColorUpdate"b1"adjustsImageSizeForAccessibilityContentSizeCategory"b1"disableAutomaticTitleAnimations"b1"overridesRectAccessors"b1"overridesLegacyCursorDelegateSelectors"b1"hasActivePointerEffect"b1"automaticallyUpdatesConfiguration"b1"changesSelectionAsPrimaryAction"b1}>
+  UIButton._lazyTitleViewFont <@"UIFont"> = <UICTFont: 0x15db400a0> <UICTFont: 0x15db400a0> font-family: ".SFUI-Regular"; font-weight: normal; font-style: normal; font-size: 18.00pt
+  UIButton._lazyTitleViewFontIsDefaultForIdiom <B> = NO
+  UIButton._menuProvider <@?>
+  UIButton._configurationUpdateHandler <@?>
+  UIButton._pointerStyleProvider <@?>
+  UIButton._menu <@"UIMenu">
+  UIButton.__imageContentMode <q> = 0
+  UIButton.__plainButtonBackgroundColor <@"UIColor">
+  UIButton._cursorStyleProvider <@?>
+  UIButton._internalTitlePaddingInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIControl._targetActions <@"NSMutableArray"> = [<UIControlTargetAction: 0x28da7d290> target=0x2c31f2e00 action=invokeTouchUpInsideButtonBlock: events=0x40, <UIControlTargetAction: 0x28da7ced0> target=0x2c3110a70 action=dismissS...
+  UIControl._previousPoint <{CGPoint="x"d"y"d}>
+  UIControl._downTime <d> = 804880965.730189
+  UIControl._controlFlags <{?="disabled"b1"tracking"b1"touchInside"b1"touchDragged"b1"requiresDisplayOnTracking"b1"highlighted"b1"dontHighlightOnTouchDown"b1"allowActionsToQueue"b1"pendingUnhighlight"b1"selected"b1"verticalAlignment"b3"horizontalAlignment"b3"wasLastHighlightSuccessful"b1"touchHasHighlighted"b1"hasPointerInteraction"b1"hasProxyPointerInteraction"b1"hasContextMenuInteraction"b1"highlightForMenuPresentation"b1}>
+  UIControl._requiredButtonMask <q> = 1
+  UIControl._cursorInteraction <@"_UICursorInteraction">
+  UIView._constraintsExceptingSubviewAutoresizingConstraints <@"NSMutableArray"> = [<MASLayoutConstraint: 0x2c31f1410>, <MASLayoutConstraint: 0x2c31f1470>, <NSContentSizeLayoutConstraint: 0x16abc07b0>, <NSContentSizeLayoutConstraint: 0x16abdedc0>]
+  UIView._cachedTraitCollection <@"UITraitCollection"> = <UITraitCollection: 0x28304a4c0> <UITraitCollection: 0x28304a4c0; UserInterfaceIdiom = Phone, DisplayScale = 2, DisplayGamut = P3, HorizontalSizeClass = Compact, VerticalSizeClass = Regular, UserInterfaceStyle = L...
+  UIView._animationInfo <@"UIViewAnimationInfo">
+  UIView._layer <@"CALayer"> = <CALayer: 0x288e93100> <CALayer: 0x288e93100>
+  UIView._layerRetained <@"CALayer">
+  UIView._gestureRecognizers <@"NSMutableArray">
+  UIView._window <@"UIWindow"> = <AWEMaskWindow: 0x158759500> <AWEMaskWindow: 0x158759500; baseClass = UIWindow; frame = (0 0; 414 896); autoresize = W+H; gestureRecognizers = <NSArray: 0x2818407b0>; layer = <UIWindowLayer: 0x281840d80>>
+  UIView._subviewCache <@"NSArray"> = [<UIImageView: 0x17fd23380; frame = (0 0; 140 48); clipsToBounds = YES; opaque = NO; userInteractionEnabled = NO; layer =..., <UIButtonLabel: 0x2c31f30e0; frame = (16 15; 108 18); ...
+  UIView._viewDelegate <@"UIViewController">
+  UIView._cachedScreenScale <d> = 2.000000
+  UIView._layoutEngineWidth <d> = 0.000000
+  UIView._viewFlags <{?="userInteractionDisabled"b1"implementsDrawRect"b1"implementsDidScroll"b1"implementsMouseTracking"b1"implementsIntrinsicContentSize"b1"hasBackgroundColor"b1"hasBackgroundColorSystemColorName"b1"hasInteractionTintColor"b1"isOpaque"b1"becomeFirstResponderWhenCapable"b1"interceptMouseEvent"b1"deallocating"b1"isInUIViewDealloc"b1"hasPreparedForWindowDealloc"b1"debugFlash"b1"isAncestorOfFirstResponder"b1"dontAutoresizeSubviews"b1"autoresizeMask"b6"patternBackground"b1"fixedBackgroundPattern"b1"dontAnimate"b1"superLayerIsView"b1"layerKitPatternDrawing"b1"multipleTouchEnabled"b1"exclusiveTouch"b1"hasViewController"b1"needsDidAppearOrDisappear"b1"deliversTouchesForGesturesToSuperview"b1"deliversButtonsForGesturesToSuperview"b1"chargeEnabled"b1"skipsSubviewEnumeration"b1"needsDisplayOnBoundsChange"b1"hasTiledLayer"b1"hasLargeContent"b1"traversalMark"b1"appearanceIsInvalid"b1"monitorsSubtree"b1"hostsAutolayoutEngine"b1"constraintsAreClean"b1"subviewLayoutConstraintsAreClean"b1"intrinsicContentSizeConstraintsAreClean"b1"strictDescendantNeedsDoubleUpdateConstraints"b1"strictDescendantNeedsDoubleUpdateConstraintsIsInvalid"b1"determiningWidthForDoubleUpdateConstraints"b1"inSecondConstraintsPass"b1"potentiallyHasDanglyConstraints"b1"doesNotTranslateAutoresizingMaskIntoConstraints"b1"autolayoutIsClean"b1"autolayoutBoundsAreClean"b1"layoutFlushingDisabled"b1"layingOutFromConstraints"b1"wantsAutolayout"b1"subviewWantsAutolayout"b1"isApplyingValuesFromEngine"b1"isResizingDueToParentResize"b1"isInLayoutSubviewsOrVCCallback"b1"isInAnimatedLayout"b1"isSubviewUpdatingAutoresizingConstraints"b1"isUpdatingConstraints"b1"isReapplyingStillActiveBrokenConstraints"b1"isHostingUpdateConstraintsPassDuringLayout"b1"isRunningEngineLevelConstraintsPass"b1"isUpdatingLayoutEngineHostConstraints"b1"isExpectingToFlushPendingLayoutChangeNotifications"b1"systemLayoutFittingSizeNeedsUpdate"b1"systemLayoutFittingSizeNeedsUpdateInWholeSubtree"b1"isCalculatingSystemLayoutFittingSize"b1"suppressEncapsulationConstraints"b1"isFetchingSizeForTAMIC_NOEngineHost"b1"stayHiddenAwaitingReuse"b1"stayHiddenAfterReuse"b1"skippedLayoutWhileHiddenForReuse"b1"isPendingHiddenForAnimation"b1"hasMaskView"b1"hasVisualAltitude"b1"hasBackdropMaskViews"b1"backdropMaskViewFlags"b5"delaysTouchesForSystemGestures"b1"subclassShouldDelayTouchForSystemGestures"b1"hasMotionEffects"b1"backdropOverlayMode"b2"tintAdjustmentMode"b2"isReferenceView"b1"focusState"b2"hasUserInterfaceIdiom"b1"userInterfaceIdiom"b3"ancestorDefinesTintColor"b1"ancestorDefinesTintAdjustmentMode"b1"ancestorIgnoresInvertColors"b1"needsTraitCollectionDidChangePropagation"b1"isRootOfTraitCollectionDidChangePropagation"b1"implementsTraitCollectionForChildEnvironment"b1"implementsBaselineOffsetsAtSize"b1"coloredViewBounds"b1"coloredAlignmentRects"b1"preservesSuperviewMargins"b4"insettingLayoutMarginsFromSafeArea"b4"safeAreaInsetsFrozen"b1"preservesSafeAreaInsets"b1"viewDelegateContentOverlayInsetsAreClean"b1"hasGeometryObservers"b1"observingGeometryChangesForSelfCount"b4"hasTraitStorageList"b1"cachedTraitCollectionIsValid"b1"dontUpdateInferredLayoutMargins"b1"areLayoutMarginsDirectional"b1"implementsViewForBaselineLayout"b1"tracksFocusedAncestors"b1"hasLayoutArrangements"b1"isHiddenManagedByLayoutArrangement"b1"hasAddedFocusGuides"b1"hasFocusSpeedBumpEdges"b1"hasFocusableContentMargins"b1"focusInteractionDisabled"b1"shouldReverseLayoutDirection"b1"cannotBeParentTraitEnvironment"b1"hasTemplateLayoutView"b2"ignoresTemplateLayoutView"b2"needsContentsFormatUpdate"b1"accessibilityIgnoresInvertColors"b1"ignoresLayerTransformForSafeAreaInsets"b1"accessibilityInterfaceStyleIntent"b2"accessibilityResolvedInterfaceStyle"b2"shouldArchiveUIAppearanceTags"b1"wantsDeepColorDrawing"b1"tagEnabled"b1"chargeSet"b1"ignoreBackdropViewsWhenHiding"b1"areChildrenFocused"b1"hasInteractionsArray"b1"hasHitTestDirectionalInsets"b1"hasLayoutDebuggingIdentifier"b1"hasContentSizeNotificationToken"b1"hasPresentationControllerToNotifyOnLayoutSubviews"b1"semanticContentAttribute"b3"hasDynamicBackgroundColor"b1"hasLocalOverrideTraitCollection"b1"forceEffectiveThemeDidChange"b1"allowsHighContrastForBackgroundColor"b1"hasPendingTraitStorageConstraints"b1"hasEverBeenInAWindow"b1"hasFocusGroupIdentifier"b2"hasFocusGroupPriority"b1"hasFocusEffect"b2"conformsToUIFocusItemScrollableContainer"b2"allowsSkippingLayout"b1"isResolvingTraitCollection"b1"needsLayoutAndDisplayOnTintColorChanges"b1"subviewNeedsAnimationRestorationMessage"b1"isHostingTrackingForAnimationRestoration"b1}>
+  UIView._unsatisfiableConstraintsLoggingSuspensionCount <S> = 0
+  UIView._pseudo_id <I> = 8180
+  UIView._retainCount <q> = 1284
+  UIView._draggingSourceDelegate <@"<_UIViewInternalDraggingSourceDelegate>">
+  UIView._tintAdjustmentDimmingCount <S> = 0
+  UIView._layoutSubviewsCount <S> = 0
+  UIView._imminentLayoutSubviewsCount <S> = 0
+  UIView._countOfFocusedAncestorTrackingViewsInSubtree <S> = 0
+  UIView._layoutMarginsGuide <@"UILayoutGuide">
+  UIView._minXVariable <@"NSISVariable"> = <NSISUnrestrictedVariable: 0x289678f80> AWEUIButton:0x2c31f2e00'确认并不再提醒'.minX{id: 30166}
+  UIView._minYVariable <@"NSISVariable"> = <NSISUnrestrictedVariable: 0x2896f3d40> AWEUIButton:0x2c31f2e00'确认并不再提醒'.minY{id: 30164}
+  UIView._boundsWidthVariable <@"NSISVariable"> = <NSISRestrictedToNonNegativeVariable: 0x2895889c0> AWEUIButton:0x2c31f2e00'确认并不再提醒'.Width{id: 30168}
+  UIView._boundsHeightVariable <@"NSISVariable"> = <NSISRestrictedToNonNegativeVariable: 0x2895894c0> AWEUIButton:0x2c31f2e00'确认并不再提醒'.Height{id: 30170}
+  UIView._layoutEngine <@"NSISEngine"> = <NSISEngine: 0x1587c2f10> <NSISEngine: 0x1587c2f10>{ delegate:0x158759500 EngineVars: 	  0: objective{id: 1110} rowIndex:0 	  1: UIView:0x1600174e0.minX{id: 1113} rowIndex:1 	  2: AWENormalModeTabBarFeedVie...
+sender methods:
+  AWEUIButton: invokeTouchUpInsideButtonBlock:, usingConstColor, setTappedBlock:, needChangeAlphaWhenPressed, needHighlightAnimation, originBackgroundColor, selectedAlpha, setNeedChangeAlphaWhenPressed:, setNeedHighlightAnimation:, setOriginBackgroundColor:, setSelectedAlpha:, setUsingConstColor:, tappedBlock, setHighlighted:, .cxx_destruct
+  UIButton: __scalarStatisticsForUserTouchUpInsideEvent, touchesEnded:withEvent:, sizeToFit, setAlpha:, _yy_cancelBackgroundImageRequestForSingleState:, _yy_cancelImageRequestForSingleState:, _yy_setBackgroundImageWithURL:forSingleState:placeholder:options:manager:progress:transform:completion:, _yy_setImageWithURL:forSingleState:placeholder:options:manager:progress:transform:completion:, yy_backgroundImageURLForState:, yy_cancelBackgroundImageRequestForState:, yy_cancelImageRequestForState:, yy_imageURLForState:, yy_setBackgroundImageWithURL:forState:options:, yy_setBackgroundImageWithURL:forState:placeholder:, yy_setBackgroundImageWithURL:forState:placeholder:options:completion:, yy_setBackgroundImageWithURL:forState:placeholder:options:manager:progress:transform:completion:, yy_setBackgroundImageWithURL:forState:placeholder:options:progress:transform:completion:, yy_setImageWithURL:forState:options:, yy_setImageWithURL:forState:placeholder:, yy_setImageWithURL:forState:placeholder:options:completion:, yy_setImageWithURL:forState:placeholder:options:manager:progress:transform:complet...
+  UIControl: tm_uiaction_sendAction:to:forEvent:, live_checkCondition:, live_takeover_sendAction:to:forEvent:, __enableThrottler, __throttleAction:, __throttlerWithTarget:action:interval:, rtv_addTarget:action:forControlEvents:customInterval:, rtv_addTarget:action:forControlEvents:definedInterval:, rtv_isThrottlerRuning, rtv_setThrottler:, rtv_throttler, _btd_allUIControlBlockTargets, btd_addActionBlock:forControlEvents:, btd_removeActionBlocksForControlEvents:, awe_UITracker_sendAction:to:forEvent:, awe_touchesCancelled:withEvent:, awe_allowParallelActions, awe_touchesBegan:withEvent:, setAwe_allowParallelActions:, shouldReturnTouchBegan, shouldReturnTouchCancel, shouldReturnTouchEnd, perf_sendActionsForControlEvents:, bdNative_nativeStateTag, setBdNative_nativeStateTag:, rac_channelForControlEvents:key:nilValue:, rac_signalForControlEvents:, hmd_sendAction:to:forEvent:, _cnui_super_touchesCancelled:withEvent:, _mapkit_setTarget:action:, _nui_baselineViewType, setHighlighted:, continueTrackingWithTouch:withEvent:, cancelTouchTracking, hitTest:forEvent:, pointerInteraction, setTracking...
+  UIView: _allLines, _setShowsLinesOnEdges:style:, _setImage:onEdges:outside:style:, _attachLine:toEdge:, ss_size, awe_parentViewController, setSs_origin:, setSs_size:, ss_origin, asyncSetRoundCornerImage:cornerRadius:completion:, dyyy_applyGlobalTransparency, bdas_attachmentIdentifier, bdas_setAttachmentIdentifier:, configureLayoutWithBlock:, isYogaEnabled, yoga, bdx_nativeViewName, bdx_viewWithName:, setBdx_nativeViewName:, bdp_makeConstraint, bdp_remakeConstraint, bdp_updateConstraint, bdp_enableKeyboardAutoTrackScroll:, bdp_findFirstResponder, bdp_setKeyboardBottomPaddingWhenAutoTrackScroll:forView:, bdp_KeyboardInfo, setBdp_KeyboardInfo:, bdp_findSubViewFor:, bdp_findSubViewForClass:, bdp_findSuperViewFor:, bdp_isSubviewOfView:, bdp_maskLayerOfTableViewCell:rowsCount:indexPath:, bdp_origin, bdp_originalFrame, bdp_setupDebugNameLable, bdp_setupRightDebugNameLableWithContent:, bdp_size, setBdp_origin:, setBdp_size:, bdp_rightBorder, bdp_addBorderForEdges:width:color:, bdp_bottomBorder, bdp_leftBorder, bdp_setupConstraintsForView:edge:width:, bdp_topBorder, setBdp_bottomBorder:, setB...
+  UIResponder: tm_collect_uiaction_identifier:, tm_uiaction_uiresponder_touchesBegan:withEvent:, tm_uiaction_uiresponder_touchesCancelled:withEvent:, tm_uiaction_uiresponder_touchesEnded:withEvent:, tm_uiaction_uiresponder_touchesMoved:withEvent:, lynx_actionWithSel:param:completeBlock:, lynx_getResultWithSel:param:completeBlock:, iesec_respondEvent:, voip_findFirstResponder:, voip_parentViewController, editingInteractionConfiguration, aAWEPadModuleAdapter, padKeyboardBindings_becomeFirstResponder, padKeyboardBindings_resignFirstResponder, ies_parentViewController, danceui__didChangeToFirstResponder:, danceui_firstResponder, btm_autoManaged, btm_notPageHolder, btm_pageIdentifier, setBtm_autoManaged:, setBtm_notPageHolder:, setBtm_pageIdentifier:, btm_nearestPage, btm_topPageItem, btm_associateStorage, btm_checkPageItems, btm_childPages, btm_disappearStatus, btm_forceDisappearStatus, btm_getValueForKey:, btm_inDisplay, btm_isPageHolder, btm_lazyCreatePageItem, btm_nearestPageHolder, btm_nearestWithPageId, btm_node, btm_pageIdSetByJsb, btm_pageItem, btm_registerTimestamp, btm_setValue:fo...
+target = <AWEUIAlertView: 0x2c3110a70>
+target.description = <AWEUIAlertView: 0x2c3110a70; frame = (0 0; 414 896); alpha = 0; gestureRecognizers = <NSArray: 0x28d9e2b20>; animations = { backgroundColor=<CABasicAnimation: 0x288ec6880>; opacity=<CABasicAnimation: 0x288e06c00>; }; layer = <CALayer: 0x288e90800>>
+target.frame = {{0, 0}, {414, 896}}, bounds = {{0, 0}, {414, 896}}, hidden = NO, alpha = 0.000, userInteraction = YES
+target.superviewPath = <AWEUIAlertView: 0x2c3110a70 frame={{0, 0}, {414, 896}}> <- <AWEMaskWindow: 0x158759500 frame={{0, 0}, {414, 896}}>
+target.subviews = 0:<UIView: 0x2c3111450 frame={{67, 329}, {280, 198.5}} text=>
+target likelyValues:
+  title=确认支付
+target ivars:
+  AWEUIAlertView._useModernStyle <B> = NO
+  AWEUIAlertView._dismissWhenTappedInBlankArea <B> = NO
+  AWEUIAlertView._useHtmlRender <B> = NO
+  AWEUIAlertView._shouldShowIconImage <B> = NO
+  AWEUIAlertView._messageShouldAlignLeft <B> = NO
+  AWEUIAlertView._isButtonAlignedVertically <B> = NO
+  AWEUIAlertView._disableLocalizations <B> = NO
+  AWEUIAlertView._viewToShowAlert <@"UIView">
+  AWEUIAlertView._dismissBlock <@?>
+  AWEUIAlertView._dismissBlockWithoutCallCancelAction <@?>
+  AWEUIAlertView._configUIBlock <@?>
+  AWEUIAlertView._maxContentHeight <d> = 0.000000
+  AWEUIAlertView._customCornerRadius <d> = 0.000000
+  AWEUIAlertView._headerImage <@"UIImage">
+  AWEUIAlertView._closeButtonStyle <q> = 0
+  AWEUIAlertView._iconImage <@"UIImage">
+  AWEUIAlertView._iconImageView <@"UIImageView"> = <UIImageView: 0x2c3111750> <UIImageView: 0x2c3111750; frame = (0 0; 0 0); userInteractionEnabled = NO; layer = <CALayer: 0x288e91ec0>>
+  AWEUIAlertView._title <@"NSString"> = 确认支付
+  AWEUIAlertView._attributedTitle <@"NSAttributedString">
+  AWEUIAlertView._attributedLabel <@"UILabel"> = <UILabel: 0x2c3114430> <UILabel: 0x2c3114430; frame = (0 0; 0 0); gestureRecognizers = <NSArray: 0x28c698300>; layer = <_UILabelLayer: 0x28ae255e0>>
+  AWEUIAlertView._message <@"NSString"> = 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗
+  AWEUIAlertView._attributedMessage <@"NSAttributedString">
+  AWEUIAlertView._descriptionTextView <@"UITextView"> = <UITextView: 0x2affe6200> <UITextView: 0x2affe6200; frame = (24 51.5; 232 75); text = '主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻...'; clipsToBounds = YES; gestureRecognizers = <NSArray: 0x28d9e0fc0>; layer = <CALayer: 0x28...
+  AWEUIAlertView._text <@"NSString">
+  AWEUIAlertView._attributedText <@"NSAttributedString">
+  AWEUIAlertView._handleBlock <@?>
+  AWEUIAlertView._actions <@"NSArray"> = [<AWEUIAlertAction: 0x28da4a820>, <AWEUIAlertAction: 0x28da497d0>]
+  AWEUIAlertView._style <q> = 2
+  AWEUIAlertView._containerWidth <d> = 280.000000
+  AWEUIAlertView._containerMaxHeight <d> = 412.000000
+  AWEUIAlertView._textViewHorizatalInset <d> = 24.000000
+  AWEUIAlertView._animationView <@"UIView"> = <UIView: 0x2c3111450> <UIView: 0x2c3111450; frame = (67 329; 280 198.5); transform = [1, 0, 0, 1, 0, -20]; clipsToBounds = YES; animations = { transform=<CABasicAnimation: 0x288ec57c0>; }; layer = <CALa...
+  AWEUIAlertView._backgroundView <@"UIView"> = <UIView: 0x2c310dd00> <UIView: 0x2c310dd00; frame = (0 0; 280 198.5); layer = <CALayer: 0x288e91020>>
+  AWEUIAlertView._headerImageView <@"UIImageView">
+  AWEUIAlertView._titleLabel <@"UILabel"> = <UILabel: 0x2c327a150> <UILabel: 0x2c327a150; frame = (24 23; 232 20.5); text = '确认支付'; userInteractionEnabled = NO; layer = <_UILabelLayer: 0x28ae253b0>>
+  AWEUIAlertView._tapGes <@"UITapGestureRecognizer"> = <UITapGestureRecognizer: 0x2c3114ab0> <UITapGestureRecognizer: 0x2c3114ab0; state = Possible; view = <UILabel 0x2c3114430>; targets= <(     "(action=BSTHandleGesture:, target=<BSTUIGestureRecognizerObserver 0x280baa0b0...
+  AWEUIAlertView._tapToDismissGes <@"UITapGestureRecognizer"> = <UITapGestureRecognizer: 0x2c328b310> <UITapGestureRecognizer: 0x2c328b310; state = Possible; view = <AWEUIAlertView 0x2c3110a70>; targets= <(     "(action=BSTHandleGesture:, target=<BSTUIGestureRecognizerObserver 0x28...
+  AWEUIAlertView._buttons <@"NSArray"> = [<AWEUIButton: 0x2c3118100; baseClass = UIButton; frame = (0 150.5; 140 48); opaque = NO; layer = <CALayer: 0x288e93b00>>, <AWEUIButton: 0x2c31f2e00; baseClass = UIButton; frame = ...
+  AWEUIAlertView._buttonTitles <@"NSArray">
+  AWEUIAlertView._windowToShowAlert <@"UIWindow">
+  AWEUIAlertView._headerImageEdgeInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  AWEUIAlertView._iconImageEdgeInsets <{UIEdgeInsets="top"d"left"d"bottom"d"right"d}>
+  UIView._constraintsExceptingSubviewAutoresizingConstraints <@"NSMutableArray"> = [<MASLayoutConstraint: 0x16ab6f460>, <MASLayoutConstraint: 0x16a90e500>]
+  UIView._cachedTraitCollection <@"UITraitCollection"> = <UITraitCollection: 0x28304a4c0> <UITraitCollection: 0x28304a4c0; UserInterfaceIdiom = Phone, DisplayScale = 2, DisplayGamut = P3, HorizontalSizeClass = Compact, VerticalSizeClass = Regular, UserInterfaceStyle = L...
+  UIView._animationInfo <@"UIViewAnimationInfo">
+  UIView._layer <@"CALayer"> = <CALayer: 0x288e90800> <CALayer: 0x288e90800>
+  UIView._layerRetained <@"CALayer">
+  UIView._gestureRecognizers <@"NSMutableArray"> = [<UITapGestureRecognizer: 0x2c328b310; state = Possible; view = <AWEUIAlertView 0x2c3110a70>; targets= <(     "(action=BS...]
+  UIView._window <@"UIWindow"> = <AWEMaskWindow: 0x158759500> <AWEMaskWindow: 0x158759500; baseClass = UIWindow; frame = (0 0; 414 896); autoresize = W+H; gestureRecognizers = <NSArray: 0x2818407b0>; layer = <UIWindowLayer: 0x281840d80>>
+  UIView._subviewCache <@"NSArray"> = [<UIView: 0x2c3111450; frame = (67 329; 280 198.5); transform = [1, 0, 0, 1, 0, -20]; clipsToBounds = YES; animations = {...]
+  UIView._viewDelegate <@"UIViewController">
+  UIView._cachedScreenScale <d> = 2.000000
+  UIView._layoutEngineWidth <d> = 0.000000
+  UIView._viewFlags <{?="userInteractionDisabled"b1"implementsDrawRect"b1"implementsDidScroll"b1"implementsMouseTracking"b1"implementsIntrinsicContentSize"b1"hasBackgroundColor"b1"hasBackgroundColorSystemColorName"b1"hasInteractionTintColor"b1"isOpaque"b1"becomeFirstResponderWhenCapable"b1"interceptMouseEvent"b1"deallocating"b1"isInUIViewDealloc"b1"hasPreparedForWindowDealloc"b1"debugFlash"b1"isAncestorOfFirstResponder"b1"dontAutoresizeSubviews"b1"autoresizeMask"b6"patternBackground"b1"fixedBackgroundPattern"b1"dontAnimate"b1"superLayerIsView"b1"layerKitPatternDrawing"b1"multipleTouchEnabled"b1"exclusiveTouch"b1"hasViewController"b1"needsDidAppearOrDisappear"b1"deliversTouchesForGesturesToSuperview"b1"deliversButtonsForGesturesToSuperview"b1"chargeEnabled"b1"skipsSubviewEnumeration"b1"needsDisplayOnBoundsChange"b1"hasTiledLayer"b1"hasLargeContent"b1"traversalMark"b1"appearanceIsInvalid"b1"monitorsSubtree"b1"hostsAutolayoutEngine"b1"constraintsAreClean"b1"subviewLayoutConstraintsAreClean"b1"intrinsicContentSizeConstraintsAreClean"b1"strictDescendantNeedsDoubleUpdateConstraints"b1"strictDescendantNeedsDoubleUpdateConstraintsIsInvalid"b1"determiningWidthForDoubleUpdateConstraints"b1"inSecondConstraintsPass"b1"potentiallyHasDanglyConstraints"b1"doesNotTranslateAutoresizingMaskIntoConstraints"b1"autolayoutIsClean"b1"autolayoutBoundsAreClean"b1"layoutFlushingDisabled"b1"layingOutFromConstraints"b1"wantsAutolayout"b1"subviewWantsAutolayout"b1"isApplyingValuesFromEngine"b1"isResizingDueToParentResize"b1"isInLayoutSubviewsOrVCCallback"b1"isInAnimatedLayout"b1"isSubviewUpdatingAutoresizingConstraints"b1"isUpdatingConstraints"b1"isReapplyingStillActiveBrokenConstraints"b1"isHostingUpdateConstraintsPassDuringLayout"b1"isRunningEngineLevelConstraintsPass"b1"isUpdatingLayoutEngineHostConstraints"b1"isExpectingToFlushPendingLayoutChangeNotifications"b1"systemLayoutFittingSizeNeedsUpdate"b1"systemLayoutFittingSizeNeedsUpdateInWholeSubtree"b1"isCalculatingSystemLayoutFittingSize"b1"suppressEncapsulationConstraints"b1"isFetchingSizeForTAMIC_NOEngineHost"b1"stayHiddenAwaitingReuse"b1"stayHiddenAfterReuse"b1"skippedLayoutWhileHiddenForReuse"b1"isPendingHiddenForAnimation"b1"hasMaskView"b1"hasVisualAltitude"b1"hasBackdropMaskViews"b1"backdropMaskViewFlags"b5"delaysTouchesForSystemGestures"b1"subclassShouldDelayTouchForSystemGestures"b1"hasMotionEffects"b1"backdropOverlayMode"b2"tintAdjustmentMode"b2"isReferenceView"b1"focusState"b2"hasUserInterfaceIdiom"b1"userInterfaceIdiom"b3"ancestorDefinesTintColor"b1"ancestorDefinesTintAdjustmentMode"b1"ancestorIgnoresInvertColors"b1"needsTraitCollectionDidChangePropagation"b1"isRootOfTraitCollectionDidChangePropagation"b1"implementsTraitCollectionForChildEnvironment"b1"implementsBaselineOffsetsAtSize"b1"coloredViewBounds"b1"coloredAlignmentRects"b1"preservesSuperviewMargins"b4"insettingLayoutMarginsFromSafeArea"b4"safeAreaInsetsFrozen"b1"preservesSafeAreaInsets"b1"viewDelegateContentOverlayInsetsAreClean"b1"hasGeometryObservers"b1"observingGeometryChangesForSelfCount"b4"hasTraitStorageList"b1"cachedTraitCollectionIsValid"b1"dontUpdateInferredLayoutMargins"b1"areLayoutMarginsDirectional"b1"implementsViewForBaselineLayout"b1"tracksFocusedAncestors"b1"hasLayoutArrangements"b1"isHiddenManagedByLayoutArrangement"b1"hasAddedFocusGuides"b1"hasFocusSpeedBumpEdges"b1"hasFocusableContentMargins"b1"focusInteractionDisabled"b1"shouldReverseLayoutDirection"b1"cannotBeParentTraitEnvironment"b1"hasTemplateLayoutView"b2"ignoresTemplateLayoutView"b2"needsContentsFormatUpdate"b1"accessibilityIgnoresInvertColors"b1"ignoresLayerTransformForSafeAreaInsets"b1"accessibilityInterfaceStyleIntent"b2"accessibilityResolvedInterfaceStyle"b2"shouldArchiveUIAppearanceTags"b1"wantsDeepColorDrawing"b1"tagEnabled"b1"chargeSet"b1"ignoreBackdropViewsWhenHiding"b1"areChildrenFocused"b1"hasInteractionsArray"b1"hasHitTestDirectionalInsets"b1"hasLayoutDebuggingIdentifier"b1"hasContentSizeNotificationToken"b1"hasPresentationControllerToNotifyOnLayoutSubviews"b1"semanticContentAttribute"b3"hasDynamicBackgroundColor"b1"hasLocalOverrideTraitCollection"b1"forceEffectiveThemeDidChange"b1"allowsHighContrastForBackgroundColor"b1"hasPendingTraitStorageConstraints"b1"hasEverBeenInAWindow"b1"hasFocusGroupIdentifier"b2"hasFocusGroupPriority"b1"hasFocusEffect"b2"conformsToUIFocusItemScrollableContainer"b2"allowsSkippingLayout"b1"isResolvingTraitCollection"b1"needsLayoutAndDisplayOnTintColorChanges"b1"subviewNeedsAnimationRestorationMessage"b1"isHostingTrackingForAnimationRestoration"b1}>
+  UIView._unsatisfiableConstraintsLoggingSuspensionCount <S> = 0
+  UIView._pseudo_id <I> = 8158
+  UIView._retainCount <q> = 260
+  UIView._draggingSourceDelegate <@"<_UIViewInternalDraggingSourceDelegate>">
+  UIView._tintAdjustmentDimmingCount <S> = 0
+  UIView._layoutSubviewsCount <S> = 0
+target methods:
+  AWEUIAlertView: setHandleBlock:, tapToDismissGes, viewToShowAlert, addViewOverHeaderImageView:, adjustedActionsForActions:recommendedActionIndex:, closeButtonStyle, configUIBlock, containerMaxHeight, didTapAlertView:, disableLocalizations, dismissBlockWithoutCallCancelAction, dismissSelfDefineAlert, dismissWhenTappedInBlankArea, findCancelActionAndExecute, handleBlock, headerImageEdgeInsets, iconImageEdgeInsets, initForShareTrendingHeaderImage:, initWithModernStyle:, isButtonAlignedVertically, loadSubviewsForClassicStyle, loadSubviewsForModernStyle, messageReach_didAttachTracker, messageReach_p__dismissSelfDefineAlertWithAnimation, messageReach_registerActionsListener, messageReach_show, messageReach_tapHandler, messageReach_title, messageShouldAlignLeft, mr_didRegisterActionListener, onAttributedLabelClicked:, onCloseButtonClicked:, p__dismissSelfDefineAlertWithAnimation, p__showSelfDefineAlertWithAnimation, resetUIBeforeShowingForClassicStyle, resetUIBeforeShowingForModernStyle, setCloseButtonStyle:, setConfigUIBlock:, setContainerMaxHeight:, setDisableLocalizations:, setDismissBlo...
+  UIView: _allLines, _setShowsLinesOnEdges:style:, _setImage:onEdges:outside:style:, _attachLine:toEdge:, ss_size, awe_parentViewController, setSs_origin:, setSs_size:, ss_origin, asyncSetRoundCornerImage:cornerRadius:completion:, dyyy_applyGlobalTransparency, bdas_attachmentIdentifier, bdas_setAttachmentIdentifier:, configureLayoutWithBlock:, isYogaEnabled, yoga, bdx_nativeViewName, bdx_viewWithName:, setBdx_nativeViewName:, bdp_makeConstraint, bdp_remakeConstraint, bdp_updateConstraint, bdp_enableKeyboardAutoTrackScroll:, bdp_findFirstResponder, bdp_setKeyboardBottomPaddingWhenAutoTrackScroll:forView:, bdp_KeyboardInfo, setBdp_KeyboardInfo:, bdp_findSubViewFor:, bdp_findSubViewForClass:, bdp_findSuperViewFor:, bdp_isSubviewOfView:, bdp_maskLayerOfTableViewCell:rowsCount:indexPath:, bdp_origin, bdp_originalFrame, bdp_setupDebugNameLable, bdp_setupRightDebugNameLableWithContent:, bdp_size, setBdp_origin:, setBdp_size:, bdp_rightBorder, bdp_addBorderForEdges:width:color:, bdp_bottomBorder, bdp_leftBorder, bdp_setupConstraintsForView:edge:width:, bdp_topBorder, setBdp_bottomBorder:, setB...
+  UIResponder: tm_collect_uiaction_identifier:, tm_uiaction_uiresponder_touchesBegan:withEvent:, tm_uiaction_uiresponder_touchesCancelled:withEvent:, tm_uiaction_uiresponder_touchesEnded:withEvent:, tm_uiaction_uiresponder_touchesMoved:withEvent:, lynx_actionWithSel:param:completeBlock:, lynx_getResultWithSel:param:completeBlock:, iesec_respondEvent:, voip_findFirstResponder:, voip_parentViewController, editingInteractionConfiguration, aAWEPadModuleAdapter, padKeyboardBindings_becomeFirstResponder, padKeyboardBindings_resignFirstResponder, ies_parentViewController, danceui__didChangeToFirstResponder:, danceui_firstResponder, btm_autoManaged, btm_notPageHolder, btm_pageIdentifier, setBtm_autoManaged:, setBtm_notPageHolder:, setBtm_pageIdentifier:, btm_nearestPage, btm_topPageItem, btm_associateStorage, btm_checkPageItems, btm_childPages, btm_disappearStatus, btm_forceDisappearStatus, btm_getValueForKey:, btm_inDisplay, btm_isPageHolder, btm_lazyCreatePageItem, btm_nearestPageHolder, btm_nearestWithPageId, btm_node, btm_pageIdSetByJsb, btm_pageItem, btm_registerTimestamp, btm_setValue:fo...
+event.class = UITouchesEvent, touches = 0
+heuristic.bagType = 可能是普通福袋
+heuristic.condition = 加入粉丝团
+heuristic.visibleText = dismissSelfDefineAlert AWEUIAlertView AWEUIButton 确认并不再提醒 | 确认支付 | 主播设置仅粉丝团成员参与本次福袋，确认一键支付1钻石加入粉丝团吗 | 取消 | 确认并不再提醒
+target values:
+  title=确认支付

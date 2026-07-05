@@ -1,23 +1,49 @@
 #import "DYYYLiveLuckyBagManager.h"
 #import "AwemeHeaders.h"
+#import "DYYYBottomAlertView.h"
 #import "DYYYLiveLuckyBagDebugView.h"
 #import "DYYYUtils.h"
+#import <dlfcn.h>
+#import <mach/mach_time.h>
+#import <objc/message.h>
 #import <objc/runtime.h>
 #import <stddef.h>
 #import <stdint.h>
 
+static NSString *const kDYYYAutoJoinLiveLuckyBagKey = @"DYYYAutoJoinLiveLuckyBag";
 static NSString *const kDYYYLiveLuckyBagDebugKey = @"DYYYLiveLuckyBagDebug";
 static NSUInteger const kDYYYLiveLuckyBagMaxLogItems = 160;
+static NSTimeInterval const kDYYYLiveLuckyBagAutoEntryCooldown = 12.0;
+static NSTimeInterval const kDYYYLiveLuckyBagAutoWebCooldown = 1.6;
+static NSTimeInterval const kDYYYLiveLuckyBagCommentSendWindow = 12.0;
+static NSTimeInterval const kDYYYLiveLuckyBagSensitivePromptCooldown = 18.0;
+
+typedef struct __IOHIDEvent *DYYYIOHIDEventRef;
+typedef uint32_t DYYYIOOptionBits;
+typedef unsigned char DYYYBoolean;
 
 @interface DYYYLiveLuckyBagManager ()
 @property(nonatomic, strong) NSMutableArray<NSString *> *logItems;
 @property(nonatomic, strong) NSMutableSet<NSString *> *loggedViewKeys;
+@property(nonatomic, strong) NSMutableSet<NSString *> *autoProcessedViewKeys;
+@property(nonatomic, strong) NSMutableSet<NSString *> *autoProcessedWebKeys;
 @property(nonatomic, strong) NSMutableDictionary<NSString *, NSDate *> *recentEventDates;
 @property(nonatomic, strong) NSDateFormatter *dateFormatter;
 @property(nonatomic, strong) DYYYLiveLuckyBagDebugView *debugView;
 @property(nonatomic, weak) UIViewController *currentAudienceViewController;
 @property(nonatomic, strong) id currentRoomModel;
+@property(nonatomic, copy) NSString *currentRoomIdentifier;
+@property(nonatomic, copy) NSString *pendingCommentText;
+@property(nonatomic, strong) NSDate *lastAutoEntryActionDate;
+@property(nonatomic, strong) NSDate *lastAutoWebActionDate;
+@property(nonatomic, strong) NSDate *commentSendDeadline;
+@property(nonatomic, strong) NSDate *sensitivePromptCooldownDate;
+@property(nonatomic, strong) NSDate *sensitiveActionApprovedUntil;
+@property(nonatomic, weak) UIView *pendingSensitiveControl;
+@property(nonatomic, weak) UIView *pendingSensitiveWebView;
 @property(nonatomic, assign) BOOL inLiveRoom;
+@property(nonatomic, assign) BOOL autoFlowActive;
+@property(nonatomic, assign) BOOL autoSensitivePromptVisible;
 @property(nonatomic, assign) NSUInteger eventSequence;
 @end
 
@@ -32,6 +58,10 @@ static NSUInteger const kDYYYLiveLuckyBagMaxLogItems = 160;
     return manager;
 }
 
++ (BOOL)isAutoJoinEnabled {
+    return DYYYGetBool(kDYYYAutoJoinLiveLuckyBagKey);
+}
+
 + (BOOL)isDebugEnabled {
     return DYYYGetBool(kDYYYLiveLuckyBagDebugKey);
 }
@@ -41,6 +71,8 @@ static NSUInteger const kDYYYLiveLuckyBagMaxLogItems = 160;
     if (self) {
         _logItems = [NSMutableArray array];
         _loggedViewKeys = [NSMutableSet set];
+        _autoProcessedViewKeys = [NSMutableSet set];
+        _autoProcessedWebKeys = [NSMutableSet set];
         _recentEventDates = [NSMutableDictionary dictionary];
         _dateFormatter = [[NSDateFormatter alloc] init];
         _dateFormatter.dateFormat = @"HH:mm:ss.SSS";
@@ -83,18 +115,30 @@ static NSUInteger const kDYYYLiveLuckyBagMaxLogItems = 160;
 }
 
 - (void)handleLiveRoomEntered:(id)roomModel audienceViewController:(UIViewController *)viewController {
-    if (![DYYYLiveLuckyBagManager isDebugEnabled]) {
-        self.currentRoomModel = roomModel;
-        self.currentAudienceViewController = viewController;
-        self.inLiveRoom = YES;
-        return;
-    }
-
+    BOOL debugEnabled = [DYYYLiveLuckyBagManager isDebugEnabled];
     dispatch_async(dispatch_get_main_queue(), ^{
       self.currentRoomModel = roomModel;
       self.currentAudienceViewController = viewController;
+      self.currentRoomIdentifier = [self roomIdentifierFromObject:roomModel] ?: [self roomIdentifierFromObject:viewController];
       self.inLiveRoom = YES;
+      self.autoFlowActive = NO;
+      self.pendingCommentText = nil;
+      self.lastAutoEntryActionDate = nil;
+      self.lastAutoWebActionDate = nil;
+      self.commentSendDeadline = nil;
+      self.sensitivePromptCooldownDate = nil;
+      self.sensitiveActionApprovedUntil = nil;
+      self.pendingSensitiveControl = nil;
+      self.pendingSensitiveWebView = nil;
+      self.autoSensitivePromptVisible = NO;
       [self.loggedViewKeys removeAllObjects];
+      [self.autoProcessedViewKeys removeAllObjects];
+      [self.autoProcessedWebKeys removeAllObjects];
+
+      if (!debugEnabled) {
+          return;
+      }
+
       [self showDebugWindow];
 
       NSMutableString *log = [NSMutableString string];
@@ -107,33 +151,55 @@ static NSUInteger const kDYYYLiveLuckyBagMaxLogItems = 160;
 }
 
 - (void)handleLiveRoomClosed:(id)roomModel {
-    if (![DYYYLiveLuckyBagManager isDebugEnabled]) {
-        self.currentRoomModel = nil;
-        self.currentAudienceViewController = nil;
-        self.inLiveRoom = NO;
-        [self.loggedViewKeys removeAllObjects];
-        return;
-    }
-
+    BOOL debugEnabled = [DYYYLiveLuckyBagManager isDebugEnabled];
     dispatch_async(dispatch_get_main_queue(), ^{
-      NSMutableString *log = [NSMutableString string];
-      [log appendString:@"Hook: IESLiveAudienceViewController didCloseRoom:/dealloc\n"];
-      [self appendObjectDump:roomModel name:@"roomModelOrVC" toLog:log depth:0];
-      [self appendEventWithTitle:@"离开直播间" body:log];
+      if (debugEnabled) {
+          NSMutableString *log = [NSMutableString string];
+          [log appendString:@"Hook: IESLiveAudienceViewController didCloseRoom:/dealloc\n"];
+          [self appendObjectDump:roomModel name:@"roomModelOrVC" toLog:log depth:0];
+          [self appendEventWithTitle:@"离开直播间" body:log];
+      }
 
       self.currentRoomModel = nil;
       self.currentAudienceViewController = nil;
+      self.currentRoomIdentifier = nil;
       self.inLiveRoom = NO;
+      self.autoFlowActive = NO;
+      self.pendingCommentText = nil;
+      self.lastAutoEntryActionDate = nil;
+      self.lastAutoWebActionDate = nil;
+      self.commentSendDeadline = nil;
+      self.sensitivePromptCooldownDate = nil;
+      self.sensitiveActionApprovedUntil = nil;
+      self.pendingSensitiveControl = nil;
+      self.pendingSensitiveWebView = nil;
+      self.autoSensitivePromptVisible = NO;
       [self.loggedViewKeys removeAllObjects];
+      [self.autoProcessedViewKeys removeAllObjects];
+      [self.autoProcessedWebKeys removeAllObjects];
     });
 }
 
 - (void)handleLuckyBagViewAppeared:(UIView *)view {
-    if (![DYYYLiveLuckyBagManager isDebugEnabled] || !view) {
+    if (!view) {
+        return;
+    }
+
+    BOOL debugEnabled = [DYYYLiveLuckyBagManager isDebugEnabled];
+    BOOL autoEnabled = [DYYYLiveLuckyBagManager isAutoJoinEnabled];
+    if (!debugEnabled && !autoEnabled) {
         return;
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
+      if (autoEnabled) {
+          [self tryAutoOpenLuckyBagFromView:view];
+      }
+
+      if (!debugEnabled) {
+          return;
+      }
+
       if (![self viewLooksRelevant:view]) {
           return;
       }
@@ -151,6 +217,26 @@ static NSUInteger const kDYYYLiveLuckyBagMaxLogItems = 160;
       [self appendLuckyBagHeuristicsForText:[self visibleTextInView:view maxDepth:5] object:view toLog:log];
       [self appendLikelyIdentifiersFromObject:view title:@"candidate values" toLog:log];
       [self appendEventWithTitle:@"候选福袋视图出现" body:log];
+    });
+}
+
+- (void)handleWebContainerViewAppeared:(UIView *)view {
+    if (!view || ![DYYYLiveLuckyBagManager isAutoJoinEnabled]) {
+        return;
+    }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self tryAutoHandleWebLuckyBagFromView:view retryCount:0];
+    });
+}
+
+- (void)handleNativeAlertViewAppeared:(UIView *)alertView {
+    if (!alertView || ![DYYYLiveLuckyBagManager isAutoJoinEnabled]) {
+        return;
+    }
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+      [self tryAutoHandleNativeAlert:alertView];
     });
 }
 
@@ -211,12 +297,26 @@ static NSUInteger const kDYYYLiveLuckyBagMaxLogItems = 160;
 }
 
 - (void)handleTextInputView:(UIView *)textInputView text:(NSString *)text {
-    if (![DYYYLiveLuckyBagManager isDebugEnabled] || !textInputView || [self viewIsInsideDebugWindow:textInputView]) {
+    if (!textInputView || [self viewIsInsideDebugWindow:textInputView]) {
         return;
     }
 
     NSString *safeText = text ?: @"";
+    BOOL debugEnabled = [DYYYLiveLuckyBagManager isDebugEnabled];
+    BOOL autoEnabled = [DYYYLiveLuckyBagManager isAutoJoinEnabled];
+    if (!debugEnabled && !autoEnabled) {
+        return;
+    }
+
     dispatch_async(dispatch_get_main_queue(), ^{
+      if (autoEnabled) {
+          [self tryAutoSendCommentFromTextInputView:textInputView text:safeText];
+      }
+
+      if (!debugEnabled) {
+          return;
+      }
+
       NSString *contextText = [NSString stringWithFormat:@"%@ %@", safeText, [self visibleTextAroundView:textInputView]];
       if (!self.inLiveRoom && ![self viewLooksRelevant:textInputView] && ![self stringLooksRelevant:contextText]) {
           return;
@@ -243,6 +343,901 @@ static NSUInteger const kDYYYLiveLuckyBagMaxLogItems = 160;
     });
 }
 
+#pragma mark - Auto Join
+
+- (BOOL)canRunAutoFlow {
+    return self.inLiveRoom && [DYYYLiveLuckyBagManager isAutoJoinEnabled];
+}
+
+- (void)tryAutoOpenLuckyBagFromView:(UIView *)view {
+    if (![self canRunAutoFlow] || ![self viewIsVisibleAndTouchable:view] || ![self viewRepresentsOrdinaryLuckyBagEntry:view]) {
+        return;
+    }
+
+    NSDate *now = [NSDate date];
+    if (self.lastAutoEntryActionDate && [now timeIntervalSinceDate:self.lastAutoEntryActionDate] < kDYYYLiveLuckyBagAutoEntryCooldown) {
+        return;
+    }
+
+    NSString *viewKey = [NSString stringWithFormat:@"%@-%@-%p", self.currentRoomIdentifier ?: @"room", NSStringFromClass(view.class), view];
+    if ([self.autoProcessedViewKeys containsObject:viewKey]) {
+        return;
+    }
+    [self.autoProcessedViewKeys addObject:viewKey];
+    self.lastAutoEntryActionDate = now;
+    self.autoFlowActive = YES;
+
+    __weak typeof(self) weakSelf = self;
+    __weak UIView *weakView = view;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+      __strong typeof(weakSelf) strongSelf = weakSelf;
+      UIView *strongView = weakView;
+      if (!strongSelf || !strongView || ![strongSelf canRunAutoFlow] || ![strongSelf viewIsVisibleAndTouchable:strongView]) {
+          return;
+      }
+
+      BOOL tapped = [strongSelf tapControlOrView:strongView];
+      if (tapped) {
+          [strongSelf appendAutoLog:@"自动点击普通福袋入口" detail:NSStringFromClass(strongView.class)];
+      } else {
+          [DYYYUtils showToast:@"自动参与福袋：无法点击福袋入口，已保留调试采集"];
+          [strongSelf appendAutoLog:@"自动点击普通福袋入口失败" detail:NSStringFromClass(strongView.class)];
+      }
+    });
+}
+
+- (void)tryAutoHandleWebLuckyBagFromView:(UIView *)view retryCount:(NSUInteger)retryCount {
+    if (![self canRunAutoFlow] || !view || [self viewIsInsideDebugWindow:view]) {
+        return;
+    }
+
+    id webView = [self webViewFromView:view];
+    if (!webView) {
+        return;
+    }
+
+    if (![self webViewLooksInsideLivePopup:(UIView *)webView] && !self.autoFlowActive) {
+        return;
+    }
+
+    NSString *webKey = [NSString stringWithFormat:@"%@-%p", self.currentRoomIdentifier ?: @"room", webView];
+    if (self.lastAutoWebActionDate && [[NSDate date] timeIntervalSinceDate:self.lastAutoWebActionDate] < kDYYYLiveLuckyBagAutoWebCooldown) {
+        return;
+    }
+
+    __weak typeof(self) weakSelf = self;
+    [self evaluateLuckyBagWebInfoInWebView:webView completion:^(NSDictionary *info) {
+      __strong typeof(weakSelf) strongSelf = weakSelf;
+      if (!strongSelf || ![strongSelf canRunAutoFlow]) {
+          return;
+      }
+
+      NSString *text = [info[@"text"] isKindOfClass:NSString.class] ? info[@"text"] : @"";
+      NSArray *buttons = [info[@"buttons"] isKindOfClass:NSArray.class] ? info[@"buttons"] : @[];
+      NSString *combined = [strongSelf webInfoCombinedText:info];
+
+      if (combined.length == 0 && retryCount < 3) {
+          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [strongSelf tryAutoHandleWebLuckyBagFromView:view retryCount:retryCount + 1];
+          });
+          return;
+      }
+
+      if (![strongSelf stringLooksRelevant:combined]) {
+          return;
+      }
+      if (![strongSelf webTextLooksLuckyBagPanel:combined]) {
+          return;
+      }
+
+      if ([strongSelf isSuperLuckyBagText:combined]) {
+          strongSelf.autoFlowActive = NO;
+          [strongSelf appendAutoLog:@"跳过超级福袋" detail:[strongSelf truncateString:combined limit:180]];
+          return;
+      }
+
+      if ([strongSelf textLooksAlreadyParticipated:combined]) {
+          strongSelf.autoFlowActive = NO;
+          strongSelf.pendingCommentText = nil;
+          strongSelf.commentSendDeadline = nil;
+          [strongSelf appendAutoLog:@"福袋已参与" detail:[strongSelf truncateString:combined limit:180]];
+          return;
+      }
+
+      if ([strongSelf isSensitiveConditionText:combined] && ![strongSelf hasRecentSensitiveApproval]) {
+          strongSelf.pendingSensitiveWebView = (UIView *)webView;
+          [strongSelf showSensitiveConditionPromptWithMessage:[strongSelf sensitivePromptMessageFromText:combined]
+                                                      detail:[strongSelf truncateString:text.length > 0 ? text : combined limit:260]
+                                                     control:nil
+                                                     webView:(UIView *)webView];
+          return;
+      }
+
+      NSString *commentCandidate = [strongSelf commentCandidateFromText:combined];
+      if (commentCandidate.length > 0 && [strongSelf commentTextLooksSafe:commentCandidate]) {
+          strongSelf.pendingCommentText = commentCandidate;
+      }
+
+      NSDictionary *bestButton = [strongSelf bestLuckyBagWebButtonFromButtons:buttons bodyText:combined allowSensitive:[strongSelf hasRecentSensitiveApproval]];
+      if (!bestButton) {
+          if (retryCount < 2) {
+              dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [strongSelf tryAutoHandleWebLuckyBagFromView:view retryCount:retryCount + 1];
+              });
+          }
+          return;
+      }
+
+      NSString *buttonText = [bestButton[@"text"] isKindOfClass:NSString.class] ? bestButton[@"text"] : @"";
+      NSString *buttonActionKey = [NSString stringWithFormat:@"%@-%@", webKey, buttonText.length > 0 ? buttonText : @"action"];
+      if (![strongSelf hasRecentSensitiveApproval] && [strongSelf.autoProcessedWebKeys containsObject:buttonActionKey]) {
+          return;
+      }
+      BOOL expectsComment = [strongSelf textLooksCommentCondition:[NSString stringWithFormat:@"%@ %@", combined, buttonText]];
+      if (expectsComment) {
+          strongSelf.commentSendDeadline = [NSDate dateWithTimeIntervalSinceNow:kDYYYLiveLuckyBagCommentSendWindow];
+      }
+
+      strongSelf.lastAutoWebActionDate = [NSDate date];
+      [strongSelf.autoProcessedWebKeys addObject:buttonActionKey];
+      [strongSelf clickLuckyBagWebButtonWithText:buttonText webView:webView completion:^(BOOL clicked) {
+        if (clicked) {
+            strongSelf.autoFlowActive = YES;
+            [strongSelf appendAutoLog:@"自动点击福袋页面按钮" detail:buttonText.length > 0 ? buttonText : @"参与按钮"];
+        } else {
+            [strongSelf appendAutoLog:@"自动点击福袋页面按钮失败" detail:buttonText.length > 0 ? buttonText : @"未命名按钮"];
+        }
+      }];
+    }];
+}
+
+- (void)tryAutoHandleNativeAlert:(UIView *)alertView {
+    if (![self canRunAutoFlow] || ![self viewAndAncestorsAreVisible:alertView]) {
+        return;
+    }
+
+    NSString *visibleText = [self visibleTextInView:alertView maxDepth:6];
+    NSString *title = [self valueTextForLog:[self safeValueForKey:@"title" object:alertView] limit:120] ?: @"";
+    NSString *message = [self valueTextForLog:[self safeValueForKey:@"message" object:alertView] limit:400] ?: @"";
+    NSString *combined = [NSString stringWithFormat:@"%@ %@ %@", title, message, visibleText ?: @""];
+    if (![combined containsString:@"福袋"] && ![combined containsString:@"粉丝团"] && ![combined containsString:@"钻石"]) {
+        return;
+    }
+
+    if ([self textLooksAlreadyParticipated:combined]) {
+        self.autoFlowActive = NO;
+        self.pendingCommentText = nil;
+        self.commentSendDeadline = nil;
+        return;
+    }
+
+    UIView *confirmButton = [self positiveButtonInAlertView:alertView];
+    if (!confirmButton) {
+        return;
+    }
+
+    if ([self isSensitiveConditionText:combined] && ![self hasRecentSensitiveApproval]) {
+        self.pendingSensitiveControl = confirmButton;
+        [self showSensitiveConditionPromptWithMessage:[self sensitivePromptMessageFromText:combined]
+                                              detail:[self truncateString:combined limit:260]
+                                             control:confirmButton
+                                             webView:nil];
+        return;
+    }
+
+    [self tapApprovedSensitiveControl:confirmButton detail:[self truncateString:combined limit:180]];
+}
+
+- (void)tryAutoSendCommentFromTextInputView:(UIView *)textInputView text:(NSString *)text {
+    if (![self canRunAutoFlow] || !textInputView || !self.commentSendDeadline || [[NSDate date] compare:self.commentSendDeadline] == NSOrderedDescending) {
+        return;
+    }
+
+    NSString *className = NSStringFromClass(textInputView.class);
+    NSString *aroundText = [self visibleTextAroundView:textInputView];
+    NSString *candidate = text.length > 0 ? text : self.pendingCommentText;
+    if (![self textInputViewLooksLiveCommentInput:textInputView context:aroundText] || ![self commentTextLooksSafe:candidate]) {
+        return;
+    }
+
+    NSString *expected = self.pendingCommentText;
+    if (expected.length > 0 && ![candidate isEqualToString:expected]) {
+        if (![aroundText containsString:expected]) {
+            return;
+        }
+    }
+
+    UIView *sendControl = [self sendControlNearTextInputView:textInputView];
+    if (!sendControl) {
+        __weak typeof(self) weakSelf = self;
+        __weak UIView *weakTextInput = textInputView;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+          __strong typeof(weakSelf) strongSelf = weakSelf;
+          UIView *strongTextInput = weakTextInput;
+          if (!strongSelf || !strongTextInput) {
+              return;
+          }
+          UIView *retryControl = [strongSelf sendControlNearTextInputView:strongTextInput];
+          if (retryControl) {
+              [strongSelf tapCommentSendControl:retryControl commentText:candidate sourceClass:className];
+          }
+        });
+        return;
+    }
+
+    [self tapCommentSendControl:sendControl commentText:candidate sourceClass:className];
+}
+
+- (void)tapCommentSendControl:(UIView *)sendControl commentText:(NSString *)commentText sourceClass:(NSString *)sourceClass {
+    if (!self.commentSendDeadline || [[NSDate date] compare:self.commentSendDeadline] == NSOrderedDescending) {
+        return;
+    }
+
+    self.commentSendDeadline = nil;
+    self.pendingCommentText = nil;
+    BOOL tapped = [self tapControlOrView:sendControl];
+    NSString *detail = [NSString stringWithFormat:@"%@ / %@", [self truncateString:commentText limit:80], sourceClass ?: @""];
+    if (tapped) {
+        [self appendAutoLog:@"自动发送福袋弹幕" detail:detail];
+    } else {
+        [DYYYUtils showToast:@"自动参与福袋：未能点击发送按钮"];
+        [self appendAutoLog:@"自动发送福袋弹幕失败" detail:detail];
+    }
+}
+
+- (void)tapApprovedSensitiveControl:(UIView *)control detail:(NSString *)detail {
+    if (!control || ![self canRunAutoFlow]) {
+        return;
+    }
+    NSString *fingerprint = [NSString stringWithFormat:@"sensitive-confirm-%p", control];
+    if (![self shouldLogFingerprint:fingerprint interval:3.0]) {
+        return;
+    }
+
+    BOOL tapped = [self tapControlOrView:control];
+    if (tapped) {
+        self.autoFlowActive = YES;
+        [self appendAutoLog:@"已确认敏感条件并点击官方按钮" detail:detail ?: @""];
+    } else {
+        [DYYYUtils showToast:@"自动参与福袋：未能点击官方确认按钮"];
+        [self appendAutoLog:@"点击官方敏感条件确认按钮失败" detail:detail ?: @""];
+    }
+}
+
+- (void)showSensitiveConditionPromptWithMessage:(NSString *)message detail:(NSString *)detail control:(UIView *)control webView:(UIView *)webView {
+    if (self.autoSensitivePromptVisible) {
+        return;
+    }
+
+    NSDate *now = [NSDate date];
+    if (self.sensitivePromptCooldownDate && [now timeIntervalSinceDate:self.sensitivePromptCooldownDate] < kDYYYLiveLuckyBagSensitivePromptCooldown) {
+        return;
+    }
+    self.sensitivePromptCooldownDate = now;
+    self.autoSensitivePromptVisible = YES;
+
+    NSString *content = [NSString stringWithFormat:@"%@\n\n识别到的官方提示：%@", message ?: @"本次福袋需要完成额外条件。", detail.length > 0 ? detail : @"未读取到完整文案"];
+    __weak typeof(self) weakSelf = self;
+    __weak UIView *weakControl = control;
+    __weak UIView *weakWebView = webView;
+    UIViewController *alertController = [DYYYBottomAlertView showAlertWithTitle:@"自动参与福袋"
+                                                                        message:content
+                                                                      avatarURL:nil
+                                                               cancelButtonText:@"跳过本次"
+                                                              confirmButtonText:@"确认继续"
+                                                                   cancelAction:^{
+                                                                     __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                                     strongSelf.autoSensitivePromptVisible = NO;
+                                                                     strongSelf.autoFlowActive = NO;
+                                                                     strongSelf.pendingSensitiveControl = nil;
+                                                                     strongSelf.pendingSensitiveWebView = nil;
+                                                                     [strongSelf appendAutoLog:@"用户跳过敏感福袋条件" detail:detail ?: @""];
+                                                                   }
+                                                                    closeAction:^{
+                                                                      __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                                      strongSelf.autoSensitivePromptVisible = NO;
+                                                                      strongSelf.autoFlowActive = NO;
+                                                                      strongSelf.pendingSensitiveControl = nil;
+                                                                      strongSelf.pendingSensitiveWebView = nil;
+                                                                    }
+                                                                  confirmAction:^{
+                                                                    __strong typeof(weakSelf) strongSelf = weakSelf;
+                                                                    if (!strongSelf) {
+                                                                        return;
+                                                                    }
+                                                                    strongSelf.autoSensitivePromptVisible = NO;
+                                                                    strongSelf.sensitivePromptCooldownDate = nil;
+                                                                    strongSelf.pendingSensitiveControl = nil;
+                                                                    strongSelf.pendingSensitiveWebView = nil;
+                                                                    strongSelf.sensitiveActionApprovedUntil = [NSDate dateWithTimeIntervalSinceNow:22.0];
+                                                                    UIView *approvedControl = weakControl;
+                                                                    UIView *approvedWebView = weakWebView;
+                                                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.35 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                                      if (approvedControl) {
+                                                                          [strongSelf tapApprovedSensitiveControl:approvedControl detail:detail ?: @""];
+                                                                      } else if (approvedWebView) {
+                                                                          [strongSelf clickLuckyBagWebButtonWithText:nil webView:approvedWebView completion:^(BOOL clicked) {
+                                                                            [strongSelf appendAutoLog:clicked ? @"已确认敏感条件并点击福袋页面按钮" : @"点击敏感条件页面按钮失败" detail:detail ?: @""];
+                                                                          }];
+                                                                      }
+                                                                    });
+                                                                  }];
+    if (!alertController) {
+        self.autoSensitivePromptVisible = NO;
+        self.autoFlowActive = NO;
+        [DYYYUtils showToast:@"自动参与福袋：检测到敏感条件，请手动确认"];
+        [self appendAutoLog:@"敏感条件弹窗展示失败，已停止自动处理" detail:detail ?: @""];
+    }
+}
+
+- (BOOL)hasRecentSensitiveApproval {
+    return self.sensitiveActionApprovedUntil && [[NSDate date] compare:self.sensitiveActionApprovedUntil] == NSOrderedAscending;
+}
+
+- (void)appendAutoLog:(NSString *)title detail:(NSString *)detail {
+    NSString *line = [NSString stringWithFormat:@"autoFlow = %@\nroom = %@\ndetail = %@\n",
+                      self.autoFlowActive ? @"YES" : @"NO",
+                      self.currentRoomIdentifier ?: @"unknown",
+                      detail ?: @""];
+    NSLog(@"[DYYY] %@ %@", title ?: @"自动参与福袋", detail ?: @"");
+    if ([DYYYLiveLuckyBagManager isDebugEnabled]) {
+        [self appendEventWithTitle:title ?: @"自动参与福袋" body:line];
+    }
+}
+
+#pragma mark - Auto Web Helpers
+
+- (id)webViewFromView:(UIView *)view {
+    if (!view) {
+        return nil;
+    }
+    if ([view respondsToSelector:NSSelectorFromString(@"evaluateJavaScript:completionHandler:")]) {
+        return view;
+    }
+    id directWebView = [self javaScriptCapableWebViewFromObject:view];
+    if (directWebView) {
+        return directWebView;
+    }
+
+    id webView = [self firstSubviewInView:view matching:^BOOL(UIView *candidate) {
+      return [candidate respondsToSelector:NSSelectorFromString(@"evaluateJavaScript:completionHandler:")] || [self javaScriptCapableWebViewFromObject:candidate] != nil;
+    } maxDepth:6];
+    if (webView) {
+        id nestedWebView = [self javaScriptCapableWebViewFromObject:webView];
+        return nestedWebView ?: webView;
+    }
+
+    UIView *current = view.superview;
+    NSUInteger depth = 0;
+    while (current && depth < 5) {
+        if ([current respondsToSelector:NSSelectorFromString(@"evaluateJavaScript:completionHandler:")]) {
+            return current;
+        }
+        id currentWebView = [self javaScriptCapableWebViewFromObject:current];
+        if (currentWebView) {
+            return currentWebView;
+        }
+        webView = [self firstSubviewInView:current matching:^BOOL(UIView *candidate) {
+          return [candidate respondsToSelector:NSSelectorFromString(@"evaluateJavaScript:completionHandler:")] || [self javaScriptCapableWebViewFromObject:candidate] != nil;
+        } maxDepth:3];
+        if (webView) {
+            id nestedWebView = [self javaScriptCapableWebViewFromObject:webView];
+            return nestedWebView ?: webView;
+        }
+        current = current.superview;
+        depth += 1;
+    }
+    return nil;
+}
+
+- (id)javaScriptCapableWebViewFromObject:(id)object {
+    if (!object) {
+        return nil;
+    }
+    if ([object respondsToSelector:NSSelectorFromString(@"evaluateJavaScript:completionHandler:")]) {
+        return object;
+    }
+
+    for (NSString *key in @[ @"webView", @"wkWebView", @"WKWebView", @"innerWebView", @"realWebView", @"_webView", @"_wkWebView" ]) {
+        id value = [self safeValueForKey:key object:object];
+        if ([value respondsToSelector:NSSelectorFromString(@"evaluateJavaScript:completionHandler:")]) {
+            return value;
+        }
+    }
+    return nil;
+}
+
+- (BOOL)webViewLooksInsideLivePopup:(UIView *)webView {
+    NSString *path = [self superviewPathForView:webView];
+    return [path containsString:@"BDXPopup"] || [path containsString:@"HTSLivePopup"] || [path containsString:@"Live"];
+}
+
+- (void)evaluateLuckyBagWebInfoInWebView:(id)webView completion:(void (^)(NSDictionary *info))completion {
+    NSString *script =
+        @"(function(){"
+         "function norm(s){return (s||'').replace(/\\s+/g,' ').trim();}"
+         "function vis(e){if(!e)return false;var r=e.getBoundingClientRect();var st=getComputedStyle(e);return r.width>1&&r.height>1&&st.visibility!=='hidden'&&st.display!=='none'&&parseFloat(st.opacity||'1')>0.01;}"
+         "var body=document.body;var bodyText=norm(body?body.innerText:'');"
+         "var nodes=Array.prototype.slice.call(document.querySelectorAll('button,a,[role=button],input,div,span,p'));"
+         "var buttons=[];var re=/参与|立即参与|去发表评论|发表评论|发送评论|发送弹幕|去完成|完成|加入|开通|支付|领取|报名/;"
+         "for(var i=0;i<nodes.length&&buttons.length<80;i++){var e=nodes[i];if(!vis(e))continue;var t=norm(e.innerText||e.value||e.getAttribute('aria-label')||e.textContent||'');if(!t||t.length>40)continue;if(!re.test(t))continue;var r=e.getBoundingClientRect();buttons.push({text:t,tag:e.tagName||'',role:e.getAttribute('role')||'',x:r.left+r.width/2,y:r.top+r.height/2,w:r.width,h:r.height});}"
+         "return JSON.stringify({title:document.title||'',url:location.href||'',text:bodyText.slice(0,2500),buttons:buttons});"
+         "})();";
+    [self evaluateJavaScript:script inWebView:webView completion:^(id result, NSError *error) {
+      NSDictionary *info = nil;
+      if ([result isKindOfClass:NSString.class]) {
+          NSData *data = [(NSString *)result dataUsingEncoding:NSUTF8StringEncoding];
+          if (data) {
+              id json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+              if ([json isKindOfClass:NSDictionary.class]) {
+                  info = json;
+              }
+          }
+      } else if ([result isKindOfClass:NSDictionary.class]) {
+          info = result;
+      }
+      if (completion) {
+          completion(info ?: @{});
+      }
+    }];
+}
+
+- (NSString *)webInfoCombinedText:(NSDictionary *)info {
+    NSMutableArray<NSString *> *parts = [NSMutableArray array];
+    for (NSString *key in @[ @"title", @"url", @"text" ]) {
+        NSString *value = [info[key] isKindOfClass:NSString.class] ? info[key] : nil;
+        if (value.length > 0) {
+            [parts addObject:value];
+        }
+    }
+    NSArray *buttons = [info[@"buttons"] isKindOfClass:NSArray.class] ? info[@"buttons"] : @[];
+    for (NSDictionary *button in buttons) {
+        if (![button isKindOfClass:NSDictionary.class]) {
+            continue;
+        }
+        NSString *text = [button[@"text"] isKindOfClass:NSString.class] ? button[@"text"] : nil;
+        if (text.length > 0) {
+            [parts addObject:text];
+        }
+    }
+    return [[parts componentsJoinedByString:@" "] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+}
+
+- (NSDictionary *)bestLuckyBagWebButtonFromButtons:(NSArray *)buttons bodyText:(NSString *)bodyText allowSensitive:(BOOL)allowSensitive {
+    NSDictionary *bestButton = nil;
+    NSInteger bestScore = NSIntegerMin;
+    for (id item in buttons) {
+        if (![item isKindOfClass:NSDictionary.class]) {
+            continue;
+        }
+        NSString *text = [item[@"text"] isKindOfClass:NSString.class] ? item[@"text"] : @"";
+        if (![self webButtonTextLooksActionable:text]) {
+            continue;
+        }
+        if (!allowSensitive && [self isSensitiveConditionText:text]) {
+            continue;
+        }
+
+        NSInteger score = [self webButtonActionScore:text bodyText:bodyText ?: @""];
+        if (score > bestScore) {
+            bestScore = score;
+            bestButton = item;
+        }
+    }
+    return bestScore > 0 ? bestButton : nil;
+}
+
+- (BOOL)webButtonTextLooksActionable:(NSString *)text {
+    if (text.length == 0) {
+        return NO;
+    }
+    if ([self string:text containsAny:@[ @"取消", @"关闭", @"知道", @"规则", @"查看", @"返回", @"稍后", @"放弃" ]]) {
+        return NO;
+    }
+    return [self string:text containsAny:@[ @"立即参与", @"参与", @"去发表评论", @"发表评论", @"发送评论", @"发送弹幕", @"去完成", @"完成", @"加入", @"开通", @"支付", @"领取", @"报名" ]];
+}
+
+- (NSInteger)webButtonActionScore:(NSString *)text bodyText:(NSString *)bodyText {
+    NSInteger score = 0;
+    if ([text containsString:@"立即参与"]) {
+        score += 120;
+    }
+    if ([text containsString:@"去发表评论"] || [text containsString:@"发表评论"] || [text containsString:@"发送评论"] || [text containsString:@"发送弹幕"]) {
+        score += 110;
+    }
+    if ([text containsString:@"参与"]) {
+        score += 90;
+    }
+    if ([text containsString:@"去完成"] || [text containsString:@"完成"]) {
+        score += 70;
+    }
+    if ([text containsString:@"加入"] || [text containsString:@"开通"] || [text containsString:@"支付"]) {
+        score += [self isSensitiveConditionText:bodyText] ? 60 : 30;
+    }
+    if ([text containsString:@"领取"] || [text containsString:@"报名"]) {
+        score += 40;
+    }
+    return score;
+}
+
+- (void)clickLuckyBagWebButtonWithText:(NSString *)buttonText webView:(id)webView completion:(void (^)(BOOL clicked))completion {
+    NSString *escapedText = [self javaScriptStringLiteral:buttonText ?: @""];
+    NSString *script = [NSString stringWithFormat:
+        @"(function(){"
+         "function norm(s){return (s||'').replace(/\\s+/g,' ').trim();}"
+         "function vis(e){if(!e)return false;var r=e.getBoundingClientRect();var st=getComputedStyle(e);return r.width>1&&r.height>1&&st.visibility!=='hidden'&&st.display!=='none'&&parseFloat(st.opacity||'1')>0.01;}"
+         "var wanted=%@;"
+         "var nodes=Array.prototype.slice.call(document.querySelectorAll('button,a,[role=button],input,div,span,p'));"
+         "var deny=/取消|关闭|知道|规则|查看|返回|稍后|放弃/;"
+         "var action=/立即参与|去发表评论|发表评论|发送评论|发送弹幕|参与|去完成|完成|加入|开通|支付|领取|报名/;"
+         "var best=null,score=-1,bestText='';"
+         "for(var i=0;i<nodes.length;i++){var e=nodes[i];if(!vis(e))continue;var t=norm(e.innerText||e.value||e.getAttribute('aria-label')||e.textContent||'');if(!t||t.length>40||deny.test(t))continue;var s=0;if(wanted&&t.indexOf(wanted)>=0)s+=1000;if(/立即参与/.test(t))s+=120;if(/去发表评论|发表评论|发送评论|发送弹幕/.test(t))s+=110;if(/参与/.test(t))s+=90;if(/去完成|完成/.test(t))s+=70;if(/加入|开通|支付/.test(t))s+=60;if(/领取|报名/.test(t))s+=40;if(action.test(t)&&s>score){best=e;score=s;bestText=t;}}"
+         "if(best){best.click();return JSON.stringify({clicked:true,text:bestText});}"
+         "return JSON.stringify({clicked:false});"
+         "})();",
+        escapedText];
+
+    [self evaluateJavaScript:script inWebView:webView completion:^(id result, NSError *error) {
+      BOOL clicked = NO;
+      if ([result isKindOfClass:NSString.class]) {
+          NSData *data = [(NSString *)result dataUsingEncoding:NSUTF8StringEncoding];
+          if (data) {
+              NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+              clicked = [json[@"clicked"] boolValue];
+          }
+      } else if ([result isKindOfClass:NSDictionary.class]) {
+          clicked = [result[@"clicked"] boolValue];
+      }
+      if (completion) {
+          completion(clicked && !error);
+      }
+    }];
+}
+
+- (void)evaluateJavaScript:(NSString *)script inWebView:(id)webView completion:(void (^)(id result, NSError *error))completion {
+    if (!webView || ![webView respondsToSelector:NSSelectorFromString(@"evaluateJavaScript:completionHandler:")]) {
+        if (completion) {
+            completion(nil, nil);
+        }
+        return;
+    }
+
+    SEL selector = NSSelectorFromString(@"evaluateJavaScript:completionHandler:");
+    void (*sendMessage)(id, SEL, NSString *, void (^)(id, NSError *)) = (void (*)(id, SEL, NSString *, void (^)(id, NSError *)))objc_msgSend;
+    @try {
+        sendMessage(webView, selector, script, completion);
+    } @catch (__unused NSException *exception) {
+        if (completion) {
+            completion(nil, nil);
+        }
+    }
+}
+
+- (NSString *)javaScriptStringLiteral:(NSString *)text {
+    if (text.length == 0) {
+        return @"''";
+    }
+    NSData *data = [NSJSONSerialization dataWithJSONObject:@[ text ] options:0 error:nil];
+    if (!data) {
+        return @"''";
+    }
+    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    if (json.length < 2) {
+        return @"''";
+    }
+    return [json substringWithRange:NSMakeRange(1, json.length - 2)];
+}
+
+#pragma mark - Auto View Helpers
+
+- (BOOL)viewRepresentsOrdinaryLuckyBagEntry:(UIView *)view {
+    NSString *className = NSStringFromClass(view.class);
+    NSString *text = [self visibleTextAroundView:view];
+    NSString *combined = [NSString stringWithFormat:@"%@ %@", className ?: @"", text ?: @""];
+    if ([self isSuperLuckyBagText:combined]) {
+        return NO;
+    }
+    if ([className containsString:@"LotteryAnimationViewNew"]) {
+        return YES;
+    }
+    if ([className containsString:@"RedEnvelope"] || [className containsString:@"Treasure"]) {
+        return NO;
+    }
+    if ([combined containsString:@"普通福袋"] || ([combined containsString:@"福袋"] && ![combined containsString:@"超级福袋"])) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)viewIsVisibleAndTouchable:(UIView *)view {
+    if (![self viewAndAncestorsAreVisible:view]) {
+        return NO;
+    }
+    CGRect frame = [self frameInWindowForView:view];
+    if (CGRectIsEmpty(frame) || frame.size.width < 8 || frame.size.height < 8) {
+        return NO;
+    }
+    return CGRectIntersectsRect(view.window.bounds, frame);
+}
+
+- (BOOL)viewAndAncestorsAreVisible:(UIView *)view {
+    if (!view || !view.window) {
+        return NO;
+    }
+    UIView *current = view;
+    while (current) {
+        if (current.hidden || current.alpha < 0.05 || !current.userInteractionEnabled) {
+            return NO;
+        }
+        current = current.superview;
+    }
+    return YES;
+}
+
+- (CGRect)frameInWindowForView:(UIView *)view {
+    if (!view || !view.superview) {
+        return CGRectZero;
+    }
+    return [view.superview convertRect:view.frame toView:view.window];
+}
+
+- (BOOL)tapControlOrView:(UIView *)view {
+    if (!view || ![self viewIsVisibleAndTouchable:view]) {
+        return NO;
+    }
+
+    if ([view isKindOfClass:UIControl.class]) {
+        UIControl *control = (UIControl *)view;
+        if (control.enabled) {
+            [control sendActionsForControlEvents:UIControlEventTouchUpInside];
+            return YES;
+        }
+    }
+
+    if ([view respondsToSelector:@selector(accessibilityActivate)]) {
+        @try {
+            if ([view accessibilityActivate]) {
+                return YES;
+            }
+        } @catch (__unused NSException *exception) {
+        }
+    }
+
+    CGPoint center = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds));
+    CGPoint windowPoint = [view convertPoint:center toView:view.window];
+    return [self performSyntheticTapAtWindowPoint:windowPoint window:view.window];
+}
+
+- (BOOL)performSyntheticTapAtWindowPoint:(CGPoint)point window:(UIWindow *)window {
+    UIApplication *application = UIApplication.sharedApplication;
+    if (!window || ![application respondsToSelector:NSSelectorFromString(@"_enqueueHIDEvent:")]) {
+        return NO;
+    }
+
+    void *handle = dlopen("/System/Library/Frameworks/IOKit.framework/IOKit", RTLD_LAZY);
+    if (!handle) {
+        handle = dlopen("/System/Library/PrivateFrameworks/IOKit.framework/IOKit", RTLD_LAZY);
+    }
+    if (!handle) {
+        return NO;
+    }
+
+    typedef DYYYIOHIDEventRef (*DYYYCreateDigitizerEvent)(CFAllocatorRef, uint64_t, uint32_t, uint32_t, uint32_t, uint32_t, uint32_t, CGFloat, CGFloat, CGFloat, CGFloat, CGFloat, DYYYBoolean, DYYYBoolean, DYYYIOOptionBits);
+    typedef DYYYIOHIDEventRef (*DYYYCreateFingerEvent)(CFAllocatorRef, uint64_t, uint32_t, uint32_t, uint32_t, CGFloat, CGFloat, CGFloat, CGFloat, CGFloat, DYYYBoolean, DYYYBoolean, DYYYIOOptionBits);
+    typedef void (*DYYYAppendEvent)(DYYYIOHIDEventRef, DYYYIOHIDEventRef, DYYYIOOptionBits);
+
+    DYYYCreateDigitizerEvent createDigitizerEvent = (DYYYCreateDigitizerEvent)dlsym(handle, "IOHIDEventCreateDigitizerEvent");
+    DYYYCreateFingerEvent createFingerEvent = (DYYYCreateFingerEvent)dlsym(handle, "IOHIDEventCreateDigitizerFingerEvent");
+    DYYYAppendEvent appendEvent = (DYYYAppendEvent)dlsym(handle, "IOHIDEventAppendEvent");
+    if (!createDigitizerEvent || !createFingerEvent || !appendEvent) {
+        return NO;
+    }
+
+    CGPoint screenPoint = [window convertPoint:point toWindow:nil];
+    SEL enqueueSelector = NSSelectorFromString(@"_enqueueHIDEvent:");
+    void (*enqueueEvent)(id, SEL, DYYYIOHIDEventRef) = (void (*)(id, SEL, DYYYIOHIDEventRef))objc_msgSend;
+
+    void (^sendTouch)(BOOL) = ^(BOOL touch) {
+      uint64_t timestamp = mach_absolute_time();
+      uint32_t handMask = touch ? 0x27 : 0x25;
+      uint32_t fingerMask = touch ? 0x27 : 0x25;
+      DYYYIOHIDEventRef handEvent = createDigitizerEvent(kCFAllocatorDefault, timestamp, 3, 0, 0, handMask, 0, screenPoint.x, screenPoint.y, 0, 0, 0, YES, touch, 0);
+      DYYYIOHIDEventRef fingerEvent = createFingerEvent(kCFAllocatorDefault, timestamp, 1, 1, fingerMask, screenPoint.x, screenPoint.y, 0, touch ? 1.0 : 0.0, 0, YES, touch, 0);
+      if (handEvent && fingerEvent) {
+          appendEvent(handEvent, fingerEvent, 0);
+          enqueueEvent(application, enqueueSelector, handEvent);
+      }
+      if (fingerEvent) {
+          CFRelease(fingerEvent);
+      }
+      if (handEvent) {
+          CFRelease(handEvent);
+      }
+    };
+
+    sendTouch(YES);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.08 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+      sendTouch(NO);
+    });
+    return YES;
+}
+
+- (UIView *)positiveButtonInAlertView:(UIView *)alertView {
+    id buttonsValue = [self safeValueForKey:@"buttons" object:alertView] ?: [self safeValueForKey:@"_buttons" object:alertView];
+    NSArray *buttons = [buttonsValue isKindOfClass:NSArray.class] ? buttonsValue : nil;
+    UIView *fallback = nil;
+    for (id item in buttons) {
+        if (![item isKindOfClass:UIView.class]) {
+            continue;
+        }
+        UIView *button = item;
+        NSString *text = [self visibleTextInView:button maxDepth:3];
+        if ([self string:text containsAny:@[ @"取消", @"跳过", @"放弃" ]]) {
+            continue;
+        }
+        if ([self string:text containsAny:@[ @"确认", @"支付", @"加入", @"开通", @"继续", @"参与", @"确定" ]]) {
+            return button;
+        }
+        fallback = button;
+    }
+
+    if (fallback) {
+        return fallback;
+    }
+
+    return [self firstSubviewInView:alertView matching:^BOOL(UIView *candidate) {
+      if (![candidate isKindOfClass:UIControl.class]) {
+          return NO;
+      }
+      NSString *text = [self visibleTextInView:candidate maxDepth:3];
+      return [self string:text containsAny:@[ @"确认", @"支付", @"加入", @"开通", @"继续", @"参与", @"确定" ]] && ![self string:text containsAny:@[ @"取消", @"跳过", @"放弃" ]];
+    } maxDepth:8];
+}
+
+- (UIView *)sendControlNearTextInputView:(UIView *)textInputView {
+    UIView *parent = textInputView.superview;
+    for (NSUInteger depth = 0; parent && depth < 6; depth++, parent = parent.superview) {
+        UIView *control = [self firstSubviewInView:parent matching:^BOOL(UIView *candidate) {
+          if (candidate == textInputView || ![candidate isKindOfClass:UIControl.class]) {
+              return NO;
+          }
+          NSString *text = [self visibleTextInView:candidate maxDepth:3];
+          return [text isEqualToString:@"发送"] || [text containsString:@"发送"];
+        } maxDepth:5];
+        if (control && [self viewIsVisibleAndTouchable:control]) {
+            return control;
+        }
+    }
+    return nil;
+}
+
+- (UIView *)firstSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *candidate))matcher maxDepth:(NSUInteger)maxDepth {
+    if (!view || !matcher) {
+        return nil;
+    }
+    return [self firstSubviewInView:view matching:matcher depth:0 maxDepth:maxDepth];
+}
+
+- (UIView *)firstSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *candidate))matcher depth:(NSUInteger)depth maxDepth:(NSUInteger)maxDepth {
+    if (!view || depth > maxDepth || view.hidden || view.alpha < 0.01) {
+        return nil;
+    }
+    if (matcher(view)) {
+        return view;
+    }
+    for (UIView *subview in view.subviews) {
+        UIView *match = [self firstSubviewInView:subview matching:matcher depth:depth + 1 maxDepth:maxDepth];
+        if (match) {
+            return match;
+        }
+    }
+    return nil;
+}
+
+#pragma mark - Auto Text Helpers
+
+- (NSString *)roomIdentifierFromObject:(id)object {
+    if (!object) {
+        return nil;
+    }
+    for (NSString *key in @[ @"roomID", @"roomId", @"room_id", @"idStr", @"id_str", @"ID", @"id" ]) {
+        id value = [self safeValueForKey:key object:object];
+        NSString *text = [self valueTextForLog:value limit:80];
+        if (text.length > 0) {
+            return text;
+        }
+    }
+    id roomModel = [self safeValueForKey:@"roomModel" object:object] ?: [self safeValueForKey:@"_roomModel" object:object];
+    if (roomModel && roomModel != object) {
+        for (NSString *key in @[ @"idStr", @"id_str", @"roomID", @"roomId", @"room_id", @"ID", @"id" ]) {
+            id value = [self safeValueForKey:key object:roomModel];
+            NSString *text = [self valueTextForLog:value limit:80];
+            if (text.length > 0) {
+                return text;
+            }
+        }
+    }
+    return nil;
+}
+
+- (BOOL)isSuperLuckyBagText:(NSString *)text {
+    NSString *lower = text.lowercaseString ?: @"";
+    return [text containsString:@"超级福袋"] || [lower containsString:@"super lucky"] || [lower containsString:@"super_lucky"] || [lower containsString:@"mega"];
+}
+
+- (BOOL)webTextLooksLuckyBagPanel:(NSString *)text {
+    NSString *lower = text.lowercaseString ?: @"";
+    if ([text containsString:@"福袋"] || [text containsString:@"开奖"] || [lower containsString:@"lucky"] || [lower containsString:@"lottery"] || [lower containsString:@"redpacket"] || [lower containsString:@"red_packet"]) {
+        return YES;
+    }
+    BOOL justOpenedEntry = self.lastAutoEntryActionDate && [[NSDate date] timeIntervalSinceDate:self.lastAutoEntryActionDate] < 18.0;
+    return self.autoFlowActive && justOpenedEntry && [self string:text containsAny:@[ @"参与", @"发表评论", @"发送弹幕", @"粉丝团", @"开奖" ]];
+}
+
+- (BOOL)isSensitiveConditionText:(NSString *)text {
+    if ([self string:text containsAny:@[ @"粉丝团", @"加团", @"入团", @"加入粉丝", @"确认支付", @"支付", @"钻石", @"抖币", @"购买", @"下单", @"开通", @"手机号", @"授权", @"实名", @"认证" ]]) {
+        return YES;
+    }
+    return [self string:text containsAny:@[ @"关注主播", @"需要关注", @"需关注", @"关注后", @"先关注", @"完成关注", @"关注并参与", @"关注才可参与", @"关注该主播" ]];
+}
+
+- (BOOL)textLooksCommentCondition:(NSString *)text {
+    NSString *lower = text.lowercaseString ?: @"";
+    return [self string:text containsAny:@[ @"评论", @"弹幕", @"口令", @"发表评论", @"发送评论", @"发送弹幕", @"去发表评论" ]] || [lower containsString:@"comment"] || [lower containsString:@"danmu"] || [lower containsString:@"barrage"];
+}
+
+- (BOOL)textLooksAlreadyParticipated:(NSString *)text {
+    return [self string:text containsAny:@[ @"已参与", @"参与成功", @"成功参与", @"已成功参与", @"等待开奖", @"开奖后" ]];
+}
+
+- (BOOL)textInputViewLooksLiveCommentInput:(UIView *)textInputView context:(NSString *)context {
+    NSString *className = NSStringFromClass(textInputView.class);
+    NSString *combined = [NSString stringWithFormat:@"%@ %@", className ?: @"", context ?: @""];
+    return ([className containsString:@"LiveComment"] || [combined containsString:@"IESLiveComment"] || [combined containsString:@"发送"]) && ![combined containsString:@"AWEUIAlertView"];
+}
+
+- (BOOL)commentTextLooksSafe:(NSString *)text {
+    NSString *trimmed = [text stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+    if (trimmed.length == 0 || trimmed.length > 80) {
+        return NO;
+    }
+    if ([trimmed isEqualToString:@"说点什么"] || [trimmed isEqualToString:@"发送"] || [trimmed isEqualToString:@"发表评论"]) {
+        return NO;
+    }
+    if ([self string:trimmed containsAny:@[ @"<", @">", @"0x", @"frame =", @"baseClass", @"UITextView", @"UIButton", @"UIView", @"CALayer", @"gestureRecognizer" ]]) {
+        return NO;
+    }
+    return YES;
+}
+
+- (NSString *)sensitivePromptMessageFromText:(NSString *)text {
+    if ([text containsString:@"粉丝团"] || [text containsString:@"加团"] || [text containsString:@"入团"]) {
+        return @"本次福袋需要加入主播粉丝团，可能会支付钻石或改变你的粉丝团状态。确认后将继续点击官方按钮完成条件。";
+    }
+    if ([text containsString:@"支付"] || [text containsString:@"钻石"] || [text containsString:@"抖币"] || [text containsString:@"购买"] || [text containsString:@"下单"]) {
+        return @"本次福袋包含支付、购买或交易条件。确认后将继续点击官方按钮，请自行确认账号余额与风险。";
+    }
+    if ([text containsString:@"关注"]) {
+        return @"本次福袋需要关注主播。确认后将继续点击官方按钮完成条件。";
+    }
+    if ([text containsString:@"授权"] || [text containsString:@"实名"] || [text containsString:@"认证"] || [text containsString:@"手机号"]) {
+        return @"本次福袋需要授权或账号验证。确认后将继续点击官方按钮。";
+    }
+    return @"本次福袋需要完成额外条件。确认后将继续点击官方按钮。";
+}
+
+- (BOOL)string:(NSString *)text containsAny:(NSArray<NSString *> *)tokens {
+    if (text.length == 0) {
+        return NO;
+    }
+    for (NSString *token in tokens) {
+        if (token.length > 0 && [text rangeOfString:token options:NSCaseInsensitiveSearch].location != NSNotFound) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
 #pragma mark - Log Window
 
 - (void)copyLogsToPasteboard {
@@ -256,7 +1251,7 @@ static NSUInteger const kDYYYLiveLuckyBagMaxLogItems = 160;
     [self.loggedViewKeys removeAllObjects];
     [self.recentEventDates removeAllObjects];
     self.eventSequence = 0;
-    [self appendEventWithTitle:@"日志已清空" body:@"继续按完整流程操作：进入直播间 -> 点福袋 -> 点参与/去发表评论 -> 手动发送官方要求弹幕。\n"];
+    [self appendEventWithTitle:@"日志已清空" body:@"可继续采集完整流程：进入直播间 -> 点福袋 -> 点参与/去发表评论 -> 发送官方要求弹幕；若开启自动参与，也会记录自动流程。\n"];
 }
 
 - (void)appendEventWithTitle:(NSString *)title body:(NSString *)body {
@@ -288,7 +1283,7 @@ static NSUInteger const kDYYYLiveLuckyBagMaxLogItems = 160;
 - (NSString *)fullLogText {
     NSMutableString *text = [NSMutableString string];
     [text appendString:@"DYYY 福袋调试采集日志\n"];
-    [text appendString:@"说明：当前版本只采集手动流程数据，不自动点击、不发送弹幕、不加入粉丝团。\n"];
+    [text appendString:@"说明：调试采集用于记录手动/自动流程数据；自动参与由“自动参与福袋”开关独立控制。\n"];
     [text appendFormat:@"liveRoom = %@, currentVC = %@, roomModel = %@\n",
                        self.inLiveRoom ? @"YES" : @"NO",
                        self.currentAudienceViewController ? NSStringFromClass(self.currentAudienceViewController.class) : @"nil",
@@ -757,7 +1752,7 @@ static NSUInteger const kDYYYLiveLuckyBagMaxLogItems = 160;
         if (match && match.numberOfRanges > 1) {
             NSString *candidate = [text substringWithRange:[match rangeAtIndex:1]];
             candidate = [[candidate stringByReplacingOccurrencesOfString:@"|" withString:@" "] stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-            if (candidate.length > 0) {
+            if ([self commentTextLooksSafe:candidate]) {
                 return [self truncateString:candidate limit:80];
             }
         }

@@ -3428,6 +3428,14 @@ void showDYYYSettingsVC(UIViewController *rootVC, BOOL hasAgreed) {
               @"imageName" : @"ic_video_outlined_20"
           },
           @{
+              @"identifier" : @"DYYYAutoJoinLiveLuckyBag",
+              @"title" : @"自动参与福袋",
+              @"subTitle" : @"进入直播间后自动识别普通福袋；评论条件会发送官方预填弹幕，粉丝团、关注、支付等条件会先弹窗确认",
+              @"detail" : @"",
+              @"cellType" : @37,
+              @"imageName" : @"ic_video_outlined_20"
+          },
+          @{
               @"identifier" : @"DYYYLiveLuckyBagDebug",
               @"title" : @"福袋调试采集",
               @"subTitle" : @"进入直播间后显示调试窗口，记录福袋入口、按钮点击、类名、方法和字段，便于复制反馈",
@@ -3564,7 +3572,7 @@ void showDYYYSettingsVC(UIViewController *rootVC, BOOL hasAgreed) {
                 if (strongItem.isSwitchOn) {
                     [[DYYYLiveLuckyBagManager sharedManager] showDebugWindow];
                     [DYYYBottomAlertView showAlertWithTitle:@"福袋调试采集"
-                                                    message:@"已开启福袋调试采集。\n\n进入直播间后会显示一个可拖动的小窗口。请按完整流程手动操作：进入直播间 -> 点击福袋 -> 点击参与/去发表评论 -> 发送官方要求的弹幕。窗口会记录类名、方法、按钮文案、视图层级和可疑字段。\n\n完成后点击小窗口的“复制”，把日志反馈给我用于继续实现自动识别普通福袋。"
+                                                    message:@"已开启福袋调试采集。\n\n进入直播间后会显示一个可拖动的小窗口。请按完整流程手动操作：进入直播间 -> 点击福袋 -> 点击参与/去发表评论 -> 发送官方要求的弹幕。窗口会记录类名、方法、按钮文案、视图层级和可疑字段。\n\n完成后点击小窗口的“复制”，把日志反馈给我用于继续优化自动参与福袋。"
                                                   avatarURL:nil
                                            cancelButtonText:@"知道了"
                                           confirmButtonText:@"显示窗口"
@@ -3576,6 +3584,37 @@ void showDYYYSettingsVC(UIViewController *rootVC, BOOL hasAgreed) {
                 } else {
                     [[DYYYLiveLuckyBagManager sharedManager] hideDebugWindow];
                     [DYYYUtils showToast:@"福袋调试采集已关闭"];
+                }
+              };
+          }
+
+          if ([item.identifier isEqualToString:@"DYYYAutoJoinLiveLuckyBag"]) {
+              void (^originalSwitchChangedBlock)(void) = item.switchChangedBlock;
+              __weak AWESettingItemModel *weakItem = item;
+              item.switchChangedBlock = ^{
+                __strong AWESettingItemModel *strongItem = weakItem;
+                if (!strongItem || !strongItem.isEnable)
+                    return;
+
+                if (originalSwitchChangedBlock) {
+                    originalSwitchChangedBlock();
+                }
+
+                if (strongItem.isSwitchOn) {
+                    [DYYYBottomAlertView showAlertWithTitle:@"自动参与福袋"
+                                                    message:@"已开启自动参与福袋。\n\n进入直播间后会尝试识别普通福袋并自动参与。遇到“发送评论/弹幕”条件时，会发送官方预填的参与文案；遇到加入粉丝团、关注、支付、授权等会改变账号状态或消耗资产的条件时，会先弹窗说明并等待你确认。\n\n该功能依赖抖音 36.5.0 当前直播间结构，如遇到未识别条件，可同时开启“福袋调试采集”继续反馈日志。"
+                                                  avatarURL:nil
+                                           cancelButtonText:@"知道了"
+                                          confirmButtonText:@"打开调试"
+                                               cancelAction:nil
+                                                closeAction:nil
+                                              confirmAction:^{
+                                                [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"DYYYLiveLuckyBagDebug"];
+                                                [[NSUserDefaults standardUserDefaults] synchronize];
+                                                [[DYYYLiveLuckyBagManager sharedManager] showDebugWindow];
+                                              }];
+                } else {
+                    [DYYYUtils showToast:@"自动参与福袋已关闭"];
                 }
               };
           }

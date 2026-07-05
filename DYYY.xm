@@ -7959,6 +7959,8 @@ static NSHashTable *processedParentViews = nil;
 - (void)layoutSubviews {
     %orig;
 
+    [[DYYYLiveLuckyBagManager sharedManager] handleWebContainerViewAppeared:self];
+
     BOOL enabled = DYYYGetBool(@"DYYYHideGiftPavilion");
     if (!enabled)
         return;
@@ -7968,6 +7970,13 @@ static NSHashTable *processedParentViews = nil;
     if ([title containsString:@"任务Banner"] || [title containsString:@"活动Banner"]) {
         self.hidden = YES;
     }
+}
+%end
+
+%hook AWEUIAlertView
+- (void)layoutSubviews {
+    %orig;
+    [[DYYYLiveLuckyBagManager sharedManager] handleNativeAlertViewAppeared:self];
 }
 %end
 
@@ -13142,6 +13151,7 @@ static void findTargetViewInView(UIView *view) {
 %ctor {
     [[NSUserDefaults standardUserDefaults] registerDefaults:@{
         @"DYYYDisableFeedNowPlayingInfo" : @YES,
+        @"DYYYAutoJoinLiveLuckyBag" : @NO,
         @"DYYYLiveLuckyBagDebug" : @NO
     }];
 
